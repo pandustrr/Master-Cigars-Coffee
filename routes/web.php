@@ -50,6 +50,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/sales', [AdminSaleController::class, 'index'])->name('admin.sales.index');
     Route::patch('/admin/sales/status/{type}/{id}', [AdminSaleController::class, 'updateStatus'])->name('admin.sales.status.update');
     
+    // Main Product Brand Management
+    Route::get('/admin/main-products', [\App\Http\Controllers\Admin\AdminMainProductController::class, 'index'])->name('admin.main-products.index');
+    Route::post('/admin/main-products', [\App\Http\Controllers\Admin\AdminMainProductController::class, 'store'])->name('admin.main-products.store');
+    Route::post('/admin/main-products/{id}', [\App\Http\Controllers\Admin\AdminMainProductController::class, 'update'])->name('admin.main-products.update');
+    Route::delete('/admin/main-products/{id}', [\App\Http\Controllers\Admin\AdminMainProductController::class, 'destroy'])->name('admin.main-products.destroy');
+
+    // Category Management
+    Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.categories.index');
+    Route::post('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::delete('/admin/categories/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
     // Catalog Items (Retail/Package/Point items)
     Route::post('/admin/sales/items', [AdminSaleController::class, 'storeItem'])->name('admin.sales.items.store');
     Route::post('/admin/sales/items/{id}', [AdminSaleController::class, 'updateItem'])->name('admin.sales.items.update');

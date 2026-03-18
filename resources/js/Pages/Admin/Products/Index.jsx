@@ -11,13 +11,13 @@ import {
     PhotoIcon
 } from '@heroicons/react/24/outline';
 
-export default function Index({ products }) {
+export default function Index({ products, categories }) {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
     const { data, setData, post, delete: destroy, processing, errors, reset } = useForm({
         name: '',
-        category: 'Cerutu',
+        category: categories.length > 0 ? categories[0].name : '',
         price: '',
         description: '',
         tag: '',
@@ -185,9 +185,9 @@ export default function Index({ products }) {
                                         onChange={e => setData('category', e.target.value)}
                                         className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold"
                                     >
-                                        <option className="bg-hitam-pekat text-cream-gold">Cerutu</option>
-                                        <option className="bg-hitam-pekat text-cream-gold">Kopi</option>
-                                        <option className="bg-hitam-pekat text-cream-gold">Aksesoris</option>
+                                        {categories.map((cat) => (
+                                            <option key={cat.id} className="bg-hitam-pekat text-cream-gold" value={cat.name}>{cat.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="space-y-2">

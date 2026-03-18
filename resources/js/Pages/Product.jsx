@@ -4,13 +4,13 @@ import {
     ShoppingBagIcon,
     PlusIcon,
     FunnelIcon,
-    MagnifyingGlassIcon
+    MagnifyingGlassIcon,
+    ArrowLongRightIcon as ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
-export default function Product({ products }) {
+export default function Product({ products, mainProducts }) {
     const { settings } = usePage().props;
     const heroImage = settings.hero_products ? `/storage/${settings.hero_products}` : '/images/hero.png';
-
     return (
         <MainLayout>
             <Head title="Koleksi Kami - Master Cerutu & Kopi" />
@@ -44,6 +44,46 @@ export default function Product({ products }) {
                     </div>
                 </div>
             </section>
+
+            {/* Main Brand Section */}
+            {mainProducts && mainProducts.length > 0 && (
+                <section className="py-24 bg-coklat-kopi/5">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="space-y-24">
+                            {mainProducts.map((brand, idx) => (
+                                <div key={brand.id} className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16`}>
+                                    <div className="w-full md:w-1/2 relative group">
+                                        <div className="aspect-[16/9] overflow-hidden border border-gold/20 shadow-2xl">
+                                            {brand.image ? (
+                                                <img src={`/storage/${brand.image}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={brand.name} />
+                                            ) : (
+                                                <div className="w-full h-full bg-coklat-tua flex items-center justify-center text-gold/20 font-black italic text-6xl">MASTER</div>
+                                            )}
+                                        </div>
+                                        <div className="absolute -bottom-6 -right-6 w-32 h-32 border border-gold/30 hidden md:block"></div>
+                                    </div>
+                                    <div className="w-full md:w-1/2 space-y-6">
+                                        <div className="flex items-center space-x-4">
+                                            <div className="w-12 h-px bg-gold/50"></div>
+                                            <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Signature Brand</span>
+                                        </div>
+                                        <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter italic leading-none">{brand.name}</h2>
+                                        <p className="text-cream-gold/60 text-lg leading-relaxed font-light whitespace-pre-wrap">
+                                            {brand.description}
+                                        </p>
+                                        <div className="pt-6">
+                                            <Link href={route('sale.index')} className="text-gold font-black uppercase text-[10px] tracking-[0.3em] flex items-center space-x-4 group/btn">
+                                                <span>Pesan Dari Brand Ini</span>
+                                                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-2 transition-transform shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Product Grid */}
             <section className="py-12 pb-32">

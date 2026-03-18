@@ -32,13 +32,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    href={route('admin.sales.index')}
-                                    active={route().current('admin.sales*')}
-                                    className="font-black uppercase tracking-widest text-[11px]"
-                                >
-                                    Sales
-                                </NavLink>
-                                <NavLink
                                     href={route('admin.products.index')}
                                     active={route().current('admin.products*')}
                                     className="font-black uppercase tracking-widest text-[11px]"
@@ -60,11 +53,25 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Visuals
                                 </NavLink>
                                 <NavLink
+                                    href={route('admin.main-products.index')}
+                                    active={route().current('admin.main-products*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Manage Product
+                                </NavLink>
+                                <NavLink
                                     href={route('admin.settings.index')}
                                     active={route().current('admin.settings*')}
                                     className="font-black uppercase tracking-widest text-[11px]"
                                 >
                                     Settings
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.sales.index')}
+                                    active={route().current('admin.sales*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Sales
                                 </NavLink>
                             </div>
                         </div>
@@ -188,6 +195,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('admin.visual*')}
                         >
                             Visuals
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.main-products.index')}
+                            active={route().current('admin.main-products*')}
+                        >
+                            Manage Product
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route('admin.settings.index')}
