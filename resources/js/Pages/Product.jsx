@@ -1,5 +1,6 @@
 import MainLayout from '@/Layouts/MainLayout';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useState, useMemo } from 'react';
 import {
     ShoppingBagIcon,
     PlusIcon,
@@ -8,9 +9,17 @@ import {
     ArrowLongRightIcon as ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
-export default function Product({ products, mainProducts }) {
+export default function Product({ products, mainProducts, categories }) {
     const { settings } = usePage().props;
+    const [selectedCategory, setSelectedCategory] = useState('Semua');
+    
     const heroImage = settings.hero_products ? `/storage/${settings.hero_products}` : '/images/hero.png';
+
+    const filteredProducts = useMemo(() => {
+        if (selectedCategory === 'Semua') return products;
+        return products.filter(p => p.category === selectedCategory);
+    }, [products, selectedCategory]);
+
     return (
         <MainLayout>
             <Head title="Koleksi Kami - Master Cerutu & Kopi" />
@@ -35,9 +44,27 @@ export default function Product({ products, mainProducts }) {
                             <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter">Koleksi Kami</h1>
                         </div>
                         <div className="flex flex-wrap gap-4">
-                            {['Semua', 'Cerutu', 'Kopi', 'Aksesoris'].map((cat) => (
-                                <button key={cat} className="px-8 py-3 border border-gold-tua/20 text-gold-muda/40 text-[10px] uppercase font-bold tracking-widest bg-hitam-pekat/40 backdrop-blur-md hover:border-gold hover:text-gold transition-all duration-300">
-                                    {cat}
+                            <button 
+                                onClick={() => setSelectedCategory('Semua')}
+                                className={`px-8 py-3 border text-[10px] uppercase font-bold tracking-widest bg-hitam-pekat/40 backdrop-blur-md transition-all duration-300 ${
+                                    selectedCategory === 'Semua' 
+                                    ? 'border-gold text-gold ring-1 ring-gold/20' 
+                                    : 'border-gold-tua/20 text-gold-muda/40 hover:border-gold hover:text-gold'
+                                }`}
+                            >
+                                Semua
+                            </button>
+                            {categories.map((cat) => (
+                                <button 
+                                    key={cat.id} 
+                                    onClick={() => setSelectedCategory(cat.name)}
+                                    className={`px-8 py-3 border text-[10px] uppercase font-bold tracking-widest bg-hitam-pekat/40 backdrop-blur-md transition-all duration-300 ${
+                                        selectedCategory === cat.name 
+                                        ? 'border-gold text-gold ring-1 ring-gold/20' 
+                                        : 'border-gold-tua/20 text-gold-muda/40 hover:border-gold hover:text-gold'
+                                    }`}
+                                >
+                                    {cat.name}
                                 </button>
                             ))}
                         </div>
@@ -89,15 +116,22 @@ export default function Product({ products, mainProducts }) {
             <section className="py-12 pb-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {products.map((product) => (
+                        {filteredProducts.map((product) => (
                             <div key={product.id} className="group relative bg-coklat-kopi/10 border border-gold-tua/10 p-1 overflow-hidden transition-all duration-500 hover:border-gold/30">
                                 <div className="aspect-square bg-coklat-tua relative overflow-hidden">
-                                    {/* Placeholder Image */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-1/2 h-1/2 border-2 border-gold/10 rounded-full animate-pulse-slow flex items-center justify-center">
-                                            <span className="text-gold-tua/20 font-bold text-4xl uppercase">{product.category[0]}</span>
+                                    {product.image ? (
+                                        <img 
+                                            src={`/storage/${product.image}`} 
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                                            alt={product.name} 
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-1/2 h-1/2 border-2 border-gold/10 rounded-full animate-pulse-slow flex items-center justify-center">
+                                                <span className="text-gold-tua/20 font-bold text-4xl uppercase">{product.category ? product.category[0] : 'P'}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                     {product.tag && (
                                         <div className="absolute top-4 left-4 bg-gold px-3 py-1 text-[10px] uppercase font-black tracking-tighter text-hitam-pekat">
                                             {product.tag}

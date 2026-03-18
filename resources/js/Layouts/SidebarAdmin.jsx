@@ -27,7 +27,7 @@ export default function SidebarAdmin({ header, children }) {
         { name: 'Kelola Produk', href: route('admin.main-products.index'), active: route().current('admin.main-products*') || route().current('admin.categories*'), icon: CubeIcon },
         { name: 'Partner', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
         { name: 'Manajemen Visual', href: route('admin.visual.index'), active: route().current('admin.visual*'), icon: PhotoIcon },
-        { name: 'Penjualan', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
+        { name: 'Sale', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
         { name: 'Pengaturan', href: route('admin.settings.index'), active: route().current('admin.settings*'), icon: Cog6ToothIcon },
     ];
 

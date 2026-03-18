@@ -258,8 +258,8 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
 
             {/* Catalog Item Modal - Revamped */}
             {isItemModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-hitam-pekat/80 backdrop-blur-md animate-fade-in">
-                    <div className="bg-hitam-pekat rounded-[2rem] shadow-2xl w-full max-w-xl overflow-hidden border border-gold/20 shadow-gold/5">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-hitam-pekat/90 animate-fade-in">
+                    <div className="bg-hitam-pekat rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(146,110,32,0.1)] w-full max-w-xl overflow-hidden border border-gold/20">
                         <div className="px-8 py-6 border-b border-gold/10 flex justify-between items-center bg-gold/5">
                             <div>
                                 <h4 className="font-black uppercase tracking-[0.2em] text-gold text-sm">{editingItem ? 'Edit Catalog Item' : 'New Catalog Item'}</h4>
