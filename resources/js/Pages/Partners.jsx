@@ -1,14 +1,14 @@
 import MainLayout from '@/Layouts/MainLayout';
 import { Head } from '@inertiajs/react';
-import { 
-    UserGroupIcon, 
-    HandRaisedIcon, 
-    GlobeAsiaAustraliaIcon, 
+import {
+    UserGroupIcon,
+    HandRaisedIcon,
+    GlobeAsiaAustraliaIcon,
     BriefcaseIcon,
     ChatBubbleLeftEllipsisIcon
 } from '@heroicons/react/24/outline';
 
-export default function Partners() {
+export default function Partners({ partners }) {
     return (
         <MainLayout>
             <Head title="Mitra & Kolaborasi - Master Cerutu & Kopi" />
@@ -16,9 +16,9 @@ export default function Partners() {
             {/* Hero Section */}
             <section className="relative h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/images/hero.png" 
-                        alt="Ekosistem Mitra" 
+                    <img
+                        src="/images/hero.png"
+                        alt="Ekosistem Mitra"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
@@ -42,27 +42,31 @@ export default function Partners() {
                                 Di Master Cigars & Coffee, kami percaya bahwa kesempurnaan diperkuat melalui kolaborasi. Kami bermitra dengan perkebunan terkemuka dunia, pengrajin legendaris, dan merek mewah untuk menghadirkan pengalaman eksklusif bagi komunitas kami.
                             </p>
                             <div className="space-y-6">
-                                {[
-                                    { title: 'Mitra Perkebunan', desc: 'Hubungan sumber langsung dengan petani di Nikaragua, Honduras, dan Republik Dominika.', icon: GlobeAsiaAustraliaIcon },
-                                    { title: 'Pengrajin Ahli', desc: 'Berkolaborasi dengan pembuat luthier dan humidor kustom untuk aksesoris pesanan.', icon: HandRaisedIcon },
-                                    { title: 'Merek Gaya Hidup', desc: 'Pasangan terkurasi dengan minuman berkelas dunia dan produsen jam tangan.', icon: BriefcaseIcon }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="group flex gap-6 p-8 border border-gold-tua/10 bg-hitam-pekat/40 hover:border-gold/30 transition-all duration-500">
-                                        <div className="p-3 bg-gold/5 rounded-full h-fit group-hover:scale-110 transition-transform">
-                                            <item.icon className="w-6 h-6 text-gold stroke-1" />
+                                {partners.length > 0 ? (
+                                    partners.map((item, idx) => (
+                                        <div key={idx} className="group flex gap-6 p-8 border border-gold-tua/10 bg-hitam-pekat/40 hover:border-gold/30 transition-all duration-500">
+                                            <div className="p-3 bg-gold/5 rounded-full h-fit group-hover:scale-110 transition-transform">
+                                                <UserGroupIcon className="w-6 h-6 text-gold stroke-1" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-gold font-bold uppercase tracking-wider mb-2">{item.name}</h4>
+                                                <p className="text-cream-gold/50 text-sm leading-relaxed">{item.description}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h4 className="text-gold font-bold uppercase tracking-wider mb-2">{item.title}</h4>
-                                            <p className="text-cream-gold/50 text-sm leading-relaxed">{item.desc}</p>
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))
+                                ) : (
+                                    <div className="text-cream-gold/30 italic text-sm">Belum ada mitra yang ditambahkan.</div>
+                                )}
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            {[1, 2, 3, 4, 5, 6].map((i) => (
-                                <div key={i} className="aspect-video bg-coklat-kopi/20 border border-gold-tua/5 flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 hover:border-gold transition-all duration-500">
-                                    <span className="text-gold opacity-50 font-black text-xl tracking-tighter italic">LOGO MITRA {i}</span>
+                            {partners.map((partner) => (
+                                <div key={partner.id} className="aspect-video bg-coklat-kopi/20 border border-gold-tua/5 flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 hover:border-gold transition-all duration-500">
+                                    {partner.logo ? (
+                                        <img src={`/storage/${partner.logo}`} className="w-full h-full object-contain p-4" alt={partner.name} />
+                                    ) : (
+                                        <span className="text-gold opacity-50 font-black text-xs tracking-tighter italic uppercase">{partner.name}</span>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -74,7 +78,7 @@ export default function Partners() {
             <section className="py-40 bg-hitam-pekat relative overflow-hidden border-t border-gold-tua/10">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 blur-[120px] rounded-full"></div>
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-coklat-kopi/5 blur-[120px] rounded-full"></div>
-                
+
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <div className="flex justify-center mb-10">
                         <ChatBubbleLeftEllipsisIcon className="w-16 h-16 text-gold/20 stroke-1" />

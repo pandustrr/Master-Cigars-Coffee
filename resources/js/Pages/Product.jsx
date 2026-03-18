@@ -1,22 +1,13 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head } from '@inertiajs/react';
-import { 
-    ShoppingBagIcon, 
-    PlusIcon, 
+import { Head, Link } from '@inertiajs/react';
+import {
+    ShoppingBagIcon,
+    PlusIcon,
     FunnelIcon,
     MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
 
-const products = [
-    { id: 1, category: 'Cerutu', name: 'Master Reserva Elite', price: 'Rp 650rb', desc: 'Sebuah mahakarya full-body yang dimatangkan selama 12 tahun.', tag: 'Terlaris' },
-    { id: 2, category: 'Kopi', name: 'Black Velvet Roast', price: 'Rp 180rb', desc: 'Mandheling Indonesia dengan catatan cokelat hitam.', tag: 'Populer' },
-    { id: 3, category: 'Cerutu', name: 'Signature Series Gold', price: 'Rp 850rb', desc: 'Dilinting tangan dengan pembungkus Connecticut ultra-langka.', tag: 'Terbatas' },
-    { id: 4, category: 'Kopi', name: 'Highland Mist', price: 'Rp 220rb', desc: 'Single origin Arabika dari dataran tinggi Gayo.', tag: 'Baru' },
-    { id: 5, category: 'Cerutu', name: 'Midnight Robusto', price: 'Rp 500rb', desc: 'Kekuatan kompak dengan nuansa tanah yang pedas.', tag: null },
-    { id: 6, category: 'Aksesoris', name: 'Silver Gilded Cutter', price: 'Rp 1.8jt', desc: 'Baja bedah presisi dengan aksen daun emas.', tag: null },
-];
-
-export default function Product() {
+export default function Product({ products }) {
     return (
         <MainLayout>
             <Head title="Koleksi Kami - Master Cerutu & Kopi" />
@@ -24,9 +15,9 @@ export default function Product() {
             {/* Hero Section */}
             <section className="relative h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/images/hero.png" 
-                        alt="Koleksi Kami" 
+                    <img
+                        src="/images/hero.png"
+                        alt="Koleksi Kami"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
@@ -58,7 +49,7 @@ export default function Product() {
                         {products.map((product) => (
                             <div key={product.id} className="group relative bg-coklat-kopi/10 border border-gold-tua/10 p-1 overflow-hidden transition-all duration-500 hover:border-gold/30">
                                 <div className="aspect-square bg-coklat-tua relative overflow-hidden">
-                                     {/* Placeholder Image */}
+                                    {/* Placeholder Image */}
                                     <div className="absolute inset-0 flex items-center justify-center">
                                         <div className="w-1/2 h-1/2 border-2 border-gold/10 rounded-full animate-pulse-slow flex items-center justify-center">
                                             <span className="text-gold-tua/20 font-bold text-4xl uppercase">{product.category[0]}</span>
@@ -74,10 +65,10 @@ export default function Product() {
                                         <div className="flex flex-col items-center">
                                             <p className="text-gold uppercase tracking-widest text-[10px] font-bold mb-4">Pesan Sekarang</p>
                                             <p className="text-cream-gold text-sm mb-8 leading-relaxed font-light">{product.desc}</p>
-                                            <button className="flex items-center space-x-3 px-8 py-4 bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-widest hover:bg-gold-muda transition-all">
+                                            <Link href={route('sale.index')} className="flex items-center space-x-3 px-8 py-4 bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-widest hover:bg-gold-muda transition-all">
                                                 <span>Pilih Menu</span>
                                                 <PlusIcon className="w-4 h-4" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

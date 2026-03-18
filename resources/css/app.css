@@ -8,12 +8,32 @@
   --color-gold: #C9A24A;
   --color-gold-muda: #E2C27A;
   --color-cream-gold: #F2D9A6;
-  
+
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-in: fade-in 0.4s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer base {
   body {
     @apply bg-hitam-pekat text-cream-gold antialiased;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply text-gray-900 placeholder-gray-500;
   }
 }

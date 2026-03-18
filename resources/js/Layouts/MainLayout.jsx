@@ -20,6 +20,7 @@ export default function MainLayout({ children }) {
         { name: 'Home', href: route('home'), icon: HomeIcon },
         { name: 'About', href: route('about'), icon: InformationCircleIcon },
         { name: 'Product', href: route('product'), icon: ShoppingBagIcon },
+        { name: 'SALE', href: route('sale.index'), icon: ShoppingBagIcon },
         { name: 'Partners', href: route('partners'), icon: UserGroupIcon },
         { name: 'Investment', href: route('investment'), icon: CurrencyDollarIcon },
     ];

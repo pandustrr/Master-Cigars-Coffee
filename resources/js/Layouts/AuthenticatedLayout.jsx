@@ -13,7 +13,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="border-b border-gray-100 bg-white">
+            <nav className="border-b-2 border-gray-200 bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
@@ -27,8 +27,37 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.sales.index')}
+                                    active={route().current('admin.sales*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Sales
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.products.index')}
+                                    active={route().current('admin.products*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Products
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.partners.index')}
+                                    active={route().current('admin.partners*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Partners
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.settings.index')}
+                                    active={route().current('admin.settings*')}
+                                    className="font-black uppercase tracking-widest text-[11px]"
+                                >
+                                    Settings
                                 </NavLink>
                             </div>
                         </div>
@@ -128,6 +157,30 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.sales.index')}
+                            active={route().current('admin.sales*')}
+                        >
+                            Sales
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.products.index')}
+                            active={route().current('admin.products*')}
+                        >
+                            Products
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.partners.index')}
+                            active={route().current('admin.partners*')}
+                        >
+                            Partners
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.settings.index')}
+                            active={route().current('admin.settings*')}
+                        >
+                            Settings
                         </ResponsiveNavLink>
                     </div>
 
