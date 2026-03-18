@@ -13,7 +13,8 @@ class AdminProductController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Products/Index', [
-            'products' => Product::latest()->get()
+            'products' => Product::latest()->get(),
+            'categories' => \App\Models\Category::all()
         ]);
     }
 

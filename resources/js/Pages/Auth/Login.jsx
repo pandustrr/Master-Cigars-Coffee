@@ -40,39 +40,39 @@ export default function Login({ status, canResetPassword }) {
             <form onSubmit={submit}>
                 <div className="space-y-6">
                     <div className="relative group">
-                        <InputLabel htmlFor="username" value="USERNAME" className="text-gold/60 text-[10px] tracking-[0.2em] font-black" />
-                        <div className="flex items-center border-b border-gold-tua/20 group-focus-within:border-gold transition-colors pb-1">
-                            <UserIcon className="w-5 h-5 text-gold-tua/30 group-focus-within:text-gold transition-colors" />
+                        <InputLabel htmlFor="username" value="USERNAME" className="text-gold/60 text-[10px] tracking-[0.2em] font-black mb-1" />
+                        <div className="flex items-center border-b border-gold-tua/20 group-focus-within:border-gold transition-all duration-300 pb-2">
+                            <UserIcon className="w-5 h-5 text-gold-tua/30 group-focus-within:text-gold transition-colors shrink-0" />
                             <TextInput
                                 id="username"
                                 type="text"
                                 name="username"
                                 value={data.username}
-                                className="mt-1 block w-full bg-transparent! border-0! focus:ring-0! text-cream-gold shadow-none! placeholder:text-gold-tua/20"
+                                className="block w-full !bg-transparent !border-0 !ring-0 !outline-none text-cream-gold !shadow-none placeholder:text-gold-tua/20 ml-3 text-sm tracking-widest"
                                 autoComplete="username"
                                 isFocused={true}
                                 placeholder="ADMIN_MASTER"
                                 onChange={(e) => setData('username', e.target.value)}
                             />
                         </div>
-                        <InputError message={errors.username} className="mt-2 text-[10px] uppercase tracking-widest" />
+                        <InputError message={errors.username} className="mt-2 text-[10px] uppercase tracking-widest text-red-500/80" />
                     </div>
 
                     <div className="relative group">
-                        <InputLabel htmlFor="password" value="PASSWORD" className="text-gold/60 text-[10px] tracking-[0.2em] font-black" />
-                        <div className="flex items-center border-b border-gold-tua/20 group-focus-within:border-gold transition-colors pb-1">
-                            <LockClosedIcon className="w-5 h-5 text-gold-tua/30 group-focus-within:text-gold transition-colors" />
+                        <InputLabel htmlFor="password" value="PASSWORD" className="text-gold/60 text-[10px] tracking-[0.2em] font-black mb-1" />
+                        <div className="flex items-center border-b border-gold-tua/20 group-focus-within:border-gold transition-all duration-300 pb-2">
+                            <LockClosedIcon className="w-5 h-5 text-gold-tua/30 group-focus-within:text-gold transition-colors shrink-0" />
                             <TextInput
                                 id="password"
                                 type="password"
                                 name="password"
                                 value={data.password}
-                                className="mt-1 block w-full bg-transparent! border-0! focus:ring-0! text-cream-gold shadow-none!"
+                                className="block w-full !bg-transparent !border-0 !ring-0 !outline-none text-cream-gold !shadow-none ml-3 text-sm tracking-widest"
                                 autoComplete="current-password"
                                 onChange={(e) => setData('password', e.target.value)}
                             />
                         </div>
-                        <InputError message={errors.password} className="mt-2 text-[10px] uppercase tracking-widest" />
+                        <InputError message={errors.password} className="mt-2 text-[10px] uppercase tracking-widest text-red-500/80" />
                     </div>
                 </div>
 

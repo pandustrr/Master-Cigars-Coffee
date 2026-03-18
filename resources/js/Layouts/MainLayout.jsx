@@ -17,12 +17,12 @@ export default function MainLayout({ children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     const navLinks = [
-        { name: 'Home', href: route('home'), icon: HomeIcon },
-        { name: 'About', href: route('about'), icon: InformationCircleIcon },
-        { name: 'Product', href: route('product'), icon: ShoppingBagIcon },
-        { name: 'SALE', href: route('sale.index'), icon: ShoppingBagIcon },
-        { name: 'Partners', href: route('partners'), icon: UserGroupIcon },
-        { name: 'Investment', href: route('investment'), icon: CurrencyDollarIcon },
+        { name: 'Home', href: route('home'), routeName: 'home', icon: HomeIcon },
+        { name: 'About', href: route('about'), routeName: 'about', icon: InformationCircleIcon },
+        { name: 'Product', href: route('product'), routeName: 'product', icon: ShoppingBagIcon },
+        { name: 'Partners', href: route('partners'), routeName: 'partners', icon: UserGroupIcon },
+        { name: 'Investment', href: route('investment'), routeName: 'investment', icon: CurrencyDollarIcon },
+        { name: 'SALE', href: route('sale.index'), routeName: 'sale.*', icon: ShoppingBagIcon },
     ];
 
     return (
@@ -52,13 +52,13 @@ export default function MainLayout({ children }) {
                                     key={link.name}
                                     href={link.href}
                                     className={`text-[11px] font-bold tracking-[0.2em] transition-all duration-300 uppercase relative group/link ${
-                                        route().current(link.href) 
+                                        route().current(link.routeName) 
                                             ? 'text-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]' 
                                             : 'text-cream-gold/60 hover:text-gold-muda'
                                     }`}
                                 >
                                     <span>{link.name}</span>
-                                    <span className={`absolute -bottom-2 left-0 h-px bg-gold transition-all duration-300 ${route().current(link.href) ? 'w-full shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'w-0 group-hover/link:w-full'}`}></span>
+                                    <span className={`absolute -bottom-2 left-0 h-px bg-gold transition-all duration-300 ${route().current(link.routeName) ? 'w-full shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'w-0 group-hover/link:w-full'}`}></span>
                                 </Link>
                             ))}
                         </div>
@@ -87,7 +87,7 @@ export default function MainLayout({ children }) {
                                 key={link.name}
                                 href={link.href}
                                 className={`block py-3 text-base font-medium transition-all ${
-                                    route().current(link.href) ? 'text-gold' : 'text-cream-gold'
+                                    route().current(link.routeName) ? 'text-gold' : 'text-cream-gold'
                                 }`}
                                 onClick={() => setShowingNavigationDropdown(false)}
                             >
