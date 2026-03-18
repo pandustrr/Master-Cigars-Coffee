@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SalesOrder extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'total_price',
+        'customer_name',
+        'address',
+        'sale_item_id',
+    ];
 }

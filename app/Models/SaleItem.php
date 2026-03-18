@@ -12,5 +12,6 @@ class SaleItem extends Model
         'description',
         'image',
         'category',
+        'stock',
     ];
 }

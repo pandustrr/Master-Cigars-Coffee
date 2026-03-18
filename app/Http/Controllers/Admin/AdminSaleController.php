@@ -40,7 +40,31 @@ class AdminSaleController extends Controller
         }
 
         if ($order) {
-            $order->update(['status' => $validated['status']]);
+            $oldStatus = $order->status;
+            $newStatus = $validated['status'];
+            $order->update(['status' => $newStatus]);
+            
+            $reduceStatuses = ['Diproses', 'Dikirim', 'Selesai'];
+            if (in_array($newStatus, $reduceStatuses) && !in_array($oldStatus, $reduceStatuses)) {
+                if ($order->sale_item_id) {
+                    $item = SaleItem::find($order->sale_item_id);
+                    if ($item && $item->stock > 0) {
+                        $qty = isset($order->quantity) ? $order->quantity : 1;
+                        $item->stock = max(0, $item->stock - $qty);
+                        $item->save();
+                    }
+                }
+            }
+            
+            if ($newStatus === 'Dibatalkan' && in_array($oldStatus, $reduceStatuses)) {
+                if ($order->sale_item_id) {
+                    $item = SaleItem::find($order->sale_item_id);
+                    if ($item) {
+                        $qty = isset($order->quantity) ? $order->quantity : 1;
+                        $item->increment('stock', $qty);
+                    }
+                }
+            }
         }
 
         return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
@@ -55,6 +79,7 @@ class AdminSaleController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'category' => 'required|string',
+            'stock' => 'required|integer|min:0',
         ]);
 
         if ($request->hasFile('image')) {
@@ -76,6 +101,7 @@ class AdminSaleController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'category' => 'required|string',
+            'stock' => 'required|integer|min:0',
         ]);
 
         if ($request->hasFile('image')) {
@@ -83,6 +109,8 @@ class AdminSaleController extends Controller
                 Storage::disk('public')->delete($item->image);
             }
             $validated['image'] = $request->file('image')->store('sales', 'public');
+        } else {
+            unset($validated['image']);
         }
 
         $item->update($validated);

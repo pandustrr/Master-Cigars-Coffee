@@ -13,13 +13,25 @@ import { useState } from 'react';
 
 export default function Index({ settings }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
-        bank_mandiri_norek: settings.bank_mandiri_norek || '',
-        bank_mandiri_name: settings.bank_mandiri_name || '',
-        bank_bca_norek: settings.bank_bca_norek || '',
-        bank_bca_name: settings.bank_bca_name || '',
+        bank_accounts: settings.bank_accounts || [],
         whatsapp_admin: settings.whatsapp_admin || '',
         qris_image: null,
     });
+
+    const addBank = () => {
+        setData('bank_accounts', [...data.bank_accounts, { bank: '', norek: '', name: '' }]);
+    };
+
+    const updateBank = (index, field, value) => {
+        const newBanks = [...data.bank_accounts];
+        newBanks[index][field] = value;
+        setData('bank_accounts', newBanks);
+    };
+
+    const removeBank = (index) => {
+        const newBanks = data.bank_accounts.filter((_, i) => i !== index);
+        setData('bank_accounts', newBanks);
+    };
 
     const [qrisPreview, setQrisPreview] = useState(settings.qris_image ? `/storage/${settings.qris_image}` : null);
 
@@ -44,28 +56,28 @@ export default function Index({ settings }) {
 
     return (
         <SidebarAdmin
-            header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">System Configuration</h2>}
+            header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase">Pengaturan Sistem</h2>}
         >
             <Head title="Admin - Settings" />
 
-            <div className="py-8 bg-hitam-pekat min-h-screen">
+            <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-
-                    <div className="bg-gradient-to-br from-coklat-kopi/40 via-hitam-pekat/80 to-hitam-pekat p-12 rounded-[3.5rem] shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-gold flex justify-between items-center overflow-hidden relative border border-gold/10 group">
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-[100px] group-hover:bg-gold/10 transition-all duration-1000"></div>
+{/* 
+                    <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm text-gray-800 flex justify-between items-center overflow-hidden relative border border-gray-100 group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full blur-[80px] group-hover:bg-gray-100 transition-all duration-1000"></div>
                         <div className="relative z-10">
-                            <h3 className="text-3xl font-black tracking-tighter mb-4 italic uppercase text-transparent bg-clip-text bg-gradient-to-r from-cream-gold to-gold">Neural Payment Nexus</h3>
-                            <p className="text-cream-gold/40 text-[10px] font-black uppercase tracking-[0.4em] max-w-xl leading-relaxed">
+                            <h3 className="text-2xl md:text-3xl font-black tracking-tight mb-3 uppercase text-gray-800">Neural Payment Nexus</h3>
+                            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest max-w-xl leading-relaxed">
                                 Orchestrate the financial infrastructure. Global payment protocols and secure contact integration management.
                             </p>
                         </div>
-                        <ShieldCheckIcon className="w-64 h-64 absolute -right-16 -bottom-16 text-gold/5 rotate-12 group-hover:rotate-0 transition-transform duration-1000" />
-                    </div>
+                        <ShieldCheckIcon className="w-56 h-56 absolute -right-10 -bottom-10 text-gray-50 rotate-12 group-hover:rotate-0 transition-transform duration-1000" />
+                    </div> */}
 
                     {recentlySuccessful && (
                         <div className="p-5 bg-gold rounded-2xl flex items-center text-hitam-pekat shadow-xl shadow-gold/5 animate-bounce">
                             <CheckCircleIcon className="w-6 h-6 mr-3" />
-                            <span className="text-xs font-black uppercase tracking-widest">Configuration Updated Successfully!</span>
+                            <span className="text-xs font-black uppercase tracking-widest">Pengaturan Berhasil Diperbarui!</span>
                         </div>
                     )}
 
@@ -74,109 +86,99 @@ export default function Index({ settings }) {
                         {/* Left Column: Bank & WhatsApp */}
                         <div className="lg:col-span-2 space-y-10">
                             {/* Banking Section */}
-                            <div className="bg-coklat-kopi/5 shadow-[0_50px_100px_rgba(0,0,0,0.2)] rounded-[3rem] border border-gold/10 overflow-hidden backdrop-blur-3xl">
-                                <div className="p-10">
-                                    <div className="flex items-center space-x-8 mb-12 pb-8 border-b border-gold/10">
-                                        <div className="w-20 h-20 bg-gold/5 rounded-3xl flex items-center justify-center text-gold shadow-inner border border-gold/10">
-                                            <BanknotesIcon className="w-10 h-10" />
+                            <div className="bg-white shadow-sm rounded-3xl border border-gray-100 overflow-hidden">
+                                <div className="p-8">
+                                    <div className="flex items-center space-x-6 mb-8 pb-6 border-b border-gray-100">
+                                        <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gold border border-gray-200">
+                                            <BanknotesIcon className="w-8 h-8" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-black text-gold tracking-tighter italic uppercase">Financial Infrastructure</h3>
-                                            <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-[0.3em] mt-2 italic leading-none">Account Matrix Authorization</p>
+                                            <h3 className="text-xl font-black text-gray-800 tracking-tight uppercase">Informasi Rekening Bank</h3>
+                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 leading-none">Kelola rekening untuk pembayaran</p>
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 gap-8">
-                                        <div className="p-8 bg-hitam-pekat/60 rounded-[2.5rem] border border-gold/10 space-y-6 group hover:border-gold hover:shadow-[0_20px_50px_rgba(175,146,109,0.1)] transition-all duration-700 shadow-2xl">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-gold bg-gold/10 px-6 py-2.5 rounded-2xl border border-gold/20 shadow-inner">Mandiri Protocol 01</span>
-                                                <div className="w-2.5 h-2.5 rounded-full bg-gold animate-pulse shadow-[0_0_15px_rgba(175,146,109,0.8)]" />
-                                            </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                                <div className="space-y-3">
-                                                    <label className="block text-[10px] font-black uppercase text-gold/40 tracking-[0.3em]">Account Serial</label>
-                                                    <input
+                                    <div className="grid grid-cols-1 gap-6">
+                                        {data.bank_accounts.map((acc, index) => (
+                                            <div key={index} className="p-6 bg-gray-50/50 rounded-2xl border border-gray-200 space-y-5 group hover:border-gold hover:shadow-md transition-all duration-500 shadow-sm relative">
+                                                <div className="flex items-center justify-between">
+                                                    <input 
                                                         type="text"
-                                                        value={data.bank_mandiri_norek}
-                                                        onChange={e => setData('bank_mandiri_norek', e.target.value)}
-                                                        className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-hitam-pekat/80 text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                                        placeholder="0000 0000 0000"
+                                                        value={acc.bank}
+                                                        onChange={e => updateBank(index, 'bank', e.target.value)}
+                                                        placeholder="NAMA BANK (Misal: BANK MANDIRI)"
+                                                        className="text-[10px] font-bold uppercase tracking-wider text-gold bg-gold/10 px-4 py-2 rounded-xl border border-gold/30 focus:ring-2 focus:ring-gold/50 focus:border-gold min-w-[200px] placeholder-gold/50"
                                                     />
+                                                    <button type="button" onClick={() => removeBank(index)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-red-100 text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors shadow-sm">
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                                    </button>
                                                 </div>
-                                                <div className="space-y-3">
-                                                    <label className="block text-[10px] font-black uppercase text-gold/40 tracking-[0.3em]">Signature (A/N)</label>
-                                                    <input
-                                                        type="text"
-                                                        value={data.bank_mandiri_name}
-                                                        onChange={e => setData('bank_mandiri_name', e.target.value)}
-                                                        className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-hitam-pekat/80 text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                                        placeholder="Master Cigars Coffee"
-                                                    />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <div className="space-y-2">
+                                                        <label className="block text-[10px] font-bold uppercase text-gray-500 tracking-wider">Nomor Rekening</label>
+                                                        <input
+                                                            type="text"
+                                                            value={acc.norek}
+                                                            onChange={e => updateBank(index, 'norek', e.target.value)}
+                                                            className="w-full border-gray-300 rounded-xl text-sm font-bold p-3 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white text-gray-800 shadow-sm"
+                                                            placeholder="000 000 0000"
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <label className="block text-[10px] font-bold uppercase text-gray-500 tracking-wider">Atas Nama (A/N)</label>
+                                                        <input
+                                                            type="text"
+                                                            value={acc.name}
+                                                            onChange={e => updateBank(index, 'name', e.target.value)}
+                                                            className="w-full border-gray-300 rounded-xl text-sm font-bold p-3 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white text-gray-800 shadow-sm"
+                                                            placeholder="Master Cigars Coffee"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        ))}
 
-                                        <div className="p-8 bg-hitam-pekat/60 rounded-[2.5rem] border border-gold/10 space-y-6 group hover:border-gold hover:shadow-[0_20px_50px_rgba(175,146,109,0.1)] transition-all duration-700 shadow-2xl">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-gold bg-gold/10 px-6 py-2.5 rounded-2xl border border-gold/20 shadow-inner">BCA Protocol 02</span>
-                                                <div className="w-2.5 h-2.5 rounded-full bg-gold animate-pulse shadow-[0_0_15px_rgba(175,146,109,0.8)]" />
-                                            </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                                <div className="space-y-3">
-                                                    <label className="block text-[10px] font-black uppercase text-gold/40 tracking-[0.3em]">Account Serial</label>
-                                                    <input
-                                                        type="text"
-                                                        value={data.bank_bca_norek}
-                                                        onChange={e => setData('bank_bca_norek', e.target.value)}
-                                                        className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-hitam-pekat/80 text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                                        placeholder="000 000 0000"
-                                                    />
-                                                </div>
-                                                <div className="space-y-3">
-                                                    <label className="block text-[10px] font-black uppercase text-gold/40 tracking-[0.3em]">Signature (A/N)</label>
-                                                    <input
-                                                        type="text"
-                                                        value={data.bank_bca_name}
-                                                        onChange={e => setData('bank_bca_name', e.target.value)}
-                                                        className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-hitam-pekat/80 text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                                        placeholder="Master Cigars Coffee"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <button 
+                                            type="button" 
+                                            onClick={addBank}
+                                            className="w-full py-5 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center space-x-2 text-gray-500 font-bold uppercase tracking-widest text-[10px] hover:border-gold hover:text-gold hover:bg-gold/5 transition-all"
+                                        >
+                                            <span className="text-lg font-normal">+</span>
+                                            <span>Tambah Rekening Bank</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
                             {/* WhatsApp Section */}
-                            <div className="bg-coklat-kopi/5 shadow-[0_50px_100px_rgba(0,0,0,0.2)] rounded-[3rem] border border-gold/10 overflow-hidden backdrop-blur-3xl">
-                                <div className="p-10">
-                                    <div className="flex items-center space-x-8 mb-12 pb-8 border-b border-gold/10">
-                                        <div className="w-20 h-20 bg-gold/5 rounded-3xl flex items-center justify-center text-gold shadow-inner border border-gold/10">
-                                            <ChatBubbleLeftRightIcon className="w-10 h-10" />
+                            <div className="bg-white shadow-sm rounded-3xl border border-gray-100 overflow-hidden">
+                                <div className="p-8">
+                                    <div className="flex items-center space-x-6 mb-8 pb-6 border-b border-gray-100">
+                                        <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gold border border-gray-200">
+                                            <ChatBubbleLeftRightIcon className="w-8 h-8" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-black text-gold tracking-tighter italic uppercase">Relay Terminals</h3>
-                                            <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-[0.3em] mt-2 italic leading-none">Global Direct Link Integration</p>
+                                            <h3 className="text-xl font-black text-gray-800 tracking-tight uppercase">Kontak & WhatsApp</h3>
+                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 leading-none">Nomor WhatsApp Admin</p>
                                         </div>
                                     </div>
 
-                                    <div className="bg-hitam-pekat/60 p-8 rounded-[2.5rem] border border-gold/10 shadow-2xl">
-                                        <div className="max-w-md space-y-6">
-                                            <label className="block text-[10px] font-black uppercase text-gold/40 tracking-[0.3em]">Master Command WhatsApp</label>
+                                    <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 shadow-sm">
+                                        <div className="max-w-md space-y-4">
+                                            <label className="block text-[10px] font-bold uppercase text-gray-400 tracking-wider">Nomor WhatsApp Utama</label>
                                             <div className="flex relative items-center">
-                                                <div className="absolute left-6 text-gold font-black text-lg">+</div>
+                                                <div className="absolute left-4 text-gold font-black text-base">+</div>
                                                 <input
                                                     type="text"
                                                     value={data.whatsapp_admin}
                                                     onChange={e => setData('whatsapp_admin', e.target.value)}
                                                     placeholder="628123456789"
-                                                    className="w-full border-gold/10 rounded-2xl text-base font-black p-6 pl-12 focus:ring-2 focus:ring-gold/50 focus:border-gold shadow-inner bg-hitam-pekat text-cream-gold placeholder-cream-gold/10"
+                                                    className="w-full border-gray-300 rounded-xl text-sm font-bold p-3 pl-10 focus:ring-2 focus:ring-gold/50 focus:border-gold bg-white text-gray-800 shadow-sm transition-all"
                                                 />
                                             </div>
-                                            <div className="flex items-start space-x-4 mt-6 p-4 bg-gold/5 rounded-2xl border border-gold/10 italic">
-                                                <div className="w-6 h-6 bg-gold rounded-xl flex items-center justify-center text-hitam-pekat shrink-0 mt-0.5 font-black text-xs shadow-lg shadow-gold/20">!</div>
-                                                <p className="text-[11px] text-gold/60 font-black uppercase leading-relaxed tracking-wider">Deploy International Format [ISO-8601]. Omit '+' prefix. Ex: 62812XXXXXX. Direct neural redirection active.</p>
+                                            <div className="flex items-start space-x-3 mt-4 p-3 bg-gray-100 rounded-xl border border-gray-200">
+                                                <div className="w-5 h-5 bg-gold rounded-full flex items-center justify-center text-white shrink-0 mt-0.5 font-bold text-[10px] shadow-sm">!</div>
+                                                <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Gunakan kode negara tanpa awalan '+'. Contoh: 62812XXXXXX.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -185,17 +187,17 @@ export default function Index({ settings }) {
                         </div>
 
                         {/* Right Column: QRIS */}
-                        <div className="space-y-8">
-                            <div className="bg-coklat-kopi/5 shadow-[0_50px_100px_rgba(0,0,0,0.3)] rounded-[3rem] border border-gold/10 p-10 text-center sticky top-24 backdrop-blur-3xl overflow-hidden group/qris">
-                                <div className="absolute -top-24 -left-24 w-48 h-48 bg-gold/5 rounded-full blur-[50px] group-hover/qris:bg-gold/10 transition-colors"></div>
+                        <div className="space-y-6">
+                            <div className="bg-white shadow-sm rounded-3xl border border-gray-100 p-8 text-center sticky top-20 overflow-hidden group/qris">
+                                <div className="absolute -top-16 -left-16 w-32 h-32 bg-gray-50 rounded-full blur-[40px] group-hover/qris:bg-gray-100 transition-colors"></div>
                                 <div className="flex flex-col items-center relative z-10">
-                                    <div className="w-24 h-24 bg-gold/5 rounded-[2.5rem] flex items-center justify-center text-gold mb-8 shadow-inner border border-gold/10 group-hover/qris:rotate-12 transition-transform duration-700">
-                                        <QrCodeIcon className="w-12 h-12" />
+                                    <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gold mb-6 border border-gray-200 group-hover/qris:rotate-12 transition-transform duration-500">
+                                        <QrCodeIcon className="w-8 h-8" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-gold tracking-tighter mb-3 italic uppercase">Visual Auth QR</h3>
-                                    <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-[0.3em] mb-12 italic leading-none">Dynamic Transaction Artifact</p>
+                                    <h3 className="text-xl font-black text-gray-800 tracking-tight mb-2 uppercase">QRIS Pembayaran</h3>
+                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-8 leading-none">Gambar Barcode QRIS</p>
 
-                                    <div className="relative group w-full mb-12">
+                                    <div className="relative group w-full mb-8">
                                         <input
                                             type="file"
                                             onChange={handleQrisChange}
@@ -203,25 +205,25 @@ export default function Index({ settings }) {
                                             accept="image/*"
                                         />
                                         <div className={`
-                                            border border-dashed rounded-[2.5rem] p-6 flex flex-col items-center justify-center transition-all duration-[1000ms] min-h-[350px] group-hover/qris:border-gold/40 shadow-2xl relative overflow-hidden
-                                            ${qrisPreview ? 'border-gold/20 bg-hitam-pekat/80' : 'border-gold/10 bg-hitam-pekat/40'}
+                                            border border-dashed rounded-2xl p-4 flex flex-col items-center justify-center transition-all duration-700 min-h-[250px] shadow-sm relative overflow-hidden
+                                            ${qrisPreview ? 'border-gray-200 bg-gray-50/80' : 'border-gray-300 bg-gray-50'}
                                         `}>
                                             {qrisPreview ? (
-                                                <div className="relative w-full aspect-square bg-white rounded-[2rem] overflow-hidden p-6 shadow-[0_20px_50px_rgba(0,0,0,0.2)] ring-1 ring-gold/10 group-hover/qris:ring-gold/30 transition-all">
-                                                    <img src={qrisPreview} className="w-full h-full object-contain grayscale-[0.2] group-hover/qris:grayscale-0 transition-all duration-1000" alt="QRIS Preview" />
-                                                    <div className="absolute inset-0 bg-hitam-pekat/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-xl">
-                                                        <CloudArrowUpIcon className="w-14 h-14 text-gold mb-4 animate-bounce" />
-                                                        <span className="text-gold text-[10px] font-black uppercase tracking-[0.5em]">Reload Matrix</span>
+                                                <div className="relative w-full aspect-square bg-white rounded-xl overflow-hidden p-4 shadow-sm ring-1 ring-gray-200 group-hover/qris:ring-gold/30 transition-all">
+                                                    <img src={qrisPreview} className="w-full h-full object-contain grayscale-[0.2] group-hover/qris:grayscale-0 transition-all duration-700" alt="QRIS Preview" />
+                                                    <div className="absolute inset-0 bg-gray-900/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-md">
+                                                        <CloudArrowUpIcon className="w-10 h-10 text-white mb-2 animate-bounce" />
+                                                        <span className="text-white text-[10px] font-bold uppercase tracking-wider">Ganti QRIS</span>
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="flex flex-col items-center p-12 space-y-6">
-                                                    <div className="w-20 h-20 bg-hitam-pekat rounded-3xl shadow-inner flex items-center justify-center border border-gold/10 group-hover:bg-gold/5 transition-colors">
-                                                        <PhotoIcon className="w-10 h-10 text-gold/10 group-hover:text-gold/30 transition-colors" />
+                                                <div className="flex flex-col items-center p-8 space-y-4">
+                                                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                                        <PhotoIcon className="w-8 h-8 text-gray-300 group-hover:text-gold transition-colors" />
                                                     </div>
                                                     <div className="text-center">
-                                                        <span className="text-[12px] font-black uppercase tracking-[0.4em] text-gold/20">Provision QR</span>
-                                                        <p className="text-[9px] text-cream-gold/10 font-black mt-3 uppercase tracking-widest italic opacity-50">Vector Precision Required</p>
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Unggah QRIS</span>
+                                                        <p className="text-[9px] text-gray-300 font-bold mt-2 uppercase tracking-widest opacity-70">Format gambar (.jpg, .png)</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -232,20 +234,20 @@ export default function Index({ settings }) {
                                         type="submit"
                                         disabled={processing}
                                         className={`
-                                            w-full py-6 rounded-[2rem] font-black uppercase tracking-[0.3em] text-[10px] transition-all duration-[800ms] flex items-center justify-center space-x-4 active:scale-95 shadow-[0_20px_50px_rgba(175,146,109,0.2)]
-                                            ${processing ? 'bg-gold/20 text-gold/40 cursor-not-allowed' : 'bg-gold text-hitam-pekat hover:bg-gold-muda hover:-translate-y-3 hover:shadow-[0_40px_80px_rgba(175,146,109,0.3)]'}
+                                            w-full py-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-500 flex items-center justify-center space-x-3 active:scale-95 shadow-sm
+                                            ${processing ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gold text-white hover:bg-gold-muda hover:-translate-y-1 hover:shadow-md'}
                                         `}
                                     >
                                         {processing ? (
-                                            <div className="w-6 h-6 border-4 border-hitam-pekat/20 border-t-hitam-pekat rounded-full animate-spin" />
+                                            <div className="w-5 h-5 border-4 border-white/20 border-t-white rounded-full animate-spin" />
                                         ) : (
                                             <>
-                                                <CheckCircleIcon className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-                                                <span>Deploy Protocol</span>
+                                                <CheckCircleIcon className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                                <span>Simpan Perubahan</span>
                                             </>
                                         )}
                                     </button>
-                                    <p className="text-[10px] text-gold/20 font-black uppercase tracking-widest mt-10 italic leading-none">Shield Encrypted Nexus Active</p>
+                                    <p className="text-[9px] text-gray-300 font-bold uppercase tracking-widest mt-6 leading-none">Semua data diamankan sistem</p>
                                 </div>
                             </div>
                         </div>

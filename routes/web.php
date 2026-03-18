@@ -43,7 +43,18 @@ Route::prefix('sale')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $totalOrders = \App\Models\SalesOrder::count()
+            + \App\Models\SalesPackage::count()
+            + \App\Models\SalesPointCorner::count();
+
+        return Inertia::render('Dashboard', [
+            'stats' => [
+                'totalOrders'   => $totalOrders,
+                'totalProducts' => \App\Models\SaleItem::count(),
+                'totalPartners' => \App\Models\Partner::count(),
+                'totalBrands'   => \App\Models\MainProduct::count(),
+            ],
+        ]);
     })->name('dashboard');
 
     // Admin Sales Management
