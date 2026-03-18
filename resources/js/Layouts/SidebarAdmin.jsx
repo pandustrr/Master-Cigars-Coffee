@@ -4,13 +4,13 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { 
-    HomeIcon, 
-    PresentationChartLineIcon, 
-    CubeIcon, 
-    UserGroupIcon, 
-    PhotoIcon, 
-    Cog6ToothIcon, 
+import {
+    HomeIcon,
+    PresentationChartLineIcon,
+    CubeIcon,
+    UserGroupIcon,
+    PhotoIcon,
+    Cog6ToothIcon,
     ShoppingBagIcon,
     Bars3Icon,
     XMarkIcon,
@@ -23,33 +23,35 @@ export default function SidebarAdmin({ header, children }) {
     const [showingSidebar, setShowingSidebar] = useState(false);
 
     const navigation = [
-        { name: 'Dashboard', href: route('dashboard'), active: route().current('dashboard'), icon: HomeIcon },
-        { name: 'Kelola Produk', href: route('admin.main-products.index'), active: route().current('admin.main-products*') || route().current('admin.categories*'), icon: CubeIcon },
-        { name: 'Partner', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
-        { name: 'Manajemen Visual', href: route('admin.visual.index'), active: route().current('admin.visual*'), icon: PhotoIcon },
-        { name: 'Sale', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
-        { name: 'Pengaturan', href: route('admin.settings.index'), active: route().current('admin.settings*'), icon: Cog6ToothIcon },
+        { name: 'Terminal Dashboard', href: route('dashboard'), active: route().current('dashboard'), icon: HomeIcon },
+        { name: 'Product Catalog', href: route('admin.main-products.index'), active: route().current('admin.main-products*') || route().current('admin.categories*'), icon: CubeIcon },
+        { name: 'Strategic Partners', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
+        { name: 'Visual Assets', href: route('admin.visual.index'), active: route().current('admin.visual*'), icon: PhotoIcon },
+        { name: 'Sales Operations', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
+        { name: 'Global Settings', href: route('admin.settings.index'), active: route().current('admin.settings*'), icon: Cog6ToothIcon },
     ];
 
     return (
         <div className="min-h-screen bg-hitam-pekat flex">
             {/* Mobile Overlay */}
             {showingSidebar && (
-                <div 
+                <div
                     className="fixed inset-0 z-40 bg-hitam-pekat/60 backdrop-blur-sm md:hidden transition-opacity duration-300"
                     onClick={() => setShowingSidebar(false)}
                 />
             )}
 
             {/* Sidebar Desktop/Mobile */}
-            <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-coklat-kopi/40 backdrop-blur-xl border-r border-gold/10 transition-transform duration-300 transform ${showingSidebar ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+            <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-coklat-kopi/60 backdrop-blur-3xl border-r border-gold/10 transition-all duration-500 shadow-[20px_0_50px_rgba(0,0,0,0.3)] transform ${showingSidebar ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <div className="flex flex-col h-full">
                     {/* Brand Logo */}
-                    <div className="h-20 flex items-center justify-center border-b border-gold/10 px-8">
-                        <Link href="/" className="flex items-center space-x-4 group text-nowrap">
-                            <ApplicationLogo className="block h-8 w-auto fill-current text-gold group-hover:scale-110 transition-transform" />
-                            <div className="flex flex-col">
-                                <span className="text-gold font-black text-[10px] uppercase tracking-[0.2em] leading-none">Master Cigars</span>
+                    <div className="h-28 flex items-center justify-center border-b border-gold/10 px-8 bg-gold/5 backdrop-blur-3xl relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1500ms]"></div>
+                        <Link href="/" className="flex flex-col items-center space-y-2 group/logo relative z-10">
+                            <ApplicationLogo className="block h-10 w-auto fill-current text-gold group-hover/logo:scale-125 group-hover/logo:rotate-12 transition-all duration-700 drop-shadow-[0_0_15px_rgba(175,146,109,0.5)]" />
+                            <div className="flex flex-col items-center">
+                                <span className="text-gold font-black text-[11px] uppercase tracking-[0.5em] leading-none drop-shadow-md">Command Center</span>
+                                <span className="text-cream-gold/20 text-[7px] font-black uppercase tracking-[0.2em] mt-2 italic">Master Cigars & Coffee</span>
                             </div>
                         </Link>
                     </div>
@@ -60,14 +62,19 @@ export default function SidebarAdmin({ header, children }) {
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`flex items-center space-x-4 px-5 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.1em] transition-all group ${
-                                    item.active 
-                                    ? 'bg-gold text-hitam-pekat shadow-lg shadow-gold/10' 
-                                    : 'text-cream-gold/40 hover:bg-gold/5 hover:text-gold'
-                                }`}
+                                className={`flex items-center space-x-5 px-8 py-5 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 group relative overflow-hidden italic ${item.active
+                                    ? 'bg-gradient-to-r from-gold to-gold-muda text-hitam-pekat shadow-[0_15px_30px_rgba(175,146,109,0.3)] ring-1 ring-gold/50'
+                                    : 'text-cream-gold/40 hover:bg-gold/10 hover:text-gold hover:translate-x-3 hover:shadow-[0_10px_20px_rgba(0,0,0,0.2)]'
+                                    }`}
                             >
-                                <item.icon className={`w-4 h-4 ${item.active ? 'text-hitam-pekat' : 'text-gold/60 group-hover:text-gold'} transition-colors`} />
-                                <span>{item.name}</span>
+                                <div className={`relative z-10 transition-all duration-500 ${item.active ? 'scale-125 rotate-6' : 'group-hover:scale-110'}`}>
+                                    <item.icon className="w-5 h-5" />
+                                </div>
+                                <span className="relative z-10 tracking-[0.1em]">{item.name}</span>
+                                {item.active && (
+                                    <div className="absolute right-0 top-0 h-full w-2 bg-hitam-pekat/10"></div>
+                                )}
+                                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                             </Link>
                         ))}
                     </nav>
@@ -99,12 +106,12 @@ export default function SidebarAdmin({ header, children }) {
             </aside>
 
             {/* Main Content Area */}
-            <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 md:pl-72`}>
+            <div className={`flex-1 flex flex-col min-w-0 transition-all duration-500 md:pl-72`}>
                 {/* Header Top Bar */}
-                <header className="h-20 bg-hitam-pekat/95 backdrop-blur-md border-b border-gold/10 flex items-center justify-between px-4 md:px-10 sticky top-0 z-40">
+                <header className="h-20 bg-hitam-pekat/80 backdrop-blur-2xl border-b border-gold/10 flex items-center justify-between px-6 md:px-12 sticky top-0 z-40 transition-all">
                     <div className="flex items-center space-x-4">
                         {/* Mobile Toggle */}
-                        <button 
+                        <button
                             onClick={() => setShowingSidebar(!showingSidebar)}
                             className="md:hidden text-gold p-2 rounded-xl bg-gold/5 border border-gold/10 active:scale-95 transition-all"
                         >
