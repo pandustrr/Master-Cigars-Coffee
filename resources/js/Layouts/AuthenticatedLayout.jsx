@@ -31,13 +31,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <NavLink
-                                    href={route('admin.products.index')}
-                                    active={route().current('admin.products*')}
-                                    className="font-black uppercase tracking-widest text-[11px]"
-                                >
-                                    Products
-                                </NavLink>
+
                                 <NavLink
                                     href={route('admin.partners.index')}
                                     active={route().current('admin.partners*')}
@@ -178,12 +172,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Sales
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('admin.products.index')}
-                            active={route().current('admin.products*')}
-                        >
-                            Products
-                        </ResponsiveNavLink>
+
                         <ResponsiveNavLink
                             href={route('admin.partners.index')}
                             active={route().current('admin.partners*')}
