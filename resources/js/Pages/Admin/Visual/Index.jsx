@@ -21,7 +21,7 @@ export default function Index({ settings }) {
 
     const imageKeys = [
         'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products',
-        'site_logo', 'site_favicon', 'about_story_image', 'home_quote_bg', 'investment_context_bg'
+        'site_logo', 'about_story_image', 'home_quote_bg', 'investment_context_bg'
     ];
 
     const initialData = {};
@@ -64,7 +64,6 @@ export default function Index({ settings }) {
     const assetsByTab = {
         global: [
             { key: 'site_logo', label: 'Main Logo', desc: 'Used in navbar and footer' },
-            { key: 'site_favicon', label: 'Favicon', desc: 'Browser tab icon' },
         ],
         home: [
             { key: 'hero_home', label: 'Hero Background', desc: 'Main home banner' },
@@ -92,20 +91,11 @@ export default function Index({ settings }) {
         >
             <Head title="Admin - Visual CMS" />
 
-            <div className="py-8 bg-hitam-pekat min-h-screen">
+            <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                     {/* Header Card */}
-                    <div className="bg-gradient-to-br from-coklat-kopi/40 via-hitam-pekat to-coklat-tua/40 p-12 rounded-[3.5rem] border border-gold/10 relative overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.5)] group">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px] group-hover:bg-gold/10 transition-all duration-1000"></div>
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cream-gold to-gold tracking-tighter italic uppercase mb-4">Elite Visual Command</h3>
-                            <p className="text-cream-gold/40 text-[10px] font-black uppercase tracking-[0.4em] max-w-2xl leading-relaxed">
-                                Curate the Master Cigars & Coffee aesthetic. Orchestrate brand assets and high-definition immersive visuals across the entire platform ecosystem.
-                            </p>
-                        </div>
-                        <SwatchIcon className="w-80 h-80 absolute -right-20 -bottom-20 text-gold/5 -rotate-12 group-hover:rotate-0 transition-transform duration-1000" />
-                    </div>
+
 
                     {recentlySuccessful && (
                         <div className="p-4 bg-gold rounded-xl flex items-center text-hitam-pekat shadow-2xl shadow-gold/20 animate-fade-in-down">
@@ -115,66 +105,66 @@ export default function Index({ settings }) {
                     )}
 
                     {/* Tab Navigation */}
-                    <div className="flex flex-wrap gap-3 p-2 bg-hitam-pekat/60 rounded-3xl border border-gold/10 backdrop-blur-3xl sticky top-20 z-30 overflow-x-auto no-scrollbar shadow-2xl">
+                    <div className="flex flex-wrap gap-3 p-2 bg-white rounded-3xl border border-gray-100 sticky top-20 z-30 overflow-x-auto no-scrollbar shadow-sm">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`
-                                    flex items-center space-x-3 px-8 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-500 relative overflow-hidden group/tab
+                                    flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 relative overflow-hidden group/tab
                                     ${activeTab === tab.id
-                                        ? 'bg-gold text-hitam-pekat shadow-[0_10px_30px_rgba(175,146,109,0.3)] scale-105 active:scale-95'
-                                        : 'text-gold/30 hover:text-gold hover:bg-gold/5'
+                                        ? 'bg-gold text-hitam-pekat shadow-sm'
+                                        : 'bg-white text-gray-400 hover:text-gray-600 hover:bg-gray-50'
                                     }
                                 `}
                             >
-                                <tab.icon className={`w-5 h-5 transition-transform duration-500 ${activeTab === tab.id ? 'text-hitam-pekat rotate-0' : 'text-gold/20 -rotate-12 group-hover/tab:rotate-0'}`} />
+                                <tab.icon className={`w-4 h-4 transition-transform duration-300 ${activeTab === tab.id ? 'text-gold rotate-0' : 'text-gray-400 -rotate-12 group-hover/tab:rotate-0'}`} />
                                 <span>{tab.name}</span>
                                 {activeTab === tab.id && (
-                                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover/tab:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover/tab:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                                 )}
                             </button>
                         ))}
                     </div>
 
                     <form onSubmit={submit} className="space-y-6">
-                        <div className="bg-coklat-kopi/5 shadow-[0_50px_100px_rgba(0,0,0,0.3)] rounded-[3rem] border border-gold/10 overflow-hidden backdrop-blur-3xl">
-                            <div className="p-12">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                        <div className="bg-white shadow-sm rounded-3xl border border-gray-100 overflow-hidden">
+                            <div className="p-6 md:p-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {assetsByTab[activeTab].map((item) => (
                                         <div key={item.key} className="space-y-6 group/asset">
                                             <div className="flex justify-between items-end px-4">
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase text-gold tracking-[0.3em] mb-2">{item.label}</label>
-                                                    <p className="text-[9px] text-cream-gold/20 font-black uppercase tracking-widest italic">{item.desc}</p>
+                                                    <label className="block text-[10px] font-black uppercase text-gray-500 tracking-[0.3em] mb-2">{item.label}</label>
+                                                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest italic">{item.desc}</p>
                                                 </div>
                                                 {previews[item.key] && (
-                                                    <div className="flex items-center space-x-2 bg-gold/10 px-4 py-1.5 rounded-full border border-gold/20 shadow-inner">
-                                                        <div className="w-2 h-2 rounded-full bg-gold-muda animate-pulse" />
-                                                        <span className="text-[9px] font-black text-gold-muda uppercase tracking-[0.1em]">Synched</span>
+                                                    <div className="flex items-center space-x-2 bg-green-50 px-4 py-1.5 rounded-full border border-green-200">
+                                                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                                        <span className="text-[9px] font-black text-green-600 uppercase tracking-[0.1em]">Synched</span>
                                                     </div>
                                                 )}
                                             </div>
 
-                                            <div className="relative overflow-hidden rounded-[2.5rem] border border-gold/10 aspect-video bg-hitam-pekat/90 flex flex-col items-center justify-center transition-all duration-1000 hover:border-gold hover:shadow-[0_20px_50px_rgba(175,146,109,0.15)] group-hover/asset:scale-[1.02] shadow-2xl">
+                                            <div className="relative overflow-hidden rounded-2xl border border-gray-200 aspect-video bg-gray-50 flex flex-col items-center justify-center transition-all duration-1000 hover:border-gold group-hover/asset:scale-[1.02] shadow-sm hover:shadow-md">
                                                 {previews[item.key] ? (
                                                     <div className="w-full h-full relative">
-                                                        <img src={previews[item.key]} className="w-full h-full object-cover grayscale-[0.5] group-hover/asset:grayscale-0 group-hover/asset:scale-110 transition-all duration-[1500ms]" alt="" />
-                                                        <div className="absolute inset-0 bg-hitam-pekat/80 opacity-0 group-hover/asset:opacity-100 flex flex-col items-center justify-center transition-all duration-700 backdrop-blur-xl">
-                                                            <div className="w-20 h-20 bg-gold/10 rounded-3xl flex items-center justify-center mb-6 border border-gold/20 transform rotate-12 group-hover/asset:rotate-0 scale-50 group-hover/asset:scale-100 transition-all duration-700 shadow-2xl">
-                                                                <CloudArrowUpIcon className="w-10 h-10 text-gold" />
+                                                        <img src={previews[item.key]} className="w-full h-full object-cover grayscale group-hover/asset:grayscale-0 group-hover/asset:scale-110 transition-all duration-1000" alt="" />
+                                                        <div className="absolute inset-0 bg-gray-900/80 opacity-0 group-hover/asset:opacity-100 flex flex-col items-center justify-center transition-all duration-700 backdrop-blur-md">
+                                                            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 border border-white/20 transform rotate-12 group-hover/asset:rotate-0 scale-50 group-hover/asset:scale-100 transition-all duration-700 shadow-xl">
+                                                                <CloudArrowUpIcon className="w-8 h-8 text-white" />
                                                             </div>
-                                                            <span className="text-gold text-[10px] font-black uppercase tracking-[0.5em] translate-y-8 group-hover/asset:translate-y-0 opacity-0 group-hover/asset:opacity-100 transition-all duration-700">Overwrite Protocol</span>
+                                                            <span className="text-white text-[10px] font-black uppercase tracking-[0.3em] translate-y-4 group-hover/asset:translate-y-0 opacity-0 group-hover/asset:opacity-100 transition-all duration-700">Overwrite Protocol</span>
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="flex flex-col items-center space-y-6 group-hover/asset:scale-110 transition-transform duration-1000">
-                                                        <div className="w-24 h-24 bg-gold/5 rounded-[3rem] flex items-center justify-center border border-gold/10 shadow-inner group-hover/asset:bg-gold/10 transition-colors">
-                                                            <PhotoIcon className="w-12 h-12 text-gold/10 group-hover/asset:text-gold/20 transition-colors" />
+                                                    <div className="flex flex-col items-center space-y-4 group-hover/asset:scale-110 transition-transform duration-1000">
+                                                        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-gray-200 shadow-sm group-hover/asset:bg-gray-50 transition-colors">
+                                                            <PhotoIcon className="w-8 h-8 text-gray-300 group-hover/asset:text-gold transition-colors" />
                                                         </div>
                                                         <div className="text-center">
-                                                            <span className="text-[12px] font-black text-gold/20 uppercase tracking-[0.4em]">Initialize Matrix</span>
-                                                            <p className="text-[9px] text-cream-gold/10 font-black uppercase mt-3 tracking-widest italic opacity-50">Upload HQ Standard</p>
+                                                            <span className="text-xs font-black text-gray-400 uppercase tracking-widest">Initialize Matrix</span>
+                                                            <p className="text-[10px] text-gray-300 font-bold uppercase mt-1 tracking-wider italic opacity-70">Upload HD Standard</p>
                                                         </div>
                                                     </div>
                                                 )}
@@ -190,10 +180,10 @@ export default function Index({ settings }) {
                                 </div>
                             </div>
 
-                            <div className="p-12 bg-hitam-pekat/60 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div className="p-6 md:p-8 bg-gray-50 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
                                 <div className="text-center md:text-left">
-                                    <h5 className="text-gold/40 font-black uppercase text-[10px] tracking-[0.3em] mb-2">Security Verification</h5>
-                                    <p className="text-[9px] text-cream-gold/10 font-black uppercase tracking-[0.2em] leading-relaxed max-w-xs">
+                                    <h5 className="text-gray-500 font-bold uppercase text-xs tracking-widest mb-1">Security Verification</h5>
+                                    <p className="text-xs text-gray-400 font-medium leading-relaxed max-w-xs">
                                         All assets are processed through the secure Master CMS cloud infrastructure. HD verification enabled.
                                     </p>
                                 </div>
@@ -201,15 +191,15 @@ export default function Index({ settings }) {
                                     type="submit"
                                     disabled={processing}
                                     className={`
-                                        group flex items-center space-x-6 px-12 py-6 rounded-[2rem] font-black uppercase tracking-[0.3em] text-[10px] shadow-[0_20px_50px_rgba(175,146,109,0.2)] transition-all duration-[800ms] active:scale-95
-                                        ${processing ? 'bg-gold/20 text-gold/40 cursor-not-allowed' : 'bg-gold text-hitam-pekat hover:bg-gold-muda hover:-translate-y-3 hover:shadow-[0_30px_70px_rgba(175,146,109,0.3)]'}
+                                        group flex items-center space-x-4 px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-sm hover:shadow-md transition-all duration-500 active:scale-95
+                                        ${processing ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gold text-white hover:bg-gold-muda hover:-translate-y-1'}
                                     `}
                                 >
                                     {processing ? (
-                                        <div className="w-6 h-6 border-4 border-hitam-pekat/20 border-t-hitam-pekat rounded-full animate-spin" />
+                                        <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
                                     ) : (
                                         <>
-                                            <SparklesIcon className="w-6 h-6 group-hover:rotate-[30deg] transition-transform duration-700" />
+                                            <SparklesIcon className="w-6 h-6 group-hover:rotate-12 transition-transform duration-700" />
                                             <span>Synchronize {activeTab.toUpperCase()} Matrix</span>
                                             <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-4 transition-transform duration-700" />
                                         </>

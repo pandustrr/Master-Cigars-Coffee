@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SalesPointCorner extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'additional_info',
+        'total_price',
+        'payment_proof',
+        'sale_item_id',
+    ];
 }

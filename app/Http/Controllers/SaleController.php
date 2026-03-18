@@ -18,8 +18,29 @@ class SaleController extends Controller
 
     public function index()
     {
+        $settings = \App\Models\SiteSetting::all()->pluck('value', 'key');
+        
+        $settingsArray = $settings->toArray();
+        if (isset($settingsArray['bank_accounts'])) {
+            $settingsArray['bank_accounts'] = json_decode($settingsArray['bank_accounts'], true) ?? [];
+        } else {
+            $settingsArray['bank_accounts'] = [
+                [
+                    'bank' => 'Bank Mandiri',
+                    'norek' => $settingsArray['bank_mandiri_norek'] ?? '',
+                    'name' => $settingsArray['bank_mandiri_name'] ?? ''
+                ],
+                [
+                    'bank' => 'Bank BCA',
+                    'norek' => $settingsArray['bank_bca_norek'] ?? '',
+                    'name' => $settingsArray['bank_bca_name'] ?? ''
+                ]
+            ];
+        }
+
         return Inertia::render('Sale/Index', [
-            'saleItems' => \App\Models\SaleItem::latest()->get()
+            'saleItems' => \App\Models\SaleItem::latest()->get(),
+            'settings' => $settingsArray
         ]);
     }
 
@@ -34,11 +55,18 @@ class SaleController extends Controller
             'nomor_whatsapp' => 'required|string',
             'pilihan_pengiriman' => 'required|string',
             'metode_pembayaran' => 'required|string',
+            'payment_proof' => 'required|image|max:2048',
+            'sale_item_id' => 'required|integer',
         ]);
 
         $photoPath = null;
         if ($request->hasFile('foto_produk')) {
             $photoPath = $request->file('foto_produk')->store('products', 'public');
+        }
+
+        $proofPath = null;
+        if ($request->hasFile('payment_proof')) {
+            $proofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
         }
 
         $order = SalesOrder::create([
@@ -51,7 +79,9 @@ class SaleController extends Controller
             'whatsapp' => $validated['nomor_whatsapp'],
             'shipping_choice' => $validated['pilihan_pengiriman'],
             'payment_method' => $validated['metode_pembayaran'],
-            'status' => 'Pending',
+            'payment_proof' => $proofPath,
+            'sale_item_id' => $validated['sale_item_id'],
+            'status' => 'Menunggu Konfirmasi',
             'tracking_code' => $this->generateTrackingCode(),
         ]);
 
@@ -67,7 +97,14 @@ class SaleController extends Controller
             'alamat' => 'required|string',
             'metode_pembayaran' => 'required|string',
             'price' => 'nullable|numeric',
+            'payment_proof' => 'required|image|max:2048',
+            'sale_item_id' => 'required|integer',
         ]);
+
+        $proofPath = null;
+        if ($request->hasFile('payment_proof')) {
+            $proofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+        }
 
         $order = SalesPackage::create([
             'package_type' => $validated['package_type'],
@@ -76,7 +113,9 @@ class SaleController extends Controller
             'address' => $validated['alamat'],
             'payment_method' => $validated['metode_pembayaran'],
             'total_price' => $validated['price'] ?? 0,
-            'status' => 'Pending',
+            'payment_proof' => $proofPath,
+            'sale_item_id' => $validated['sale_item_id'],
+            'status' => 'Menunggu Konfirmasi',
             'tracking_code' => $this->generateTrackingCode(),
         ]);
 
@@ -91,7 +130,14 @@ class SaleController extends Controller
             'whatsapp' => 'required|string',
             'keterangan' => 'nullable|string',
             'price' => 'nullable|numeric',
+            'payment_proof' => 'required|image|max:2048',
+            'sale_item_id' => 'required|integer',
         ]);
+
+        $proofPath = null;
+        if ($request->hasFile('payment_proof')) {
+            $proofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+        }
 
         $order = SalesPointCorner::create([
             'service_type' => $validated['service_type'],
@@ -99,7 +145,9 @@ class SaleController extends Controller
             'whatsapp' => $validated['whatsapp'],
             'additional_info' => $validated['keterangan'],
             'total_price' => $validated['price'] ?? 0,
-            'status' => 'Pending',
+            'payment_proof' => $proofPath,
+            'sale_item_id' => $validated['sale_item_id'],
+            'status' => 'Menunggu Konfirmasi',
             'tracking_code' => $this->generateTrackingCode(),
         ]);
 
@@ -117,10 +165,30 @@ class SaleController extends Controller
             $order = SalesPointCorner::findOrFail($id);
         }
 
+        $settings = \App\Models\SiteSetting::all()->pluck('value', 'key');
+        
+        $settingsArray = $settings->toArray();
+        if (isset($settingsArray['bank_accounts'])) {
+            $settingsArray['bank_accounts'] = json_decode($settingsArray['bank_accounts'], true) ?? [];
+        } else {
+            $settingsArray['bank_accounts'] = [
+                [
+                    'bank' => 'Bank Mandiri',
+                    'norek' => $settingsArray['bank_mandiri_norek'] ?? '',
+                    'name' => $settingsArray['bank_mandiri_name'] ?? ''
+                ],
+                [
+                    'bank' => 'Bank BCA',
+                    'norek' => $settingsArray['bank_bca_norek'] ?? '',
+                    'name' => $settingsArray['bank_bca_name'] ?? ''
+                ]
+            ];
+        }
+
         return Inertia::render('Sale/Invoice', [
             'order' => $order,
             'type' => $type,
-            'settings' => \App\Models\SiteSetting::all()->pluck('value', 'key')
+            'settings' => $settingsArray
         ]);
     }
 

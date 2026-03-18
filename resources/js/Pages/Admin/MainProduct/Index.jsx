@@ -7,7 +7,8 @@ import {
     TrashIcon,
     ArchiveBoxIcon,
     PhotoIcon,
-    TagIcon
+    TagIcon,
+    CloudArrowUpIcon
 } from '@heroicons/react/24/outline';
 
 export default function Index({ mainProducts, categories }) {
@@ -15,9 +16,7 @@ export default function Index({ mainProducts, categories }) {
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({
-        name: '',
-    });
+    const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({ name: '' });
 
     const { data, setData, post, delete: destroy, processing, errors, reset } = useForm({
         name: '',
@@ -30,135 +29,103 @@ export default function Index({ mainProducts, categories }) {
         e.preventDefault();
         if (editingProduct) {
             post(route('admin.main-products.update', editingProduct.id), {
-                onSuccess: () => {
-                    reset();
-                    setEditingProduct(null);
-                    setIsAddModalOpen(false);
-                },
+                onSuccess: () => { reset(); setEditingProduct(null); setIsAddModalOpen(false); },
             });
         } else {
             post(route('admin.main-products.store'), {
-                onSuccess: () => {
-                    reset();
-                    setIsAddModalOpen(false);
-                },
+                onSuccess: () => { reset(); setIsAddModalOpen(false); },
             });
         }
     };
 
     const submitCategory = (e) => {
         e.preventDefault();
-        postCat(route('admin.categories.store'), {
-            onSuccess: () => {
-                resetCat();
-            },
-        });
+        postCat(route('admin.categories.store'), { onSuccess: () => resetCat() });
     };
 
     const handleEdit = (product) => {
         setEditingProduct(product);
-        setData({
-            name: product.name,
-            category: product.category || (categories.length > 0 ? categories[0].name : ''),
-            description: product.description || '',
-            image: null,
-        });
+        setData({ name: product.name, category: product.category || (categories.length > 0 ? categories[0].name : ''), description: product.description || '', image: null });
         setIsAddModalOpen(true);
     };
 
     const handleDelete = (id) => {
-        if (confirm('Hapus item ini?')) {
-            destroy(route('admin.main-products.destroy', id), {
-                preserveScroll: true
-            });
-        }
+        if (confirm('Hapus item ini?')) destroy(route('admin.main-products.destroy', id), { preserveScroll: true });
     };
 
     const handleDeleteCategory = (id) => {
-        if (confirm('Hapus kategori ini? Semua produk dengan kategori ini mungkin perlu diupdate.')) {
-            destroyCat(route('admin.categories.destroy', id), {
-                preserveScroll: true
-            });
-        }
+        if (confirm('Hapus kategori ini?')) destroyCat(route('admin.categories.destroy', id), { preserveScroll: true });
     };
 
     return (
         <SidebarAdmin
-            header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">Kelola Brand Utama</h2>}
+            header={<h2 className="font-black text-xl text-gold leading-tight tracking-tight uppercase">Kelola Produk</h2>}
         >
-            <Head title="Admin - Manage Product" />
+            <Head title="Admin - Kelola Produk" />
 
-            <div className="py-8 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div className="py-6">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
-                    {/* Header Section */}
-                    <div className="bg-gradient-to-br from-coklat-kopi/40 via-hitam-pekat/80 to-hitam-pekat p-12 rounded-[3.5rem] shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-gold flex flex-col md:flex-row justify-between items-center gap-10 overflow-hidden relative border border-gold/10 group">
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-[100px] group-hover:bg-gold/10 transition-all duration-1000"></div>
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black tracking-tighter mb-4 italic uppercase text-transparent bg-clip-text bg-gradient-to-r from-cream-gold to-gold">Brand Identity Nexus</h3>
-                            <p className="text-cream-gold/40 text-[10px] font-black uppercase tracking-[0.4em] max-w-xl leading-relaxed">
-                                Curate the master brand architecture. Define global offering categories and visual identities for the collection.
-                            </p>
+                    {/* Header */}
+                    <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h3 className="text-sm font-black text-gray-800 uppercase tracking-tight">Produk Utama</h3>
+                            <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Arsitektur produk & kategori global</p>
                         </div>
-                        <div className="flex items-center space-x-6 relative z-10">
-                            <button
-                                onClick={() => setIsCategoryModalOpen(true)}
-                                className="bg-hitam-pekat/40 border border-gold/30 text-gold px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gold/10 hover:border-gold transition-all flex items-center space-x-3 active:scale-95 shadow-2xl backdrop-blur-xl"
-                            >
-                                <TagIcon className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                        <div className="flex items-center space-x-2">
+                            <button onClick={() => setIsCategoryModalOpen(true)}
+                                className="bg-white border border-gray-200 text-gray-600 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-50 hover:text-gray-800 transition-all flex items-center space-x-2 shadow-sm">
+                                <TagIcon className="w-4 h-4" />
                                 <span>Kategori</span>
                             </button>
-                            <button
-                                onClick={() => { reset(); setEditingProduct(null); setIsAddModalOpen(true); }}
-                                className="bg-gold text-hitam-pekat px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gold-muda transition-all shadow-[0_20px_40px_rgba(175,146,109,0.3)] flex items-center space-x-3 active:scale-90 hover:-translate-y-1"
-                            >
-                                <PlusIcon className="w-5 h-5" />
-                                <span>Provision Brand</span>
+                            <button onClick={() => { reset(); setEditingProduct(null); setIsAddModalOpen(true); }}
+                                className="bg-gold text-white px-5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gold-muda transition-all shadow-md flex items-center space-x-2">
+                                <PlusIcon className="w-4 h-4" />
+                                <span>Tambah Produk</span>
                             </button>
                         </div>
                     </div>
 
-                    {/* Main Products Table */}
-                    <div className="bg-coklat-kopi/5 shadow-[0_50px_100px_rgba(0,0,0,0.3)] rounded-[3rem] border border-gold/10 overflow-hidden backdrop-blur-3xl">
+                    {/* Table */}
+                    <div className="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                         <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gold/10">
+                            <table className="min-w-full divide-y divide-gray-100">
                                 <thead>
-                                    <tr className="bg-gold/5">
-                                        <th className="px-10 py-7 text-left text-[11px] font-black text-gold uppercase tracking-[0.3em] italic">Brand Signature</th>
-                                        <th className="px-10 py-7 text-left text-[11px] font-black text-gold uppercase tracking-[0.3em] italic">Classification</th>
-                                        <th className="px-10 py-7 text-left text-[11px] font-black text-gold uppercase tracking-[0.3em] italic">Architectural Intel</th>
-                                        <th className="px-10 py-7 text-right text-[11px] font-black text-gold uppercase tracking-[0.3em] italic">Operations</th>
+                                    <tr className="bg-gray-50">
+                                        <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Nama Produk</th>
+                                        <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Kategori</th>
+                                        <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Deskripsi</th>
+                                        <th className="px-6 py-3.5 text-right text-[10px] font-black text-gray-500 uppercase tracking-widest">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gold/5 bg-hitam-pekat/20">
+                                <tbody className="divide-y divide-gray-100">
                                     {mainProducts.map((product) => (
-                                        <tr key={product.id} className="hover:bg-gold/5 transition-all duration-500 group">
-                                            <td className="px-10 py-8 flex items-center space-x-8 text-nowrap">
-                                                <div className="w-24 h-24 rounded-[2.5rem] bg-hitam-pekat overflow-hidden border border-gold/10 shadow-2xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 relative group/img">
-                                                    <div className="absolute inset-0 bg-gold/20 opacity-0 group-hover/img:opacity-100 transition-opacity z-10 pointer-events-none"></div>
-                                                    {product.image ? (
-                                                        <img src={`/storage/${product.image}`} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700" alt="" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-gold/10 font-black italic text-xl">MB</div>
-                                                    )}
+                                        <tr key={product.id} className="hover:bg-gray-50/80 transition-colors group">
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 overflow-hidden border border-gray-200 shrink-0">
+                                                        {product.image ? (
+                                                            <img src={`/storage/${product.image}`} className="w-full h-full object-cover" alt="" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs font-black">MB</div>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-sm font-black text-gray-800 transition-colors">{product.name}</div>
                                                 </div>
-                                                <div className="text-lg font-black text-cream-gold group-hover:text-gold transition-all tracking-tighter uppercase italic">{product.name}</div>
                                             </td>
-                                            <td className="px-10 py-8 text-nowrap">
-                                                <span className="px-5 py-2 bg-gold/5 text-gold text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl border border-gold/20 shadow-inner">
-                                                    {product.category}
-                                                </span>
+                                            <td className="px-6 py-4">
+                                                <span className="px-2.5 py-1 bg-gold/10 text-gold-muda font-black text-[9px] uppercase rounded-lg border border-gold/20">{product.category}</span>
                                             </td>
-                                            <td className="px-10 py-8">
-                                                <div className="text-[11px] text-cream-gold/30 font-black uppercase tracking-widest max-w-sm line-clamp-2 whitespace-pre-wrap italic leading-relaxed group-hover:text-cream-gold/60 transition-colors uppercase">{product.description}</div>
+                                            <td className="px-6 py-4">
+                                                <div className="text-xs text-gray-500 max-w-sm truncate">{product.description}</div>
                                             </td>
-                                            <td className="px-10 py-8 text-right">
-                                                <div className="flex justify-end space-x-4">
-                                                    <button onClick={() => handleEdit(product)} className="p-4 text-gold/30 hover:text-gold hover:bg-gold/10 rounded-2xl transition-all hover:scale-110 active:scale-90 border border-transparent hover:border-gold/20 shadow-2xl">
-                                                        <PencilSquareIcon className="w-6 h-6" />
+                                            <td className="px-6 py-4 text-right">
+                                                <div className="flex justify-end space-x-1.5">
+                                                    <button onClick={() => handleEdit(product)} className="p-2 text-gray-400 hover:text-gold hover:bg-gold/5 rounded-lg transition-all">
+                                                        <PencilSquareIcon className="w-4 h-4" />
                                                     </button>
-                                                    <button onClick={() => handleDelete(product.id)} className="p-4 text-gold/30 hover:text-red-500 hover:bg-red-500/10 rounded-2xl transition-all hover:scale-110 active:scale-90 border border-transparent hover:border-red-500/20 shadow-2xl">
-                                                        <TrashIcon className="w-6 h-6" />
+                                                    <button onClick={() => handleDelete(product.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                                        <TrashIcon className="w-4 h-4" />
                                                     </button>
                                                 </div>
                                             </td>
@@ -168,52 +135,41 @@ export default function Index({ mainProducts, categories }) {
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            {/* Category Management Modal */}
+            {/* Category Modal */}
             {isCategoryModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-hitam-pekat/95 backdrop-blur-3xl animate-fade-in">
-                    <div className="bg-gradient-to-br from-coklat-kopi/40 via-hitam-pekat to-hitam-pekat rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] w-full max-w-2xl overflow-hidden border border-gold/20 relative group/modal">
-                        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/10 rounded-full blur-[100px] group-hover/modal:bg-gold/20 transition-all duration-1000"></div>
-                        <div className="px-10 py-8 border-b border-gold/10 flex justify-between items-center bg-gold/5 relative z-10">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsCategoryModalOpen(false)}></div>
+                    <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+                        <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                             <div>
-                                <h4 className="font-black uppercase tracking-[0.4em] text-gold text-sm italic">Categorical Codex</h4>
-                                <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-[0.3em] mt-2 italic leading-none">Global Classification Management</p>
+                                <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">Kelola Kategori</h4>
+                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Tambah & hapus kategori</p>
                             </div>
-                            <button onClick={() => setIsCategoryModalOpen(false)} className="w-12 h-12 rounded-2xl border border-gold/10 flex items-center justify-center text-gold/40 hover:text-gold hover:bg-gold/10 transition-all hover:rotate-90 duration-500 font-black text-2xl">&times;</button>
+                            <button onClick={() => setIsCategoryModalOpen(false)} className="w-7 h-7 rounded-lg border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-800 hover:bg-gray-50 transition-all">&times;</button>
                         </div>
-                        <div className="p-10 space-y-8 bg-coklat-kopi/5 relative z-10">
-                            {/* Add New Category */}
-                            <form onSubmit={submitCategory} className="flex gap-6">
-                                <div className="flex-1">
-                                    <input
-                                        type="text"
-                                        value={catData.name}
-                                        onChange={e => setCatData('name', e.target.value)}
-                                        className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-hitam-pekat/80 text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                        placeholder="Enter new classification..."
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" disabled={processingCat} className="bg-gold text-hitam-pekat px-10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gold-muda transition-all shadow-xl active:scale-95">Verify & Deploy</button>
+                        <div className="p-5 space-y-4">
+                            <form onSubmit={submitCategory} className="flex gap-2">
+                                <input type="text" value={catData.name} onChange={e => setCatData('name', e.target.value)}
+                                    className="flex-1 border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all bg-gray-50 text-gray-800 placeholder-gray-400"
+                                    placeholder="Nama kategori baru..." required />
+                                <button type="submit" disabled={processingCat} className="bg-gold text-white px-5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gold-muda transition-all shadow-sm">Tambah</button>
                             </form>
-
-                            {/* Categories List */}
-                            <div className="bg-hitam-pekat/60 rounded-[2rem] p-6 max-h-[400px] overflow-y-auto border border-gold/10 shadow-2xl">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {categories.map((cat) => (
-                                        <div key={cat.id} className="bg-hitam-pekat/80 p-5 rounded-2xl border border-gold/5 flex justify-between items-center shadow-lg hover:border-gold/40 hover:bg-hitam-pekat transition-all group/cat">
-                                            <div className="flex items-center space-x-3">
-                                                <TagIcon className="w-4 h-4 text-gold/40 group-hover/cat:text-gold transition-colors" />
-                                                <span className="text-xs font-black text-cream-gold uppercase tracking-wider">{cat.name}</span>
-                                            </div>
-                                            <button onClick={() => handleDeleteCategory(cat.id)} className="text-gold/20 hover:text-red-500 transition-all hover:scale-125">
-                                                <TrashIcon className="w-5 h-5" />
-                                            </button>
+                            <div className="bg-gray-50 rounded-xl p-3 max-h-60 overflow-y-auto border border-gray-100 space-y-2">
+                                {categories.map((cat) => (
+                                    <div key={cat.id} className="bg-white p-3 rounded-xl border border-gray-100 flex justify-between items-center hover:border-gray-300 hover:shadow-sm transition-all shadow-sm">
+                                        <div className="flex items-center space-x-2">
+                                            <TagIcon className="w-3.5 h-3.5 text-gray-400" />
+                                            <span className="text-xs font-bold text-gray-700">{cat.name}</span>
                                         </div>
-                                    ))}
-                                </div>
+                                        <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-300 hover:text-red-500 transition-all">
+                                            <TrashIcon className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -222,82 +178,58 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Product Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-hitam-pekat/95 backdrop-blur-3xl animate-fade-in">
-                    <div className="bg-gradient-to-br from-coklat-kopi/40 via-hitam-pekat to-hitam-pekat rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] w-full max-w-2xl overflow-hidden border border-gold/20 relative group/modal">
-                        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gold/10 rounded-full blur-[100px] group-hover/modal:bg-gold/20 transition-all duration-1000"></div>
-                        <div className="px-10 py-8 border-b border-gold/10 flex justify-between items-center bg-gold/5 relative z-10">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsAddModalOpen(false)}></div>
+                    <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+                        <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                             <div>
-                                <h4 className="font-black uppercase tracking-[0.4em] text-gold text-sm italic">{editingProduct ? 'Update Brand Authentication' : 'Establish Brand Presence'}</h4>
-                                <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-[0.3em] mt-2 italic leading-none">Full Visual Identity Specification</p>
+                                <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">{editingProduct ? 'Edit Produk' : 'Tambah Produk'}</h4>
+                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Lengkapi informasi produk</p>
                             </div>
-                            <button onClick={() => setIsAddModalOpen(false)} className="w-12 h-12 rounded-2xl border border-gold/10 flex items-center justify-center text-gold/40 hover:text-gold hover:bg-gold/10 transition-all hover:rotate-90 duration-500 font-black text-2xl relative z-10">&times;</button>
+                            <button onClick={() => setIsAddModalOpen(false)} className="w-7 h-7 rounded-lg border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-800 hover:bg-gray-50 transition-all">&times;</button>
                         </div>
-                        <form onSubmit={submit} className="p-10 space-y-8 bg-coklat-kopi/5 relative z-10">
-                            <div className="space-y-3">
-                                <label className="flex items-center space-x-3 text-[10px] font-black uppercase text-gold/40 tracking-[0.3em] italic">
-                                    <ArchiveBoxIcon className="w-4 h-4" />
-                                    <span>Brand Signature Designation</span>
+                        <form onSubmit={submit} className="p-5 space-y-4">
+                            <div className="space-y-1.5">
+                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
+                                    <ArchiveBoxIcon className="w-3 h-3" /><span>Nama Produk</span>
                                 </label>
-                                <input
-                                    type="text"
-                                    value={data.name}
-                                    onChange={e => setData('name', e.target.value)}
-                                    className="w-full border-gold/10 bg-hitam-pekat/80 rounded-2xl text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all text-cream-gold placeholder-cream-gold/10 shadow-inner"
-                                    placeholder="Enter premium brand identifier..."
-                                    required
-                                />
-                                {errors.name && <div className="text-red-500 text-[10px] font-black uppercase mt-2 tracking-[0.2em] italic bg-red-500/10 px-4 py-2 rounded-lg inline-block border border-red-500/20">{errors.name}</div>}
+                                <input type="text" value={data.name} onChange={e => setData('name', e.target.value)}
+                                    className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400"
+                                    placeholder="Nama produk..." required />
+                                {errors.name && <div className="text-red-500 text-[9px] italic mt-0.5">{errors.name}</div>}
                             </div>
-
-                            <div className="space-y-3">
-                                <label className="flex items-center space-x-3 text-[10px] font-black uppercase text-gold/40 tracking-[0.3em] italic">
-                                    <PlusIcon className="w-4 h-4" />
-                                    <span>Hierarchical Classification</span>
+                            <div className="space-y-1.5">
+                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
+                                    <TagIcon className="w-3 h-3" /><span>Kategori</span>
                                 </label>
-                                <select
-                                    value={data.category}
-                                    onChange={e => setData('category', e.target.value)}
-                                    className="w-full border-gold/10 bg-hitam-pekat/80 rounded-[1.5rem] text-sm font-black p-5 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all text-cream-gold shadow-inner appearance-none cursor-pointer"
-                                    style={{ backgroundImage: 'linear-gradient(45deg, transparent 50%, #af926d 50%), linear-gradient(135deg, #af926d 50%, transparent 50%)', backgroundPosition: 'calc(100% - 25px) calc(1.5em + 5px), calc(100% - 20px) calc(1.5em + 5px)', backgroundSize: '5px 5px, 5px 5px', backgroundRepeat: 'no-repeat' }}
-                                >
+                                <select value={data.category} onChange={e => setData('category', e.target.value)}
+                                    className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800">
                                     {categories.map((cat) => (
-                                        <option key={cat.id} className="bg-hitam-pekat text-cream-gold p-4" value={cat.name}>{cat.name}</option>
+                                        <option key={cat.id} className="bg-white text-gray-800" value={cat.name}>{cat.name}</option>
                                     ))}
                                 </select>
                             </div>
-
-                            <div className="space-y-3">
-                                <label className="flex items-center space-x-3 text-[10px] font-black uppercase text-gold/40 tracking-[0.3em] italic">
-                                    <PhotoIcon className="w-4 h-4" />
-                                    <span>Visual Asset (Cover / Logo)</span>
+                            <div className="space-y-1.5">
+                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
+                                    <PhotoIcon className="w-3 h-3" /><span>Gambar (Opsional)</span>
                                 </label>
-                                <div className="relative group/asset p-8 border border-dashed border-gold/20 rounded-2xl flex flex-col items-center justify-center bg-hitam-pekat/80 hover:bg-gold/5 transition-all cursor-pointer shadow-inner">
+                                <div className="relative group/asset p-4 border border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center hover:border-gold/50 bg-gray-50 transition-all cursor-pointer">
                                     <input type="file" onChange={e => setData('image', e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                                    <div className="w-16 h-16 bg-gold/5 rounded-2xl flex items-center justify-center text-gold/20 group-hover/asset:text-gold group-hover/asset:scale-110 transition-all border border-gold/10 mb-4">
-                                        <CloudArrowUpIcon className="w-8 h-8" />
-                                    </div>
-                                    <span className="text-[11px] font-black uppercase text-gold/20 tracking-[0.4em] group-hover/asset:text-gold transition-colors">Authorize Visual Payload</span>
-                                    <p className="text-[9px] text-cream-gold/10 uppercase tracking-widest mt-2">Optimal 1:1 or High-Res Ratio</p>
+                                    <CloudArrowUpIcon className="w-6 h-6 text-gray-300 mb-1 group-hover/asset:text-gold transition-colors" />
+                                    <span className="text-[9px] font-black uppercase text-gray-400 group-hover/asset:text-gold transition-colors">Pilih Gambar</span>
                                 </div>
                             </div>
-
-                            <div className="space-y-3">
-                                <label className="flex items-center space-x-3 text-[10px] font-black uppercase text-gold/40 tracking-[0.3em] italic">
-                                    <PencilSquareIcon className="w-4 h-4" />
-                                    <span>Narrative & Specification</span>
+                            <div className="space-y-1.5">
+                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
+                                    <PencilSquareIcon className="w-3 h-3" /><span>Deskripsi</span>
                                 </label>
-                                <textarea
-                                    rows="4"
-                                    value={data.description}
-                                    onChange={e => setData('description', e.target.value)}
-                                    className="w-full border-gold/10 bg-hitam-pekat/80 rounded-2xl text-sm font-black p-6 focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all text-cream-gold placeholder-cream-gold/10 shadow-inner resize-none leading-relaxed"
-                                    placeholder="Establish the heritage and specifications of this brand..."
-                                ></textarea>
+                                <textarea rows="3" value={data.description} onChange={e => setData('description', e.target.value)}
+                                    className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400 resize-none"
+                                    placeholder="Deskripsi produk..."></textarea>
                             </div>
-
-                            <div className="pt-8 flex justify-end space-x-8">
-                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-8 py-4 text-gold/30 font-black uppercase text-[10px] tracking-[0.4em] hover:text-gold transition-all hover:scale-105 active:scale-90">Abort</button>
-                                <button type="submit" disabled={processing} className="px-12 py-5 bg-gold text-hitam-pekat rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-[0_20px_40px_rgba(175,146,109,0.3)] hover:bg-gold-muda hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(175,146,109,0.4)] active:scale-90 transition-all">Synchronize Presence</button>
+                            <div className="pt-2 flex justify-end space-x-3">
+                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-4 py-2 text-gray-500 font-black uppercase text-[9px] tracking-widest hover:text-gray-800 transition-colors">Batal</button>
+                                <button type="submit" disabled={processing} className="px-6 py-2.5 bg-gold text-white rounded-xl font-black uppercase text-[9px] tracking-widest shadow-md hover:bg-gold-muda transition-all disabled:opacity-50">Simpan</button>
                             </div>
                         </form>
                     </div>
