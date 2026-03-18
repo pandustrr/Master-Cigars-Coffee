@@ -19,6 +19,16 @@ class SiteSettingSeeder extends Seeder
             'bank_bca_name' => 'MASTER CIGARS & COFFEE',
             'qris_image' => null,
             'whatsapp_admin' => '6281234567890',
+            'hero_home' => null,
+            'hero_about' => null,
+            'hero_investment' => null,
+            'hero_partners' => null,
+            'hero_products' => null,
+            'site_logo' => null,
+            'site_favicon' => null,
+            'about_story_image' => null,
+            'home_quote_bg' => null,
+            'investment_context_bg' => null,
         ];
 
         foreach ($settings as $key => $value) {

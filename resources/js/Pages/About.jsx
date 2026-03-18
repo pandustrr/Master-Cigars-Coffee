@@ -1,14 +1,17 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head } from '@inertiajs/react';
-import { 
-    ClockIcon, 
-    ShieldCheckIcon, 
-    SparklesIcon, 
+import { Head, usePage } from '@inertiajs/react';
+import {
+    ClockIcon,
+    ShieldCheckIcon,
+    SparklesIcon,
     GlobeAltIcon,
     ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
 export default function About() {
+    const { settings } = usePage().props;
+    const heroImage = settings.hero_about ? `/storage/${settings.hero_about}` : '/images/hero.png';
+
     return (
         <MainLayout>
             <Head title="Tentang Kami - Master Cerutu & Kopi" />
@@ -16,9 +19,9 @@ export default function About() {
             {/* Hero Section */}
             <section className="relative h-[40vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/images/hero.png" 
-                        alt="Warisan Kami" 
+                    <img
+                        src={heroImage}
+                        alt="Warisan Kami"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
@@ -38,10 +41,16 @@ export default function About() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
                         <div className="relative">
                             <div className="aspect-[4/5] bg-coklat-tua border border-gold/20 overflow-hidden relative group">
-                                <div className="absolute inset-0 bg-gold/5 group-hover:bg-transparent transition-all duration-700"></div>
-                                <div className="absolute inset-0 flex items-center justify-center border-8 border-hitam-pekat m-4">
-                                    <span className="text-gold-tua/20 text-9xl font-bold select-none">M</span>
-                                </div>
+                                {settings.about_story_image ? (
+                                    <img src={`/storage/${settings.about_story_image}`} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000" alt="Our Story" />
+                                ) : (
+                                    <>
+                                        <div className="absolute inset-0 bg-gold/5 group-hover:bg-transparent transition-all duration-700"></div>
+                                        <div className="absolute inset-0 flex items-center justify-center border-8 border-hitam-pekat m-4">
+                                            <span className="text-gold-tua/20 text-9xl font-bold select-none">M</span>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                             <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-gold p-8 hidden md:block">
                                 <p className="text-hitam-pekat font-bold text-lg leading-tight">BERDIRI SEJAK 1998</p>

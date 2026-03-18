@@ -1,5 +1,5 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import {
     UserGroupIcon,
     HandRaisedIcon,
@@ -9,6 +9,9 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function Partners({ partners }) {
+    const { settings } = usePage().props;
+    const heroImage = settings.hero_partners ? `/storage/${settings.hero_partners}` : '/images/hero.png';
+
     return (
         <MainLayout>
             <Head title="Mitra & Kolaborasi - Master Cerutu & Kopi" />
@@ -17,7 +20,7 @@ export default function Partners({ partners }) {
             <section className="relative h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/images/hero.png"
+                        src={heroImage}
                         alt="Ekosistem Mitra"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />

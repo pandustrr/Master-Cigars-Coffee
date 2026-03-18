@@ -7,6 +7,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Admin\AdminSaleController;
+use App\Http\Controllers\Admin\VisualController;
 
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -69,6 +70,10 @@ Route::middleware(['auth'])->group(function () {
     // Site Settings
     Route::get('/admin/settings', [\App\Http\Controllers\SettingController::class, 'index'])->name('admin.settings.index');
     Route::post('/admin/settings', [\App\Http\Controllers\SettingController::class, 'update'])->name('admin.settings.update');
+
+    // Visual Management
+    Route::get('/admin/visual', [VisualController::class, 'index'])->name('admin.visual.index');
+    Route::post('/admin/visual', [VisualController::class, 'update'])->name('admin.visual.update');
 });
 
 require __DIR__.'/auth.php';
