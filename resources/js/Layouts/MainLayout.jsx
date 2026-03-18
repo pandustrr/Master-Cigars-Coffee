@@ -121,54 +121,54 @@ export default function MainLayout({ children }) {
             </main>
 
             {/* Footer */}
-            <footer className="bg-coklat-kopi border-t border-gold-tua/30 pt-16 pb-8">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <footer className="bg-coklat-kopi border-t border-gold-tua/30 pt-10 pb-6">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="col-span-1 md:col-span-2">
-                        <div className="flex items-center space-x-3 mb-6">
+                        <div className="flex items-center space-x-3 mb-4">
                             {settings.site_logo ? (
-                                <img src={`/storage/${settings.site_logo}`} className="w-16 h-16 object-contain" alt="Logo" />
+                                <img src={`/storage/${settings.site_logo}`} className="w-12 h-12 object-contain" alt="Logo" />
                             ) : (
-                                <div className="w-12 h-12 bg-gold flex items-center justify-center rounded-full text-hitam-pekat font-bold text-2xl">M</div>
+                                <div className="w-10 h-10 bg-gold flex items-center justify-center rounded-full text-hitam-pekat font-bold text-xl">M</div>
                             )}
                             <div>
-                                <h2 className="text-gold font-bold text-2xl uppercase tracking-tighter">Master</h2>
-                                <p className="text-gold-muda text-xs uppercase tracking-widest leading-none">Cigars & Coffee</p>
+                                <h2 className="text-gold font-bold text-xl uppercase tracking-tighter">Master</h2>
+                                <p className="text-gold-muda text-[10px] uppercase tracking-widest leading-none">Cigars & Coffee</p>
                             </div>
                         </div>
-                        <p className="text-cream-gold/60 max-w-md leading-relaxed">
+                        <p className="text-cream-gold/60 max-w-md leading-relaxed text-sm">
                             Experience the finest blend of premium hand-rolled cigars and artisanal coffee. A sanctuary for aficionados seeking excellence in every puff and sip.
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-gold font-bold mb-6 uppercase tracking-wider text-sm">Navigation</h3>
-                        <ul className="space-y-4">
+                        <h3 className="text-gold font-bold mb-4 uppercase tracking-wider text-xs">Navigation</h3>
+                        <ul className="space-y-2">
                             {navLinks.map((link) => (
-                                <li key={link.name}><Link href={link.href} className="text-cream-gold/60 hover:text-gold transition-colors text-sm uppercase tracking-wide">{link.name}</Link></li>
+                                <li key={link.name}><Link href={link.href} className="text-cream-gold/60 hover:text-gold transition-colors text-xs uppercase tracking-wide">{link.name}</Link></li>
                             ))}
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="text-gold font-bold mb-6 uppercase tracking-wider text-sm">Contact</h3>
-                        <ul className="space-y-4 text-sm text-cream-gold/60">
+                        <h3 className="text-gold font-bold mb-4 uppercase tracking-wider text-xs">Contact</h3>
+                        <ul className="space-y-3 text-xs text-cream-gold/60">
                             <li className="flex items-start space-x-3">
-                                <MapPinIcon className="w-5 h-5 text-gold shrink-0" />
+                                <MapPinIcon className="w-4 h-4 text-gold shrink-0" />
                                 <span>Jl. Kemang Raya No. 123, Jakarta Selatan, Indonesia</span>
                             </li>
                             <li className="flex items-center space-x-3">
-                                <PhoneIcon className="w-5 h-5 text-gold shrink-0" />
+                                <PhoneIcon className="w-4 h-4 text-gold shrink-0" />
                                 <span>+62 812 3456 7890</span>
                             </li>
                             <li className="flex items-center space-x-3">
-                                <EnvelopeIcon className="w-5 h-5 text-gold shrink-0" />
+                                <EnvelopeIcon className="w-4 h-4 text-gold shrink-0" />
                                 <span>info@mastercigars.com</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-gold-tua/10 text-center">
-                    <p className="text-cream-gold/40 text-xs uppercase tracking-[0.2em]">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-gold-tua/10 text-center">
+                    <p className="text-cream-gold/40 text-[9px] uppercase tracking-[0.2em]">
                         &copy; {new Date().getFullYear()} Master Cigars & Coffee. All Rights Reserved.
                     </p>
                 </div>
