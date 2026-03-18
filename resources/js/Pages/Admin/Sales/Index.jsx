@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import {
@@ -60,22 +60,22 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
     ];
 
     return (
-        <AuthenticatedLayout
+        <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">Sales Management</h2>}
         >
             <Head title="Admin - Sales" />
 
-            <div className="py-12 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            <div className="py-8 bg-hitam-pekat min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                     {/* Enhanced Tab Navigation */}
-                    <div className="bg-coklat-kopi/10 p-2 rounded-2xl shadow-sm border border-gold/10 flex space-x-2 overflow-x-auto backdrop-blur-sm">
+                    <div className="bg-coklat-kopi/10 p-1.5 rounded-xl shadow-sm border border-gold/10 flex space-x-1.5 overflow-x-auto backdrop-blur-sm">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`
-                                    flex items-center space-x-3 py-3 px-6 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300
+                                    flex items-center space-x-2.5 py-2.5 px-5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all duration-300
                                     ${activeTab === tab.id
                                         ? 'bg-gold text-hitam-pekat shadow-lg shadow-gold/20 scale-[1.02]'
                                         : 'text-cream-gold/40 hover:bg-gold/5 hover:text-gold'}
@@ -96,7 +96,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                     {/* Tab Content */}
                     <div className="animate-fade-in">
                         {activeTab === 'catalog' && (
-                            <div className="bg-coklat-kopi/5 shadow-sm sm:rounded-3xl border border-gold/5 overflow-hidden backdrop-blur-sm">
+                            <div className="bg-coklat-kopi/5 shadow-sm rounded-xl border border-gold/5 overflow-hidden backdrop-blur-sm">
                                 <div className="p-8">
                                     <div className="flex justify-between items-center mb-8 pb-6 border-b border-gold/5">
                                         <div>
@@ -159,7 +159,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                         )}
 
                         {(activeTab === 'retail' || activeTab === 'package' || activeTab === 'point') && (
-                            <div className="bg-coklat-kopi/5 shadow-sm sm:rounded-3xl border border-gold/5 overflow-hidden backdrop-blur-sm">
+                            <div className="bg-coklat-kopi/5 shadow-sm rounded-xl border border-gold/5 overflow-hidden backdrop-blur-sm">
                                 <div className="p-8">
                                     <div className="flex justify-between items-center mb-8 pb-6 border-b border-gold/5">
                                         <div>
@@ -306,7 +306,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                     </div>
                 </div>
             )}
-        </AuthenticatedLayout>
+        </SidebarAdmin>
     );
 }
 

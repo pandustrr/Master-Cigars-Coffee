@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, usePage, useForm } from '@inertiajs/react';
 import {
     PhotoIcon,
@@ -87,19 +87,19 @@ export default function Index({ settings }) {
     };
 
     return (
-        <AuthenticatedLayout
+        <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">Visual Command Center</h2>}
         >
             <Head title="Admin - Visual CMS" />
 
-            <div className="py-12 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-10">
+            <div className="py-8 bg-hitam-pekat min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                     {/* Header Card */}
-                    <div className="bg-gradient-to-br from-hitam pekat via-coklat-pekat to-hitam p-12 rounded-[4rem] border border-gold/10 relative overflow-hidden shadow-2xl shadow-gold/5">
+                    <div className="bg-gradient-to-br from-hitam-pekat via-coklat-pekat to-hitam p-8 rounded-2xl border border-gold/10 relative overflow-hidden shadow-2xl shadow-gold/5">
                         <div className="relative z-10">
-                            <h3 className="text-4xl font-black text-gold tracking-tighter italic uppercase mb-4">Elite Visual Management</h3>
-                            <p className="text-cream-gold/40 text-sm font-bold uppercase tracking-[0.3em] max-w-xl">
+                            <h3 className="text-2xl font-black text-gold tracking-tighter italic uppercase mb-2">Elite Visual Management</h3>
+                            <p className="text-cream-gold/40 text-[10px] font-bold uppercase tracking-[0.2em] max-w-xl">
                                 Curate every pixel of the Master Cigars & Coffee experience. Orchestrate brand assets and immersive visuals across the entire platform.
                             </p>
                         </div>
@@ -107,20 +107,20 @@ export default function Index({ settings }) {
                     </div>
 
                     {recentlySuccessful && (
-                        <div className="p-6 bg-gold rounded-[2rem] flex items-center text-hitam-pekat shadow-2xl shadow-gold/20 animate-fade-in-down border-t-4 border-white/20">
-                            <CheckCircleIcon className="w-10 h-10 mr-4" />
-                            <span className="text-sm font-black uppercase tracking-[0.3em]">Neural Assets Synchronized! Experience is now live.</span>
+                        <div className="p-4 bg-gold rounded-xl flex items-center text-hitam-pekat shadow-2xl shadow-gold/20 animate-fade-in-down">
+                            <CheckCircleIcon className="w-8 h-8 mr-3" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Neural Assets Synchronized! Experience is now live.</span>
                         </div>
                     )}
 
                     {/* Tab Navigation */}
-                    <div className="flex flex-wrap gap-4 p-2 bg-hitam-pekat/50 rounded-[3rem] border border-gold/5 backdrop-blur-xl sticky top-20 z-30 overflow-x-auto no-scrollbar">
+                    <div className="flex flex-wrap gap-2 p-1.5 bg-hitam-pekat/50 rounded-xl border border-gold/5 backdrop-blur-xl sticky top-20 z-30 overflow-x-auto no-scrollbar">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`
-                                    flex items-center space-x-3 px-8 py-4 rounded-[2rem] font-black uppercase tracking-widest text-[10px] transition-all duration-500
+                                    flex items-center space-x-2.5 px-6 py-3 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all duration-500
                                     ${activeTab === tab.id
                                         ? 'bg-gold text-hitam-pekat shadow-xl shadow-gold/20 scale-105'
                                         : 'text-gold/40 hover:text-gold hover:bg-gold/5'
@@ -133,10 +133,10 @@ export default function Index({ settings }) {
                         ))}
                     </div>
 
-                    <form onSubmit={submit} className="space-y-10">
-                        <div className="bg-coklat-kopi/5 shadow-2xl sm:rounded-[4rem] border border-gold/5 overflow-hidden backdrop-blur-md">
-                            <div className="p-12">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <form onSubmit={submit} className="space-y-6">
+                        <div className="bg-coklat-kopi/5 shadow-2xl rounded-2xl border border-gold/5 overflow-hidden backdrop-blur-md">
+                            <div className="p-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {assetsByTab[activeTab].map((item) => (
                                         <div key={item.key} className="space-y-6 group">
                                             <div className="flex justify-between items-end px-4">
@@ -152,7 +152,7 @@ export default function Index({ settings }) {
                                                 )}
                                             </div>
 
-                                            <div className="relative overflow-hidden rounded-[3rem] border-2 border-gold/5 aspect-video bg-hitam-pekat/80 flex flex-col items-center justify-center transition-all duration-700 hover:border-gold/40 hover:shadow-2xl hover:shadow-gold/10 group-hover:ring-4 ring-gold/5 ring-offset-8 ring-offset-hitam-pekat">
+                                            <div className="relative overflow-hidden rounded-2xl border-2 border-gold/5 aspect-video bg-hitam-pekat/80 flex flex-col items-center justify-center transition-all duration-700 hover:border-gold/40 hover:shadow-2xl hover:shadow-gold/10 group-hover:ring-4 ring-gold/5 ring-offset-8 ring-offset-hitam-pekat">
                                                 {previews[item.key] ? (
                                                     <div className="w-full h-full relative">
                                                         <img src={previews[item.key]} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-1000" alt="" />
@@ -186,7 +186,7 @@ export default function Index({ settings }) {
                                 </div>
                             </div>
 
-                            <div className="p-12 bg-hitam-pekat/40 border-t border-gold/10 flex justify-between items-center">
+                            <div className="p-8 bg-hitam-pekat/40 border-t border-gold/10 flex justify-between items-center">
                                 <div className="hidden md:block">
                                     <p className="text-[10px] text-gold/20 font-black uppercase tracking-widest leading-relaxed">
                                         All assets are processed through the secure <br />Master CMS cloud infrastructure.
@@ -196,8 +196,8 @@ export default function Index({ settings }) {
                                     type="submit"
                                     disabled={processing}
                                     className={`
-                                        group flex items-center space-x-6 px-14 py-7 rounded-[2.5rem] font-black uppercase tracking-[0.4em] text-xs shadow-2xl transition-all duration-700 active:scale-90
-                                        ${processing ? 'bg-gold/20 text-gold/40 cursor-not-allowed' : 'bg-gold text-hitam-pekat hover:bg-gold-muda hover:-translate-y-3 shadow-gold/20'}
+                                        group flex items-center space-x-4 px-10 py-5 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all duration-700 active:scale-90
+                                        ${processing ? 'bg-gold/20 text-gold/40 cursor-not-allowed' : 'bg-gold text-hitam-pekat hover:bg-gold-muda hover:-translate-y-2 shadow-gold/20'}
                                     `}
                                 >
                                     {processing ? (
@@ -215,6 +215,6 @@ export default function Index({ settings }) {
                     </form>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </SidebarAdmin>
     );
 }

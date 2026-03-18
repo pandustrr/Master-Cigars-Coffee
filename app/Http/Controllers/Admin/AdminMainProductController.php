@@ -13,7 +13,7 @@ class AdminMainProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/MainProducts/Index', [
+        return Inertia::render('Admin/MainProduct/Index', [
             'mainProducts' => MainProduct::latest()->get(),
             'categories' => \App\Models\Category::all()
         ]);

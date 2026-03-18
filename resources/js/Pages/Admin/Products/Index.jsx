@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import {
@@ -64,23 +64,23 @@ export default function Index({ products, categories }) {
     };
 
     return (
-        <AuthenticatedLayout
+        <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">Product Collection</h2>}
         >
             <Head title="Admin - Products" />
 
-            <div className="py-12 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            <div className="py-8 bg-hitam-pekat min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                     {/* Header Section */}
-                    <div className="bg-coklat-kopi/10 p-8 rounded-[2.5rem] shadow-sm border border-gold/10 flex flex-col md:flex-row justify-between items-center gap-6 backdrop-blur-sm">
+                    <div className="bg-coklat-kopi/10 p-6 rounded-2xl shadow-sm border border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-sm">
                         <div>
                             <h3 className="text-lg font-black text-gold tracking-tight uppercase italic">Static Product Gallery</h3>
                             <p className="text-[10px] text-cream-gold/40 font-bold uppercase tracking-[0.2em] mt-1">Manage items displayed on the public product page</p>
                         </div>
                         <button
                             onClick={() => { reset(); setEditingProduct(null); setIsAddModalOpen(true); }}
-                            className="bg-gold text-hitam-pekat px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gold-muda transition-all shadow-xl shadow-gold/5 flex items-center space-x-2 active:scale-95"
+                            className="bg-gold text-hitam-pekat px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-[0.1em] hover:bg-gold-muda transition-all shadow-xl shadow-gold/5 flex items-center space-x-2 active:scale-95"
                         >
                             <PlusIcon className="w-4 h-4" />
                             <span>Create New Product</span>
@@ -88,7 +88,7 @@ export default function Index({ products, categories }) {
                     </div>
 
                     {/* Products Table */}
-                    <div className="bg-coklat-kopi/5 shadow-sm rounded-[2.5rem] border border-gold/5 overflow-hidden backdrop-blur-sm">
+                    <div className="bg-coklat-kopi/5 shadow-sm rounded-2xl border border-gold/5 overflow-hidden backdrop-blur-sm">
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gold/5">
                                 <thead>
@@ -149,17 +149,17 @@ export default function Index({ products, categories }) {
             {/* Premium Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-hitam-pekat/80 backdrop-blur-md animate-fade-in">
-                    <div className="bg-hitam-pekat rounded-[2.5rem] shadow-2xl w-full max-w-2xl overflow-hidden border border-gold/20 shadow-gold/5">
-                        <div className="px-10 py-8 border-b border-gold/10 flex justify-between items-center bg-gold/5">
+                    <div className="bg-hitam-pekat rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gold/20 shadow-gold/5">
+                        <div className="px-8 py-6 border-b border-gold/10 flex justify-between items-center bg-gold/5">
                             <div>
                                 <h4 className="font-black uppercase tracking-[0.2em] text-gold text-sm italic">{editingProduct ? 'Update Produk' : 'Entri Produk Baru'}</h4>
                                 <p className="text-[10px] text-cream-gold/40 font-bold uppercase tracking-widest mt-1">Lengkapi spesifikasi formal produk</p>
                             </div>
                             <button onClick={() => setIsAddModalOpen(false)} className="w-10 h-10 rounded-full border border-gold/10 flex items-center justify-center text-gold/40 hover:text-gold hover:bg-gold/10 transition-all font-black">&times;</button>
                         </div>
-                        <form onSubmit={submit} className="p-10 space-y-8 bg-coklat-kopi/10">
+                        <form onSubmit={submit} className="p-8 space-y-6 bg-coklat-kopi/10">
                             <div className="space-y-2">
-                                <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                     <ArchiveBoxIcon className="w-3 h-3" />
                                     <span>Nama Produk</span>
                                 </label>
@@ -167,7 +167,7 @@ export default function Index({ products, categories }) {
                                     type="text"
                                     value={data.name}
                                     onChange={e => setData('name', e.target.value)}
-                                    className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
+                                    className="w-full border-gold/10 bg-hitam-pekat/50 rounded-xl text-sm font-bold p-4 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
                                     placeholder="Contoh: Montecristo No. 4"
                                     required
                                 />
@@ -176,14 +176,14 @@ export default function Index({ products, categories }) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2">
-                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                         <TagIcon className="w-3 h-3" />
                                         <span>Kategori</span>
                                     </label>
                                     <select
                                         value={data.category}
                                         onChange={e => setData('category', e.target.value)}
-                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold"
+                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-xl text-sm font-bold p-4 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold"
                                     >
                                         {categories.map((cat) => (
                                             <option key={cat.id} className="bg-hitam-pekat text-cream-gold" value={cat.name}>{cat.name}</option>
@@ -191,7 +191,7 @@ export default function Index({ products, categories }) {
                                     </select>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                         <CurrencyDollarIcon className="w-3 h-3" />
                                         <span>Harga Display</span>
                                     </label>
@@ -199,7 +199,7 @@ export default function Index({ products, categories }) {
                                         type="text"
                                         value={data.price}
                                         onChange={e => setData('price', e.target.value)}
-                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
+                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-xl text-sm font-bold p-4 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
                                         placeholder="Contoh: Rp 150rb"
                                         required
                                     />
@@ -208,7 +208,7 @@ export default function Index({ products, categories }) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2">
-                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                         <TagIcon className="w-3 h-3" />
                                         <span>Tag Highlight</span>
                                     </label>
@@ -216,16 +216,16 @@ export default function Index({ products, categories }) {
                                         type="text"
                                         value={data.tag}
                                         onChange={e => setData('tag', e.target.value)}
-                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
+                                        className="w-full border-gold/10 bg-hitam-pekat/50 rounded-xl text-sm font-bold p-4 focus:ring-gold focus:border-gold transition-all shadow-sm text-cream-gold placeholder-cream-gold/20"
                                         placeholder="Contoh: Best Seller"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                         <PhotoIcon className="w-3 h-3" />
                                         <span>Visual Produk</span>
                                     </label>
-                                    <div className="relative group p-4 border border-gold/10 rounded-2xl flex items-center justify-center bg-hitam-pekat/50 hover:bg-gold/5 transition-all cursor-pointer">
+                                    <div className="relative group p-3 border border-gold/10 rounded-xl flex items-center justify-center bg-hitam-pekat/50 hover:bg-gold/5 transition-all cursor-pointer">
                                         <input type="file" onChange={e => setData('image', e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer" />
                                         <span className="text-[10px] font-black uppercase text-gold/40 group-hover:text-gold transition-colors">Pilih File Visual</span>
                                     </div>
@@ -233,7 +233,7 @@ export default function Index({ products, categories }) {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-500 tracking-widest">
+                                <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gold/40 tracking-widest">
                                     <ArchiveBoxIcon className="w-3 h-3" />
                                     <span>Deskripsi Singkat</span>
                                 </label>
@@ -241,19 +241,19 @@ export default function Index({ products, categories }) {
                                     rows="3"
                                     value={data.description}
                                     onChange={e => setData('description', e.target.value)}
-                                    className="w-full border-gold/10 bg-hitam-pekat/50 rounded-2xl text-sm font-bold p-5 focus:ring-gold focus:border-gold transition-all shadow-sm resize-none text-cream-gold placeholder-cream-gold/20"
+                                    className="w-full border-gold/10 bg-hitam-pekat/50 rounded-xl text-sm font-bold p-4 focus:ring-gold focus:border-gold transition-all shadow-sm resize-none text-cream-gold placeholder-cream-gold/20"
                                     placeholder="Tulis deskripsi menarik..."
                                 ></textarea>
                             </div>
 
                             <div className="pt-6 flex justify-end space-x-6">
-                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-8 py-4 text-gold/40 font-black uppercase text-[10px] tracking-widest hover:text-gold transition-colors">Batal</button>
-                                <button type="submit" disabled={processing} className="px-12 py-5 bg-gold text-hitam-pekat rounded-[1.5rem] font-black uppercase text-[10px] tracking-[0.2em] shadow-2xl shadow-gold/5 hover:scale-[1.05] active:scale-95 transition-all">Terbitkan Item</button>
+                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-6 py-3 text-gold/40 font-black uppercase text-[10px] tracking-widest hover:text-gold transition-colors">Batal</button>
+                                <button type="submit" disabled={processing} className="px-10 py-4 bg-gold text-hitam-pekat rounded-xl font-black uppercase text-[10px] tracking-[0.1em] shadow-2xl shadow-gold/5 hover:scale-[1.05] active:scale-95 transition-all">Terbitkan Item</button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
-        </AuthenticatedLayout>
+        </SidebarAdmin>
     );
 }

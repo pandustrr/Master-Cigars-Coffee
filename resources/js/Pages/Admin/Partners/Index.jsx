@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import {
@@ -59,15 +59,15 @@ export default function Index({ partners }) {
     };
 
     return (
-        <AuthenticatedLayout
+        <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">Partner Management</h2>}
         >
             <Head title="Admin - Partners" />
 
-            <div className="py-12 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            <div className="py-8 bg-hitam-pekat min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                    <div className="flex justify-between items-center bg-coklat-kopi/10 p-8 rounded-[2rem] shadow-sm border border-gold/10 backdrop-blur-sm">
+                    <div className="flex justify-between items-center bg-coklat-kopi/10 p-6 rounded-2xl shadow-sm border border-gold/10 backdrop-blur-sm">
                         <div className="flex items-center space-x-4">
                             <div className="w-14 h-14 bg-gold/5 rounded-2xl flex items-center justify-center text-gold">
                                 <UserGroupIcon className="w-8 h-8" />
@@ -79,14 +79,14 @@ export default function Index({ partners }) {
                         </div>
                         <button
                             onClick={() => { reset(); setEditingPartner(null); setIsAddModalOpen(true); }}
-                            className="bg-gold text-hitam-pekat px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:bg-gold-muda transition-all shadow-xl shadow-gold/5 flex items-center space-x-2 active:scale-95"
+                            className="bg-gold text-hitam-pekat px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-[0.1em] hover:bg-gold-muda transition-all shadow-xl shadow-gold/5 flex items-center space-x-2 active:scale-95"
                         >
                             <PlusIcon className="w-4 h-4" />
                             <span>Add New Partner</span>
                         </button>
                     </div>
 
-                    <div className="bg-coklat-kopi/5 shadow-sm sm:rounded-[2.5rem] border border-gold/5 overflow-hidden backdrop-blur-sm">
+                    <div className="bg-coklat-kopi/5 shadow-sm rounded-2xl border border-gold/5 overflow-hidden backdrop-blur-sm">
                         <div className="overflow-x-auto">
                             <table className="min-w-full">
                                 <thead>
@@ -173,14 +173,14 @@ export default function Index({ partners }) {
                             </div>
                             <button onClick={() => setIsAddModalOpen(false)} className="w-10 h-10 rounded-full border border-gold/10 flex items-center justify-center text-gold/40 hover:text-gold hover:bg-gold/10 transition-all">&times;</button>
                         </div>
-                        <form onSubmit={submit} className="p-10 space-y-8 bg-coklat-kopi/10">
+                        <form onSubmit={submit} className="p-10 space-y-6 bg-coklat-kopi/10">
                             <div className="space-y-3">
-                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest">Brand / Partner Name</label>
+                                <label className="block text-[10px] font-black uppercase text-gold/40 tracking-widest">Brand / Partner Name</label>
                                 <input
                                     type="text"
                                     value={data.name}
                                     onChange={e => setData('name', e.target.value)}
-                                    className="w-full border-gray-200 rounded-2xl text-sm font-black p-5 focus:ring-indigo-600 focus:border-indigo-600 transition-all bg-gray-50/50"
+                                    className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-gold focus:border-gold transition-all bg-hitam-pekat/50 text-cream-gold placeholder-cream-gold/20 shadow-sm"
                                     required
                                     placeholder="Ex: Luxury Brews Co."
                                 />
@@ -188,42 +188,42 @@ export default function Index({ partners }) {
                             </div>
 
                             <div className="space-y-3">
-                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest">Collaboration Type</label>
+                                <label className="block text-[10px] font-black uppercase text-gold/40 tracking-widest">Collaboration Type</label>
                                 <input
                                     type="text"
                                     value={data.type}
                                     onChange={e => setData('type', e.target.value)}
                                     placeholder="Ex: Global Logistics, Lifestyle Brand"
-                                    className="w-full border-gray-200 rounded-2xl text-sm font-black p-5 focus:ring-indigo-600 focus:border-indigo-600 transition-all bg-gray-50/50"
+                                    className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-gold focus:border-gold transition-all bg-hitam-pekat/50 text-cream-gold placeholder-cream-gold/20 shadow-sm"
                                 />
                             </div>
 
                             <div className="space-y-3">
-                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest">Brief Vision (Optional)</label>
+                                <label className="block text-[10px] font-black uppercase text-gold/40 tracking-widest">Brief Vision (Optional)</label>
                                 <textarea
                                     rows="3"
                                     value={data.description}
                                     onChange={e => setData('description', e.target.value)}
-                                    className="w-full border-gray-200 rounded-2xl text-sm font-black p-5 focus:ring-indigo-600 focus:border-indigo-600 transition-all bg-gray-50/50 resize-none"
+                                    className="w-full border-gold/10 rounded-2xl text-sm font-black p-5 focus:ring-gold focus:border-gold transition-all bg-hitam-pekat/50 text-cream-gold placeholder-cream-gold/20 shadow-sm resize-none"
                                     placeholder="Describe the focus of this partnership..."
                                 ></textarea>
                             </div>
 
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase text-gold/60 tracking-widest text-center mb-4">Partner Identity (Logo)</label>
-                                <div className="relative group p-10 border-2 border-dashed border-gold/10 rounded-[2.5rem] hover:border-gold/30 hover:bg-gold/5 transition-all flex flex-col items-center justify-center">
+                                <div className="relative group p-8 border-2 border-dashed border-gold/10 rounded-2xl hover:border-gold/30 hover:bg-gold/5 transition-all flex flex-col items-center justify-center">
                                     <input type="file" onChange={e => setData('logo', e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                                    <div className="w-16 h-16 bg-hitam-pekat rounded-2xl shadow-sm flex items-center justify-center mb-3 group-hover:scale-110 transition-transform border border-gold/10">
-                                        <PhotoIcon className="w-8 h-8 text-gold-muda" />
+                                    <div className="w-14 h-14 bg-hitam-pekat rounded-xl shadow-sm flex items-center justify-center mb-3 group-hover:scale-110 transition-transform border border-gold/10">
+                                        <PhotoIcon className="w-6 h-6 text-gold-muda" />
                                     </div>
                                     <span className="text-[10px] font-black uppercase text-gold tracking-widest group-hover:underline">Upload Logo Artifact</span>
-                                    <p className="text-[9px] text-cream-gold/20 font-bold mt-2 uppercase">PNG, JPG up to 2MB</p>
+                                    <p className="text-[8px] text-cream-gold/20 font-bold mt-2 uppercase">PNG, JPG up to 2MB</p>
                                 </div>
                             </div>
 
-                            <div className="pt-8 flex justify-end items-center space-x-6">
-                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="text-gray-400 font-black uppercase text-[10px] tracking-widest hover:text-gray-900 transition-colors">Abort</button>
-                                <button type="submit" disabled={processing} className="px-12 py-5 bg-indigo-600 text-white rounded-[1.5rem] font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl shadow-indigo-100 hover:scale-[1.05] active:scale-95 transition-all">
+                            <div className="pt-4 flex justify-end items-center space-x-6">
+                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="text-gold/40 font-black uppercase text-[10px] tracking-widest hover:text-gold transition-colors">Abort</button>
+                                <button type="submit" disabled={processing} className="px-10 py-4 bg-gold text-hitam-pekat rounded-xl font-black uppercase text-[9px] tracking-[0.2em] shadow-xl shadow-gold/5 hover:scale-[1.05] active:scale-95 transition-all">
                                     {editingPartner ? 'Update Entity' : 'Save Entity'}
                                 </button>
                             </div>
@@ -231,6 +231,6 @@ export default function Index({ partners }) {
                     </div>
                 </div>
             )}
-        </AuthenticatedLayout>
+        </SidebarAdmin>
     );
 }

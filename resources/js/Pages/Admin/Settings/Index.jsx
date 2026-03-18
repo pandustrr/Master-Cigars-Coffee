@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, useForm } from '@inertiajs/react';
 import {
     BanknotesIcon,
@@ -43,15 +43,15 @@ export default function Index({ settings }) {
     };
 
     return (
-        <AuthenticatedLayout
+        <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase italic">System Configuration</h2>}
         >
             <Head title="Admin - Settings" />
 
-            <div className="py-12 bg-hitam-pekat min-h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            <div className="py-8 bg-hitam-pekat min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                    <div className="bg-gradient-to-r from-hitam-pekat to-coklat-kopi p-8 rounded-[2.5rem] shadow-2xl shadow-gold/5 text-gold flex justify-between items-center overflow-hidden relative border border-gold/10">
+                    <div className="bg-gradient-to-r from-hitam-pekat to-coklat-kopi p-6 rounded-2xl shadow-2xl shadow-gold/5 text-gold flex justify-between items-center overflow-hidden relative border border-gold/10">
                         <div className="relative z-10">
                             <h3 className="text-2xl font-black tracking-tighter mb-2 italic uppercase">Payment Control Center</h3>
                             <p className="text-cream-gold/60 text-xs font-bold uppercase tracking-[0.2em] opacity-80">Global payment settings and contact integration</p>
@@ -71,20 +71,20 @@ export default function Index({ settings }) {
                         {/* Left Column: Bank & WhatsApp */}
                         <div className="lg:col-span-2 space-y-10">
                             {/* Banking Section */}
-                            <div className="bg-coklat-kopi/5 shadow-sm sm:rounded-[3rem] border border-gold/5 overflow-hidden backdrop-blur-sm">
-                                <div className="p-10">
+                            <div className="bg-coklat-kopi/5 shadow-sm rounded-2xl border border-gold/5 overflow-hidden backdrop-blur-sm">
+                                <div className="p-8">
                                     <div className="flex items-center space-x-5 mb-10 pb-6 border-b border-gold/5">
                                         <div className="w-16 h-16 bg-gold/5 rounded-2xl flex items-center justify-center text-gold">
                                             <BanknotesIcon className="w-8 h-8" />
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-black text-gold tracking-tight italic uppercase">Banking Infrastructure</h3>
-                                            <p className="text-xs text-cream-gold/20 font-black uppercase tracking-widest mt-1">Direct transfer account management</p>
+                                            <p className="text-[10px] text-cream-gold/20 font-black uppercase tracking-widest mt-1">Direct transfer account management</p>
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 gap-10">
-                                        <div className="p-8 bg-hitam-pekat/50 rounded-[2rem] border border-gold/10 space-y-6 group hover:border-gold/30 hover:bg-hitam-pekat transition-all duration-300 shadow-sm hover:shadow-xl">
+                                    <div className="grid grid-cols-1 gap-6">
+                                        <div className="p-6 bg-hitam-pekat/50 rounded-2xl border border-gold/10 space-y-4 group hover:border-gold/30 hover:bg-hitam-pekat transition-all duration-300 shadow-sm hover:shadow-xl">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-xs font-black uppercase tracking-[0.3em] text-gold bg-gold/5 px-4 py-2 rounded-xl">Bank Mandiri Official</span>
                                                 <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
@@ -113,7 +113,7 @@ export default function Index({ settings }) {
                                             </div>
                                         </div>
 
-                                        <div className="p-8 bg-hitam-pekat/50 rounded-[2rem] border border-gold/10 space-y-6 group hover:border-gold/30 hover:bg-hitam-pekat transition-all duration-300 shadow-sm hover:shadow-xl">
+                                        <div className="p-6 bg-hitam-pekat/50 rounded-2xl border border-gold/10 space-y-4 group hover:border-gold/30 hover:bg-hitam-pekat transition-all duration-300 shadow-sm hover:shadow-xl">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-xs font-black uppercase tracking-[0.3em] text-gold bg-gold/5 px-4 py-2 rounded-xl">Bank BCA Official</span>
                                                 <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
@@ -146,8 +146,8 @@ export default function Index({ settings }) {
                             </div>
 
                             {/* WhatsApp Section */}
-                            <div className="bg-white shadow-sm sm:rounded-[3rem] border border-gray-200 overflow-hidden">
-                                <div className="p-10">
+                            <div className="bg-coklat-kopi/10 shadow-sm rounded-2xl border border-gold/10 overflow-hidden">
+                                <div className="p-8">
                                     <div className="flex items-center space-x-5 mb-10 pb-6 border-b border-gold/5">
                                         <div className="w-16 h-16 bg-gold/5 rounded-2xl flex items-center justify-center text-gold">
                                             <ChatBubbleLeftRightIcon className="w-8 h-8" />
@@ -158,7 +158,7 @@ export default function Index({ settings }) {
                                         </div>
                                     </div>
 
-                                    <div className="bg-gold/5 p-8 rounded-[2rem] border border-gold/10">
+                                    <div className="bg-gold/5 p-6 rounded-2xl border border-gold/10">
                                         <div className="max-w-md space-y-4">
                                             <label className="block text-[10px] font-black uppercase text-gold/60 tracking-widest">Primary WhatsApp Number</label>
                                             <div className="flex relative items-center">
@@ -182,8 +182,8 @@ export default function Index({ settings }) {
                         </div>
 
                         {/* Right Column: QRIS */}
-                        <div className="space-y-10">
-                            <div className="bg-coklat-kopi/5 shadow-sm sm:rounded-[3rem] border border-gold/5 p-10 text-center sticky top-8 backdrop-blur-sm">
+                        <div className="space-y-6">
+                            <div className="bg-coklat-kopi/5 shadow-sm rounded-2xl border border-gold/5 p-8 text-center sticky top-8 backdrop-blur-sm">
                                 <div className="flex flex-col items-center">
                                     <div className="w-20 h-20 bg-gold/5 rounded-[2rem] flex items-center justify-center text-gold mb-6 shadow-inner border border-gold/10">
                                         <QrCodeIcon className="w-10 h-10" />
@@ -199,7 +199,7 @@ export default function Index({ settings }) {
                                             accept="image/*"
                                         />
                                         <div className={`
-                                            border-4 border-dashed rounded-[3rem] p-6 flex flex-col items-center justify-center transition-all duration-500 min-h-[350px]
+                                            border-2 border-dashed rounded-2xl p-4 flex flex-col items-center justify-center transition-all duration-500 min-h-[300px]
                                             ${qrisPreview ? 'border-gold/20 bg-hitam-pekat/50 shadow-2xl shadow-gold/5 active:scale-95' : 'border-gold/5 bg-hitam-pekat/20 translate-y-0'}
                                         `}>
                                             {qrisPreview ? (
@@ -226,7 +226,7 @@ export default function Index({ settings }) {
                                         type="submit"
                                         disabled={processing}
                                         className={`
-                                            w-full py-6 rounded-[2rem] font-black uppercase tracking-[0.4em] text-xs shadow-2xl transition-all duration-500 flex items-center justify-center space-x-3 active:scale-90
+                                            w-full py-4 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all duration-500 flex items-center justify-center space-x-3 active:scale-90
                                             ${processing ? 'bg-gold/20 text-gold/40 cursor-not-allowed shadow-none' : 'bg-gold text-hitam-pekat hover:bg-gold-muda hover:-translate-y-1 shadow-gold/5'}
                                         `}
                                     >
@@ -246,6 +246,6 @@ export default function Index({ settings }) {
                     </form>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </SidebarAdmin>
     );
 }
