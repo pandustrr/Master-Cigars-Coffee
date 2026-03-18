@@ -28,7 +28,7 @@ export default function Home() {
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-                    <div className="inline-block px-4 py-1 border border-gold/50 rounded-full mb-6">
+                    <div className="inline-block px-4 py-1 border border-gold/50 rounded-full mb-6 bg-gold/5">
                         <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold">Sanctuari Para Aficionado</span>
                     </div>
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold text-cream-gold mb-6 leading-tight uppercase tracking-tighter">
@@ -40,7 +40,7 @@ export default function Home() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         <Link
                             href={route('product')}
-                            className="group flex items-center justify-center space-x-3 px-10 py-4 bg-gold text-hitam-pekat font-black uppercase tracking-[0.2em] text-sm hover:bg-gold-muda transition-all duration-500 hover:scale-105"
+                            className="group flex items-center justify-center space-x-3 px-10 py-4 bg-gold text-hitam-pekat font-black uppercase tracking-[0.2em] text-sm hover:scale-105 transition-all duration-500 shadow-2xl shadow-gold/20"
                         >
                             <span>Jelajahi Koleksi</span>
                             <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
@@ -83,23 +83,23 @@ export default function Home() {
             </section>
 
             {/* Quote Section */}
-            <section className="py-32 relative overflow-hidden">
-                <div className="absolute inset-0 z-0">
+            <section className="py-32 relative overflow-hidden bg-coklat-kopi/30">
+                <div className="absolute inset-0 z-0 opacity-20 grayscale">
                     {settings.home_quote_bg ? (
-                        <img src={`/storage/${settings.home_quote_bg}`} className="w-full h-full object-cover brightness-[0.3]" alt="" />
+                        <img src={`/storage/${settings.home_quote_bg}`} className="w-full h-full object-cover" alt="" />
                     ) : (
-                        <div className="w-full h-full bg-coklat-tua"></div>
+                        <div className="w-full h-full bg-gold/10"></div>
                     )}
                 </div>
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold rounded-full border-dashed"></div>
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold rounded-full border-dashed animate-pulse-slow"></div>
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
                     <span className="text-4xl text-gold-muda font-serif block mb-8">"</span>
-                    <h2 className="text-3xl md:text-5xl text-cream-gold font-medium italic leading-tight mb-8">
+                    <h2 className="text-3xl md:text-5xl text-cream-gold font-black italic leading-tight mb-8 drop-shadow-sm">
                         Cerutu adalah sebuah ritual sekaligus relaksasi. Ini adalah momen waktu di mana tidak ada hal lain yang penting.
                     </h2>
-                    <p className="text-gold uppercase tracking-[0.4em] font-bold text-xs">— Sang Master Peracik</p>
+                    <p className="text-gold uppercase tracking-[0.4em] font-black text-[10px]">— Sang Master Peracik</p>
                 </div>
             </section>
         </MainLayout>
