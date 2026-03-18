@@ -1,15 +1,18 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head } from '@inertiajs/react';
-import { 
-    CurrencyDollarIcon, 
-    ArrowTrendingUpIcon, 
-    LinkIcon, 
+import { Head, usePage } from '@inertiajs/react';
+import {
+    CurrencyDollarIcon,
+    ArrowTrendingUpIcon,
+    LinkIcon,
     BuildingOffice2Icon,
     DocumentTextIcon,
     PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
 
 export default function Investment() {
+    const { settings } = usePage().props;
+    const heroImage = settings.hero_investment ? `/storage/${settings.hero_investment}` : '/images/hero.png';
+
     return (
         <MainLayout>
             <Head title="Peluang Investasi - Master Cerutu & Kopi" />
@@ -17,9 +20,9 @@ export default function Investment() {
             {/* Hero Section */}
             <section className="relative h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/images/hero.png" 
-                        alt="Investasi Kualitas" 
+                    <img
+                        src={heroImage}
+                        alt="Investasi Kualitas"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
@@ -63,19 +66,26 @@ export default function Investment() {
             </section>
 
             {/* ROI / Stats Section */}
-            <section className="py-24 bg-coklat-tua relative">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                     {[
+            <section className="py-24 relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    {settings.investment_context_bg ? (
+                        <img src={`/storage/${settings.investment_context_bg}`} className="w-full h-full object-cover brightness-[0.2]" alt="" />
+                    ) : (
+                        <div className="w-full h-full bg-coklat-tua"></div>
+                    )}
+                </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+                    {[
                         { label: 'Pertumbuhan Pendapatan', val: '24%' },
                         { label: 'Anggota Aktif', val: '12rb+' },
                         { label: 'Negara', val: '15+' },
                         { label: 'Master Lounge', val: '28' }
-                     ].map((stat, i) => (
+                    ].map((stat, i) => (
                         <div key={i}>
                             <h4 className="text-4xl md:text-6xl font-black text-gold mb-2 tracking-tighter">{stat.val}</h4>
                             <p className="text-cream-gold/40 text-[10px] uppercase font-bold tracking-[0.3em]">{stat.label}</p>
                         </div>
-                     ))}
+                    ))}
                 </div>
             </section>
 

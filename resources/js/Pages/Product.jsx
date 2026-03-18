@@ -1,5 +1,5 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import {
     ShoppingBagIcon,
     PlusIcon,
@@ -8,6 +8,9 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function Product({ products }) {
+    const { settings } = usePage().props;
+    const heroImage = settings.hero_products ? `/storage/${settings.hero_products}` : '/images/hero.png';
+
     return (
         <MainLayout>
             <Head title="Koleksi Kami - Master Cerutu & Kopi" />
@@ -16,7 +19,7 @@ export default function Product({ products }) {
             <section className="relative h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/images/hero.png"
+                        src={heroImage}
                         alt="Koleksi Kami"
                         className="w-full h-full object-cover brightness-[0.4] grayscale-[0.2]"
                     />
