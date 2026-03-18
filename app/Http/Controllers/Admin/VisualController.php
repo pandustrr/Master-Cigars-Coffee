@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SiteSetting;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 
-class SettingController extends Controller
+class VisualController extends Controller
 {
     public function index()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Admin/Settings/Index', [
+        return Inertia::render('Admin/Visual/Index', [
             'settings' => $settings
         ]);
     }
@@ -20,9 +21,10 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-
-        $imageKeys = ['qris_image', 'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products'];
-        $textKeys = ['bank_mandiri_norek', 'bank_mandiri_name', 'bank_bca_norek', 'bank_bca_name', 'whatsapp_admin'];
+        $imageKeys = [
+            'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products',
+            'site_logo', 'site_favicon', 'about_story_image', 'home_quote_bg', 'investment_context_bg'
+        ];
 
         foreach ($data as $key => $value) {
             // Handle image uploads
@@ -35,15 +37,9 @@ class SettingController extends Controller
                 
                 $path = $request->file($key)->store('settings', 'public');
                 SiteSetting::setValue($key, $path);
-                continue;
-            }
-
-            // Handle text settings
-            if (in_array($key, $textKeys)) {
-                SiteSetting::setValue($key, $value);
             }
         }
 
-        return redirect()->back()->with('success', 'Pengaturan berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Visual assets updated successfully!');
     }
 }

@@ -1,14 +1,17 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Link, Head } from '@inertiajs/react';
-import { 
-    SparklesIcon, 
-    FireIcon, 
-    BeakerIcon, 
+import { Link, Head, usePage } from '@inertiajs/react';
+import {
+    SparklesIcon,
+    FireIcon,
+    BeakerIcon,
     AcademicCapIcon,
     ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
 export default function Home() {
+    const { settings } = usePage().props;
+    const heroImage = settings.hero_home ? `/storage/${settings.hero_home}` : '/images/hero.png';
+
     return (
         <MainLayout>
             <Head title="Cerutu Premium & Kopi Artisan" />
@@ -16,9 +19,9 @@ export default function Home() {
             {/* Hero Section */}
             <section className="relative h-[90vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/images/hero.png" 
-                        alt="Luxury Lounge" 
+                    <img
+                        src={heroImage}
+                        alt="Luxury Lounge"
                         className="w-full h-full object-cover brightness-50"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
@@ -35,14 +38,14 @@ export default function Home() {
                         Manjakan diri dalam dunia cerutu lintingan tangan yang eksklusif, dipadukan dengan racikan kopi artisan khas kami. Didesain untuk mereka yang menghargai kualitas terbaik dalam hidup.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <Link 
+                        <Link
                             href={route('product')}
                             className="group flex items-center justify-center space-x-3 px-10 py-4 bg-gold text-hitam-pekat font-black uppercase tracking-[0.2em] text-sm hover:bg-gold-muda transition-all duration-500 hover:scale-105"
                         >
                             <span>Jelajahi Koleksi</span>
                             <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
                         </Link>
-                        <Link 
+                        <Link
                             href={route('about')}
                             className="px-10 py-4 border border-gold-tua text-gold-muda font-bold uppercase tracking-widest text-sm hover:bg-gold-tua/10 transition-all duration-300"
                         >
@@ -50,10 +53,10 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                
+
                 {/* Decorative Element */}
                 <div className="absolute right-0 bottom-0 w-1/3 opacity-20 pointer-events-none hidden lg:block">
-                     <div className="aspect-square rounded-full border border-gold border-dashed animate-spin-slow"></div>
+                    <div className="aspect-square rounded-full border border-gold border-dashed animate-spin-slow"></div>
                 </div>
             </section>
 
@@ -80,7 +83,14 @@ export default function Home() {
             </section>
 
             {/* Quote Section */}
-            <section className="py-32 bg-coklat-tua relative overflow-hidden">
+            <section className="py-32 relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    {settings.home_quote_bg ? (
+                        <img src={`/storage/${settings.home_quote_bg}`} className="w-full h-full object-cover brightness-[0.3]" alt="" />
+                    ) : (
+                        <div className="w-full h-full bg-coklat-tua"></div>
+                    )}
+                </div>
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold rounded-full border-dashed"></div>
                 </div>
