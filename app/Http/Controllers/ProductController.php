@@ -12,6 +12,7 @@ class ProductController extends Controller
         return Inertia::render('Product', [
             'products' => \App\Models\Product::latest()->get(),
             'mainProducts' => \App\Models\MainProduct::latest()->get(),
+            'categories' => \App\Models\Category::all(),
         ]);
     }
 }

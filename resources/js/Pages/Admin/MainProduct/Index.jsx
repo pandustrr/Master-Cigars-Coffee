@@ -165,8 +165,8 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Category Management Modal */}
             {isCategoryModalOpen && (
-                <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-hitam-pekat/80 backdrop-blur-md animate-fade-in">
-                    <div className="bg-hitam-pekat rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gold/20 shadow-gold/5">
+                <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-hitam-pekat/90 animate-fade-in">
+                    <div className="bg-hitam-pekat rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(146,110,32,0.1)] w-full max-w-2xl overflow-hidden border border-gold/20">
                         <div className="px-8 py-6 border-b border-gold/10 flex justify-between items-center bg-gold/5">
                             <div>
                                 <h4 className="font-black uppercase tracking-[0.2em] text-gold text-sm italic">Kelola Kategori</h4>
@@ -213,8 +213,8 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Product Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-hitam-pekat/80 backdrop-blur-md animate-fade-in">
-                    <div className="bg-hitam-pekat rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gold/20 shadow-gold/5">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-hitam-pekat/90 animate-fade-in">
+                    <div className="bg-hitam-pekat rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(146,110,32,0.1)] w-full max-w-2xl overflow-hidden border border-gold/20">
                         <div className="px-8 py-6 border-b border-gold/10 flex justify-between items-center bg-gold/5">
                             <div>
                                 <h4 className="font-black uppercase tracking-[0.2em] text-gold text-sm italic">{editingProduct ? 'Perbarui Brand' : 'Entri Brand Baru'}</h4>
