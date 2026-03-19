@@ -72,8 +72,8 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
         { id: 'point', name: 'Pesanan Point Corner', icon: CheckCircleIcon, count: pointCornerOrders.length },
     ];
 
-    const filteredCatalogItems = catalogFilter === 'Semua' 
-        ? saleItems 
+    const filteredCatalogItems = catalogFilter === 'Semua'
+        ? saleItems
         : saleItems.filter(item => item.category === catalogFilter);
 
     return (
