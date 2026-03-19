@@ -15,6 +15,7 @@ export default function Index({ mainProducts, categories }) {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({ name: '' });
 
@@ -45,6 +46,7 @@ export default function Index({ mainProducts, categories }) {
 
     const handleEdit = (product) => {
         setEditingProduct(product);
+        setImagePreview(product.image ? `/storage/${product.image}` : null);
         setData({ name: product.name, category: product.category || (categories.length > 0 ? categories[0].name : ''), description: product.description || '', image: null });
         setIsAddModalOpen(true);
     };
@@ -141,9 +143,9 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Category Modal */}
             {isCategoryModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsCategoryModalOpen(false)}></div>
-                    <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
+                    <div className="absolute inset-0" onClick={() => setIsCategoryModalOpen(false)}></div>
+                    <div className="relative bg-white rounded-3xl shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] w-full max-w-md overflow-hidden border border-gray-100">
                         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                             <div>
                                 <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">Kelola Kategori</h4>
@@ -178,9 +180,9 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Product Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsAddModalOpen(false)}></div>
-                    <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
+                    <div className="absolute inset-0" onClick={() => setIsAddModalOpen(false)}></div>
+                    <div className="relative bg-white rounded-3xl shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] w-full max-w-md overflow-hidden border border-gray-100">
                         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                             <div>
                                 <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">{editingProduct ? 'Edit Produk' : 'Tambah Produk'}</h4>
@@ -211,13 +213,33 @@ export default function Index({ mainProducts, categories }) {
                             </div>
                             <div className="space-y-1.5">
                                 <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
-                                    <PhotoIcon className="w-3 h-3" /><span>Gambar (Opsional)</span>
+                                    <PhotoIcon className="w-3 h-3" /><span>Gambar Produk</span>
                                 </label>
-                                <div className="relative group/asset p-4 border border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center hover:border-gold/50 bg-gray-50 transition-all cursor-pointer">
-                                    <input type="file" onChange={e => setData('image', e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
+                                
+                                {imagePreview && (
+                                    <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-sm mb-3 group">
+                                        <img src={imagePreview} className="w-full h-full object-cover" alt="Preview" />
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <span className="text-white text-[8px] font-black uppercase tracking-widest">Ganti Gambar</span>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="relative group/asset p-5 border border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center hover:border-gold/50 bg-gray-50 transition-all cursor-pointer">
+                                    <input type="file" 
+                                        onChange={e => {
+                                            const file = e.target.files[0];
+                                            setData('image', file);
+                                            if (file) setImagePreview(URL.createObjectURL(file));
+                                        }} 
+                                        className="absolute inset-0 opacity-0 cursor-pointer z-10" 
+                                    />
                                     <CloudArrowUpIcon className="w-6 h-6 text-gray-300 mb-1 group-hover/asset:text-gold transition-colors" />
-                                    <span className="text-[9px] font-black uppercase text-gray-400 group-hover/asset:text-gold transition-colors">Pilih Gambar</span>
+                                    <span className="text-[9px] font-black uppercase text-gray-400 group-hover/asset:text-gold transition-colors">
+                                        {imagePreview ? 'Pilih Gambar Baru' : 'Unggah Gambar Produk'}
+                                    </span>
                                 </div>
+                                <p className="text-[8px] text-gray-400 italic">Rasio disarankan 16:9 untuk hasil terbaik di website.</p>
                             </div>
                             <div className="space-y-1.5">
                                 <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest">
