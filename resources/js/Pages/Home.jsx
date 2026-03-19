@@ -22,10 +22,14 @@ export default function Home() {
                     <img
                         src={heroImage}
                         alt="Luxury Lounge"
-                        className="w-full h-full object-cover brightness-[0.35] scale-105 animate-slow-zoom"
+                        className="w-full h-full object-cover brightness-[0.3] scale-105 animate-slow-zoom"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/20 to-transparent"></div>
-                    <div className="absolute inset-0 bg-linear-to-r from-hitam-pekat/60 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/30 to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-hitam-pekat/80 via-transparent to-transparent"></div>
+
+                    {/* Floating Decorative Elements */}
+                    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gold/10 blur-[100px] rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-coklat-kopi/10 blur-[130px] rounded-full animate-float"></div>
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -43,18 +47,20 @@ export default function Home() {
                         <div className="flex flex-col sm:flex-row gap-6 pt-6">
                             <Link
                                 href={route('product')}
-                                className="group relative px-12 py-5 bg-gold text-hitam-pekat font-black uppercase tracking-[0.4em] text-[10px] transition-all duration-500 overflow-hidden shadow-2xl shadow-gold/20 active:scale-95"
+                                className="group relative px-14 py-6 bg-gold text-hitam-pekat font-black uppercase tracking-[0.4em] text-[10px] transition-all duration-700 overflow-hidden shadow-[0_0_40px_rgba(212,175,55,0.2)] active:scale-95 hover:shadow-[0_0_60px_rgba(212,175,55,0.4)]"
                             >
+                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700"></div>
                                 <span className="relative z-10 flex items-center space-x-4">
                                     <span>Jelajahi Koleksi</span>
-                                    <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
+                                    <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-700" />
                                 </span>
                             </Link>
                             <Link
                                 href={route('about')}
-                                className="px-12 py-5 border border-white/10 text-white/60 font-black uppercase tracking-[0.4em] text-[10px] hover:bg-white/5 hover:text-white transition-all duration-500 backdrop-blur-sm shadow-xl"
+                                className="group px-14 py-6 border border-white/10 text-white/70 font-black uppercase tracking-[0.4em] text-[10px] hover:bg-white/5 hover:text-white transition-all duration-700 backdrop-blur-md shadow-2xl relative overflow-hidden"
                             >
-                                Kisah Kami
+                                <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                <span className="relative z-10">Kisah Kami</span>
                             </Link>
                         </div>
                     </div>
@@ -76,20 +82,23 @@ export default function Home() {
                             { title: 'Sangrai Artisan', desc: 'Biji kopi kami berasal dari perkebunan dataran tinggi dan disangrai untuk memunculkan cita rasa kompleks.', icon: BeakerIcon },
                             { title: 'Lounge Eksklusif', desc: 'Lingkungan khusus anggota yang didedikasikan untuk privasi dan kenyamanan murni.', icon: SparklesIcon }
                         ].map((feature, idx) => (
-                            <div key={idx} className="group p-12 lg:p-16 bg-hitam-pekat hover:bg-gold/[0.04] border-gold/0 hover:border-gold/50 transition-all duration-700 relative overflow-hidden">
+                            <div key={idx} className="group p-14 lg:p-20 bg-hitam-pekat hover:bg-gold/[0.03] border-gold/0 hover:border-gold/30 transition-all duration-1000 relative overflow-hidden">
                                 {/* Subtle Hover Accent */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gold/[0.03] blur-3xl -mr-16 -mt-16 group-hover:bg-gold/[0.07] transition-all"></div>
-                                
-                                <div className="p-4 bg-gold/5 border border-gold/10 rounded-2xl w-fit mb-10 group-hover:scale-110 transition-transform duration-700 shadow-xl">
-                                    <feature.icon className="w-8 h-8 text-gold/60 group-hover:text-gold transition-colors stroke-1" />
+                                <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] blur-[100px] -mr-24 -mt-24 group-hover:bg-gold/[0.05] transition-all duration-1000"></div>
+
+                                <div className="p-5 bg-gold/5 border border-gold/10 rounded-2xl w-fit mb-12 group-hover:scale-125 group-hover:rotate-6 transition-all duration-1000 shadow-[0_0_30px_rgba(212,175,55,0.05)]">
+                                    <feature.icon className="w-10 h-10 text-gold/40 group-hover:text-gold transition-colors stroke-[1px]" />
                                 </div>
-                                <h3 className="text-gold/80 group-hover:text-gold font-black text-2xl mb-6 uppercase tracking-tighter italic transition-colors">{feature.title}</h3>
-                                <p className="text-white/30 group-hover:text-white/50 leading-relaxed text-xs font-medium uppercase tracking-widest italic transition-all duration-700">{feature.desc}</p>
+                                <h3 className="text-gold/70 group-hover:text-gold font-black text-3xl mb-8 uppercase tracking-tighter italic transition-all duration-700">{feature.title}</h3>
+                                <p className="text-white/20 group-hover:text-white/40 leading-relaxed text-[11px] font-medium uppercase tracking-[0.2em] italic transition-all duration-1000">{feature.desc}</p>
+
+                                {/* Bottom Accent Line */}
+                                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gold transition-all duration-1000 group-hover:w-full"></div>
                             </div>
                         ))}
                     </div>
                 </div>
-                
+
                 {/* Background Decor */}
                 <div className="absolute top-1/2 left-0 w-96 h-96 bg-gold/5 blur-[120px] rounded-full -translate-x-1/2"></div>
             </section>
@@ -105,7 +114,7 @@ export default function Home() {
                     )}
                     <div className="absolute inset-0 bg-linear-to-b from-hitam-pekat via-transparent to-hitam-pekat"></div>
                 </div>
-                
+
                 <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-12">
                     <div className="flex justify-center">
                         <div className="w-16 h-px bg-gold/50"></div>
@@ -114,17 +123,17 @@ export default function Home() {
                         </div>
                         <div className="w-16 h-px bg-gold/50"></div>
                     </div>
-                    
+
                     <h2 className="text-2xl md:text-4xl text-cream-gold font-black italic leading-[1.4] tracking-tight">
                         "Cerutu adalah sebuah ritual sekaligus relaksasi. Ini adalah momen waktu di mana tidak ada hal lain yang penting."
                     </h2>
-                    
+
                     <div className="space-y-4">
                         <div className="w-20 h-px bg-gold mx-auto opacity-30"></div>
                         <p className="text-gold uppercase tracking-[0.6em] font-black text-[10px] italic">Master Cigars & Coffee</p>
                     </div>
                 </div>
             </section>
-        </MainLayout>
+        </MainLayout >
     );
 }

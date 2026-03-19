@@ -5,11 +5,24 @@ import {
     HandRaisedIcon,
     GlobeAsiaAustraliaIcon,
     BriefcaseIcon,
-    ChatBubbleLeftEllipsisIcon
+    ChatBubbleLeftEllipsisIcon,
+    HandThumbUpIcon,
+    AcademicCapIcon,
+    BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
+import { useState, useMemo } from 'react';
 
 export default function Partners({ partners }) {
     const { settings } = usePage().props;
+    const [activeCategory, setActiveCategory] = useState('Semua');
+
+    const categories = ['Semua', 'Petani', 'Marketing Agency', 'Tour Travel', 'Horeka', 'UMKM'];
+
+    const filteredPartners = useMemo(() => {
+        if (activeCategory === 'Semua') return partners;
+        return partners.filter(p => p.category === activeCategory);
+    }, [partners, activeCategory]);
+
     const heroImage = settings.hero_partners ? `/storage/${settings.hero_partners}` : '/images/hero.png';
 
     return (
@@ -27,52 +40,83 @@ export default function Partners({ partners }) {
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
-                    <div className="inline-block px-4 py-1 border border-gold/30 rounded-full mb-6 backdrop-blur-sm">
-                        <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold">Synergy</span>
+                    <div className="inline-block px-4 py-1 border border-gold/30 rounded-full mb-6 backdrop-blur-md bg-gold/5 animate-pulse">
+                        <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black">Synergy & Growth</span>
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter mb-4">Ekosistem</h1>
-                    <p className="text-cream-gold/60 uppercase tracking-[0.3em] text-xs">Berkolaborasi dengan yang Terbaik</p>
+                    <h1 className="text-5xl md:text-8xl font-black text-white uppercase tracking-tighter mb-4 italic">
+                        Partner <span className="text-gold">&</span> Kolaborasi
+                    </h1>
+                    <p className="text-cream-gold/60 uppercase tracking-[0.5em] text-[10px] font-bold">Membangun Ekosistem Bersama Master Heritage</p>
                 </div>
             </section>
 
-            {/* Partnerships Section */}
-            <section className="py-24">
+            {/* Category Filter Section */}
+            <section className="sticky top-20 z-40 bg-hitam-pekat/80 backdrop-blur-2xl border-y border-gold/10 py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                        <div>
-                            <h2 className="text-3xl font-bold text-gold-muda mb-8 uppercase tracking-widest">Jaringan Global</h2>
-                            <p className="text-cream-gold/70 leading-relaxed text-lg font-light mb-8">
-                                Di Master Cigars & Coffee, kami percaya bahwa kesempurnaan diperkuat melalui kolaborasi. Kami bermitra dengan perkebunan terkemuka dunia, pengrajin legendaris, dan merek mewah untuk menghadirkan pengalaman eksklusif bagi komunitas kami.
-                            </p>
-                            <div className="space-y-6">
-                                {partners.length > 0 ? (
-                                    partners.map((item, idx) => (
-                                        <div key={idx} className="group flex gap-6 p-8 border border-gold-tua/10 bg-hitam-pekat/40 hover:border-gold/30 transition-all duration-500">
-                                            <div className="p-3 bg-gold/5 rounded-full h-fit group-hover:scale-110 transition-transform">
-                                                <UserGroupIcon className="w-6 h-6 text-gold stroke-1" />
+                    <div className="flex flex-wrap justify-center gap-3">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 border ${activeCategory === cat
+                                        ? 'bg-gold text-hitam-pekat border-gold shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105'
+                                        : 'bg-transparent text-gold/50 border-gold/20 hover:border-gold hover:text-gold'
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-24 bg-linear-to-b from-hitam-pekat to-coklat-kopi/10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filteredPartners.length > 0 ? (
+                            filteredPartners.map((item, idx) => (
+                                <div key={idx} className="group relative bg-hitam-pekat/40 border border-gold/10 p-8 hover:border-gold/40 transition-all duration-700 overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-[80px] -mr-16 -mt-16 group-hover:bg-gold/10 transition-all duration-700"></div>
+
+                                    <div className="relative z-10 space-y-6">
+                                        <div className="flex justify-between items-start">
+                                            <div className="w-20 h-20 bg-gold/5 border border-gold/10 rounded-2xl p-3 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-700">
+                                                {item.logo ? (
+                                                    <img src={`/storage/${item.logo}`} className="w-full h-full object-contain" alt={item.name} />
+                                                ) : (
+                                                    <BuildingOfficeIcon className="w-8 h-8 text-gold/30" />
+                                                )}
                                             </div>
-                                            <div>
-                                                <h4 className="text-gold font-bold uppercase tracking-wider mb-2">{item.name}</h4>
-                                                <p className="text-cream-gold/50 text-sm leading-relaxed">{item.description}</p>
-                                            </div>
+                                            <span className="text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 bg-gold/10 text-gold border border-gold/20 rounded-full">
+                                                {item.category}
+                                            </span>
                                         </div>
-                                    ))
-                                ) : (
-                                    <div className="text-cream-gold/30 italic text-sm">Belum ada mitra yang ditambahkan.</div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            {partners.map((partner) => (
-                                <div key={partner.id} className="aspect-video bg-coklat-kopi/20 border border-gold-tua/5 flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 hover:border-gold transition-all duration-500">
-                                    {partner.logo ? (
-                                        <img src={`/storage/${partner.logo}`} className="w-full h-full object-contain p-4" alt={partner.name} />
-                                    ) : (
-                                        <span className="text-gold opacity-50 font-black text-xs tracking-tighter italic uppercase">{partner.name}</span>
-                                    )}
+
+                                        <div>
+                                            <h4 className="text-xl font-black text-gold uppercase tracking-tight mb-3 italic group-hover:text-gold-muda transition-colors">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-cream-gold/40 text-[11px] leading-relaxed font-sans uppercase tracking-[0.1em] italic group-hover:text-cream-gold/60 transition-all duration-700">
+                                                {item.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="pt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                            <div className="w-8 h-0.5 bg-gold/50"></div>
+                                            <span className="text-[8px] font-black text-gold uppercase tracking-widest">Global Partner</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
+                            ))
+                        ) : (
+                            <div className="col-span-full py-20 text-center">
+                                <div className="inline-block p-6 rounded-full bg-gold/5 mb-6">
+                                    <HandRaisedIcon className="w-12 h-12 text-gold/20" />
+                                </div>
+                                <h3 className="text-gold font-black uppercase tracking-widest">Belum Ada Partner</h3>
+                                <p className="text-cream-gold/30 text-xs mt-2">Kategori ini belum memiliki mitra kolaborasi.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

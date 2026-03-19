@@ -16,13 +16,13 @@ class AdminPartnerController extends Controller
             'partners' => Partner::latest()->get()
         ]);
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'logo' => 'nullable|image|max:2048',
             'type' => 'required|string',
+            'category' => 'required|string',
             'description' => 'nullable|string',
         ]);
 
@@ -43,6 +43,7 @@ class AdminPartnerController extends Controller
             'name' => 'required|string|max:255',
             'logo' => 'nullable|image|max:2048',
             'type' => 'required|string',
+            'category' => 'required|string',
             'description' => 'nullable|string',
         ]);
 

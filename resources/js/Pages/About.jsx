@@ -30,11 +30,11 @@ export default function About() {
                     <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-hitam-pekat/40 to-transparent"></div>
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
-                    <div className="inline-block px-4 py-1 border border-gold/30 rounded-full mb-6 backdrop-blur-sm">
-                        <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold">The Heritage</span>
+                    <div className="inline-block px-5 py-1.5 border border-gold/40 rounded-full mb-8 backdrop-blur-xl bg-gold/5 animate-pulse">
+                        <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">The Legacy</span>
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter mb-4 italic">Warisan Kami</h1>
-                    <p className="text-cream-gold/60 uppercase tracking-[0.3em] text-xs max-w-md mx-auto">Tradisi Kesempurnaan Sejak 1998</p>
+                    <h1 className="text-5xl md:text-9xl font-black text-white uppercase tracking-tighter mb-6 italic">Warisan <span className="text-gold/80 italic">Kami</span></h1>
+                    <p className="text-cream-gold/50 uppercase tracking-[0.5em] text-[10px] max-w-md mx-auto font-bold">Tradisi Kesempurnaan Sejak 1998</p>
                 </div>
             </section>
 
@@ -55,8 +55,8 @@ export default function About() {
                                     </>
                                 )}
                             </div>
-                            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gold flex items-center justify-center p-6 hidden md:flex ring-8 ring-hitam-pekat shadow-2xl">
-                                <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">Berdiri Sejak <br/> <span className="text-2xl">1998</span></p>
+                            <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-gold flex flex-col items-center justify-center p-8 hidden md:flex ring-[12px] ring-hitam-pekat shadow-[0_20px_50px_rgba(212,175,55,0.3)] rotate-3 hover:rotate-0 transition-transform duration-700">
+                                <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">Berdiri Sejak <br /> <span className="text-4xl block mt-1">1998</span></p>
                             </div>
                         </div>
                         <div className="space-y-10">
@@ -74,11 +74,11 @@ export default function About() {
                                 <div className="pt-6 border-t border-gold-tua/10 grid grid-cols-2 gap-8">
                                     <div className="space-y-2">
                                         <GlobeAltIcon className="w-8 h-8 text-gold stroke-1 opacity-40" />
-                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Sumber Global <br/> Terpilih</p>
+                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Sumber Global <br /> Terpilih</p>
                                     </div>
                                     <div className="space-y-2">
                                         <ShieldCheckIcon className="w-8 h-8 text-gold stroke-1 opacity-40" />
-                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Standar <br/> Kualitas Tinggi</p>
+                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Standar <br /> Kualitas Tinggi</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,48 +92,48 @@ export default function About() {
                 <div className="absolute inset-0 opacity-5">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent"></div>
                 </div>
-                
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gold/10 border border-gold/10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gold/20 border border-gold/20 shadow-2xl overflow-hidden">
                         {/* Vision Card */}
-                        <div className="bg-hitam-pekat p-12 lg:p-20 group relative overflow-hidden transition-all duration-700 hover:bg-coklat-kopi/10">
-                            <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:scale-150 transition-transform duration-1000">
-                                <EyeIcon className="w-48 h-48 text-gold" />
+                        <div className="bg-hitam-pekat p-14 lg:p-24 group relative overflow-hidden transition-all duration-1000 hover:bg-gold/[0.03]">
+                            <div className="absolute top-0 right-0 p-12 opacity-[0.02] group-hover:opacity-[0.05] group-hover:scale-125 transition-all duration-1000">
+                                <EyeIcon className="w-64 h-64 text-gold" />
                             </div>
-                            <div className="relative z-10 space-y-8">
-                                <div className="flex items-center space-x-6">
-                                    <div className="p-4 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-2xl">
-                                        <EyeIcon className="w-10 h-10 stroke-1" />
+                            <div className="relative z-10 space-y-10">
+                                <div className="flex items-center space-x-8">
+                                    <div className="p-5 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.1)] group-hover:scale-110 transition-transform duration-700">
+                                        <EyeIcon className="w-12 h-12 stroke-[1px]" />
                                     </div>
-                                    <h3 className="text-3xl font-black text-gold uppercase tracking-tighter italic">Visi</h3>
+                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">Visi</h3>
                                 </div>
-                                <p className="text-cream-gold/60 text-xl md:text-2xl font-light leading-relaxed italic border-l-4 border-gold/20 pl-8">
-                                    "Menjadi standar emas internasional dalam industri cerutu dan kopi, di mana kemewahan bertemu dengan tradisi untuk menciptakan pengalaman yang tak terlupakan bagi setiap pelanggan kami."
+                                <p className="text-cream-gold/50 text-2xl md:text-3xl font-light leading-relaxed italic border-l-4 border-gold/30 pl-10 group-hover:text-cream-gold transition-colors duration-1000">
+                                    "Menjadi standar emas internasional dalam industri cerutu dan kopi, di mana kemewahan bertemu dengan tradisi."
                                 </p>
                             </div>
                         </div>
 
                         {/* Mission Card */}
-                        <div className="bg-hitam-pekat p-12 lg:p-20 group relative overflow-hidden transition-all duration-700 hover:bg-coklat-kopi/10">
-                            <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:scale-150 transition-transform duration-1000">
-                                <RocketLaunchIcon className="w-48 h-48 text-gold" />
+                        <div className="bg-hitam-pekat p-14 lg:p-24 group relative overflow-hidden transition-all duration-1000 hover:bg-gold/[0.03]">
+                            <div className="absolute top-0 right-0 p-12 opacity-[0.02] group-hover:opacity-[0.05] group-hover:scale-125 transition-all duration-1000">
+                                <RocketLaunchIcon className="w-64 h-64 text-gold" />
                             </div>
-                            <div className="relative z-10 space-y-8">
-                                <div className="flex items-center space-x-6">
-                                    <div className="p-4 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-2xl">
-                                        <RocketLaunchIcon className="w-10 h-10 stroke-1" />
+                            <div className="relative z-10 space-y-10">
+                                <div className="flex items-center space-x-8">
+                                    <div className="p-5 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.1)] group-hover:scale-110 transition-transform duration-700">
+                                        <RocketLaunchIcon className="w-12 h-12 stroke-[1px]" />
                                     </div>
-                                    <h3 className="text-3xl font-black text-gold uppercase tracking-tighter italic">Misi</h3>
+                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">Misi</h3>
                                 </div>
-                                <ul className="space-y-6">
+                                <ul className="space-y-8">
                                     {[
-                                        'Mengkurasi biji kopi dan tembakau terbaik dari seluruh penjuru dunia dengan integritas tinggi.',
-                                        'Memberikan pelayanan personal yang eksklusif untuk gaya hidup modern yang menghargai kualitas.',
-                                        'Membangun ekosistem penikmat yang saling berbagi pengetahuan dan apresiasi seni.'
+                                        'Mengkurasi biji kopi dan tembakau terbaik dunia.',
+                                        'Memberikan pelayanan personal yang eksklusif.',
+                                        'Membangun ekosistem penikmat yang saling berbagi.'
                                     ].map((mission, i) => (
-                                        <li key={i} className="flex items-start space-x-4 group/item">
-                                            <div className="w-2 h-2 bg-gold mt-2 shrink-0 group-hover/item:scale-150 transition-transform"></div>
-                                            <p className="text-cream-gold/60 text-sm md:text-base leading-relaxed tracking-wider">
+                                        <li key={i} className="flex items-start space-x-6 group/item">
+                                            <div className="w-3 h-3 bg-gold mt-2.5 shrink-0 group-hover/item:scale-150 group-hover/item:rotate-45 transition-all duration-500"></div>
+                                            <p className="text-cream-gold/40 text-sm md:text-base leading-relaxed tracking-widest font-medium uppercase italic group-hover/item:text-cream-gold/80 transition-colors">
                                                 {mission}
                                             </p>
                                         </li>
@@ -156,7 +156,7 @@ export default function About() {
                         </div>
                         <h2 className="text-3xl md:text-5xl font-black text-gold uppercase tracking-tighter italic">Prinsip Inti</h2>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gold/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-hitam-pekat/20">
                         {[
                             { title: 'Otentik', body: 'Keaslian tanpa kompromi pada asal dan kualitas bahan setiap produk.', icon: ShieldCheckIcon },
