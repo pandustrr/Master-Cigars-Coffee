@@ -11,6 +11,10 @@ class MainProduct extends Model
         'category',
         'description',
         'image',
+        'gallery',
     ];
-    //
+
+    protected $casts = [
+        'gallery' => 'array',
+    ];
 }

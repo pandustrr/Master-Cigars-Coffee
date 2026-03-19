@@ -17,7 +17,7 @@ export default function Partners({ partners }) {
             <Head title="Mitra & Kolaborasi - Master Cerutu & Kopi" />
 
             {/* Hero Section */}
-            <section className="relative h-[45vh] flex items-center overflow-hidden">
+            <section className="relative h-[60vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
                         src={heroImage}
