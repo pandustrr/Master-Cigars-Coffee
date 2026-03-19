@@ -242,9 +242,12 @@ class SaleController extends Controller
         if ($order instanceof SalesPackage) $type = 'package';
         if ($order instanceof SalesPointCorner) $type = 'point-corner';
 
+        $saleItem = \App\Models\SaleItem::find($order->sale_item_id);
+
         return Inertia::render('Sale/Tracking', [
             'order' => $order,
-            'type' => $type
+            'type' => $type,
+            'saleItem' => $saleItem
         ]);
     }
 }

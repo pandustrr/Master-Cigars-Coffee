@@ -15,7 +15,9 @@ import {
     Bars3Icon,
     XMarkIcon,
     TagIcon,
-    PowerIcon
+    PowerIcon,
+    BanknotesIcon,
+    UserIcon
 } from '@heroicons/react/24/outline';
 
 export default function SidebarAdmin({ header, children }) {
@@ -28,7 +30,9 @@ export default function SidebarAdmin({ header, children }) {
         { name: 'Partner', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
         { name: 'Kelola Gambar', href: route('admin.visual.index'), active: route().current('admin.visual*'), icon: PhotoIcon },
         { name: 'Sale', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
+        { name: 'Investment', href: route('admin.investment.index'), active: route().current('admin.investment*'), icon: BanknotesIcon },
         { name: 'Pengaturan', href: route('admin.settings.index'), active: route().current('admin.settings*'), icon: Cog6ToothIcon },
+        { name: 'Profil Akun', href: route('admin.profile.edit'), active: route().current('admin.profile*'), icon: UserIcon },
     ];
 
     return (
@@ -46,12 +50,9 @@ export default function SidebarAdmin({ header, children }) {
                 <div className="flex flex-col h-full">
                     {/* Brand Logo */}
                     <div className="h-16 flex items-center justify-center border-b border-gold/10 px-6">
-                        <Link href="/" className="flex items-center space-x-3">
-                            <ApplicationLogo className="block h-7 w-auto fill-current text-gold" />
-                            <div className="flex flex-col">
-                                <span className="text-gold font-black text-[10px] uppercase tracking-[0.2em] leading-none">Master Cigars</span>
-                                <span className="text-cream-gold/30 text-[8px] font-bold uppercase tracking-widest mt-0.5">& Coffee</span>
-                            </div>
+                        <Link href="/" className="flex flex-col items-center">
+                            <span className="text-gold font-black text-[10px] uppercase tracking-[0.2em] leading-none">Master Cigars</span>
+                            <span className="text-cream-gold/30 text-[8px] font-bold uppercase tracking-widest mt-0.5">& Coffee</span>
                         </Link>
                     </div>
 
@@ -127,6 +128,9 @@ export default function SidebarAdmin({ header, children }) {
                                 </button>
                             </Dropdown.Trigger>
                             <Dropdown.Content align="right" width="48" contentClasses="bg-coklat-kopi/95 backdrop-blur-xl border border-gold/10 py-1">
+                                <Dropdown.Link href={route('admin.profile.edit')} className="text-cream-gold/60 hover:text-gold hover:bg-gold/5 text-[10px] uppercase font-black tracking-widest border-b border-gold/10">
+                                    Profil Saya
+                                </Dropdown.Link>
                                 <Dropdown.Link href={route('logout')} method="post" as="button" className="text-cream-gold/60 hover:text-gold hover:bg-gold/5 text-[10px] uppercase font-black tracking-widest">
                                     Keluar Sesi
                                 </Dropdown.Link>

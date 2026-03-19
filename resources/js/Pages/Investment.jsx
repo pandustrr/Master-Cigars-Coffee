@@ -1,15 +1,13 @@
 import MainLayout from '@/Layouts/MainLayout';
 import { Head, usePage } from '@inertiajs/react';
 import {
-    CurrencyDollarIcon,
-    ArrowTrendingUpIcon,
-    LinkIcon,
-    BuildingOffice2Icon,
     DocumentTextIcon,
-    PaperAirplaneIcon
+    BuildingOffice2Icon,
+    LinkIcon,
+    ArrowTrendingUpIcon
 } from '@heroicons/react/24/outline';
 
-export default function Investment() {
+export default function Investment({ investments }) {
     const { settings } = usePage().props;
     const heroImage = settings.hero_investment ? `/storage/${settings.hero_investment}` : '/images/hero.png';
 
@@ -18,7 +16,7 @@ export default function Investment() {
             <Head title="Peluang Investasi - Master Cerutu & Kopi" />
 
             {/* Hero Section */}
-            <section className="relative h-[45vh] flex items-center overflow-hidden">
+            <section className="relative h-[35vh] md:h-[45vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
                         src={heroImage}
@@ -32,95 +30,74 @@ export default function Investment() {
                         <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold">Capital Growth</span>
                     </div>
                     <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter mb-4">Investasi Kualitas</h1>
-                    <p className="text-cream-gold/60 uppercase tracking-[0.3em] text-xs">Visi Pertumbuhan Berkelanjutan</p>
+                    <p className="text-gold-muda/60 uppercase tracking-[0.3em] text-xs">Visi Pertumbuhan Berkelanjutan</p>
                 </div>
             </section>
 
             {/* Investment Context */}
             <section className="py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-24">
-                        <h2 className="text-3xl md:text-5xl font-bold text-cream-gold uppercase tracking-tighter mb-8 leading-tight">Tumbuh Bersama <br /><span className="text-gold">Membangun Legasi</span></h2>
-                        <p className="text-cream-gold/70 text-lg leading-relaxed font-light font-sans">
+                    <div className="text-center max-w-3xl mx-auto mb-20">
+                        <h2 className="text-3xl md:text-5xl font-bold text-gold-muda uppercase tracking-tighter mb-8 leading-tight">Tumbuh Bersama <br /><span className="text-gold">Membangun Legasi</span></h2>
+                        <p className="text-gold-muda/80 text-lg leading-relaxed font-light font-sans">
                             Master Cigars & Coffee bukan sekadar merek; ini adalah aset gaya hidup. Kami menawarkan instrumen investasi unik bagi mereka yang memahami nilai prestise jangka panjang.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Investment Pillars */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
                         {[
-                            { title: 'Model Waralaba', metric: 'Starting Rp 4M', desc: 'Miliki Master Lounge di lokasi metropolis utama dengan dukungan rantai pasokan penuh.', icon: BuildingOffice2Icon },
-                            { title: 'Berdasarkan Aset', metric: '100% Tangible', desc: 'Portofolio investasi yang didukung oleh stok tembakau fisik yang dimatangkan dan lahan kopi perkebunan pegunungan.', icon: LinkIcon },
-                            { title: 'Seri Pertumbuhan', metric: '18.5% ROI', desc: 'Berpartisipasi dalam ekspansi digital kami dan infrastruktur logistik pengiriman internasional.', icon: ArrowTrendingUpIcon }
+                            { title: 'Model Waralaba', desc: 'Miliki Master Lounge di lokasi metropolis utama dengan dukungan rantai pasokan penuh.', icon: BuildingOffice2Icon },
+                            { title: 'Berdasarkan Aset', desc: 'Portofolio investasi yang didukung oleh stok tembakau fisik yang dimatangkan dan lahan kopi perkebunan pegunungan.', icon: LinkIcon },
+                            { title: 'Seri Pertumbuhan', desc: 'Berpartisipasi dalam ekspansi digital kami and infrastruktur logistik pengiriman internasional.', icon: ArrowTrendingUpIcon }
                         ].map((box, i) => (
-                            <div key={i} className="group p-12 bg-hitam-pekat/40 border border-gold-tua/10 hover:border-gold transition-all duration-700 relative overflow-hidden">
+                            <div key={i} className="group p-10 bg-coklat-tua border border-gold-tua/20 hover:border-gold/50 transition-all duration-700 relative overflow-hidden rounded-2xl shadow-2xl">
                                 <div className="p-4 bg-gold/5 rounded-full w-fit mb-8 group-hover:scale-110 transition-transform">
-                                    <box.icon className="w-10 h-10 text-gold stroke-1" />
+                                    <box.icon className="w-8 h-8 text-gold-muda stroke-1" />
                                 </div>
-                                <h3 className="text-gold font-bold text-xl mb-2 uppercase tracking-widest">{box.title}</h3>
-                                <div className="text-cream-gold font-black text-2xl mb-4 tracking-tighter italic">{box.metric}</div>
-                                <p className="text-cream-gold/40 text-sm leading-relaxed">{box.desc}</p>
+                                <h3 className="text-gold font-bold text-lg mb-4 uppercase tracking-widest">{box.title}</h3>
+                                <p className="text-gold-muda/70 text-sm leading-relaxed">{box.desc}</p>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* ROI / Stats Section */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    {settings.investment_context_bg ? (
-                        <img src={`/storage/${settings.investment_context_bg}`} className="w-full h-full object-cover brightness-[0.2]" alt="" />
-                    ) : (
-                        <div className="w-full h-full bg-coklat-tua"></div>
+                    {/* Document Downloads Section - Horizontal List */}
+                    {investments && investments.length > 0 && (
+                        <div className="max-w-5xl mx-auto space-y-4 pt-12 border-t border-gold-tua/10">
+                            <div className="mb-10 text-center md:text-left">
+                                <h3 className="text-xl md:text-2xl font-black text-gold-muda uppercase tracking-tighter mb-2">Dokumen Investasi</h3>
+                                <div className="w-16 h-1 bg-gold mx-auto md:mx-0"></div>
+                            </div>
+                            
+                            <div className="space-y-4">
+                                {investments.map((doc) => (
+                                    <div key={doc.id} className="group bg-coklat-tua border border-gold-tua/20 p-5 md:p-6 rounded-2xl hover:border-gold/50 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
+                                        <div className="flex items-start space-x-6 overflow-hidden w-full">
+                                            <div className="p-3.5 bg-gold/5 rounded-xl shrink-0 group-hover:bg-gold/10 transition-colors mt-1">
+                                                <DocumentTextIcon className="w-7 h-7 text-gold-muda" />
+                                            </div>
+                                            <div className="overflow-hidden">
+                                                <h4 className="text-white font-bold text-base md:text-lg uppercase tracking-tight truncate">{doc.title}</h4>
+                                                {doc.description && (
+                                                    <p className="text-gold-muda/80 text-xs mt-1 leading-relaxed line-clamp-2 md:line-clamp-none italic font-sans">{doc.description}</p>
+                                                )}
+                                                <span className="text-[9px] font-black text-gold-muda/20 uppercase tracking-[0.2em] mt-3 block">Official PDF Document</span>
+                                            </div>
+                                        </div>
+                                        <a 
+                                            href={`/storage/${doc.pdf_path}`} 
+                                            target="_blank" 
+                                            rel="noreferrer"
+                                            className="w-full md:w-auto inline-flex items-center justify-center space-x-3 bg-gold-muda hover:bg-gold text-hitam-pekat px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shrink-0 shadow-lg shadow-gold-muda/5 hover:scale-[1.02] active:scale-95"
+                                        >
+                                            <DocumentTextIcon className="w-4 h-4" />
+                                            <span>Unduh Dokumen</span>
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     )}
-                </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
-                    {[
-                        { label: 'Pertumbuhan Pendapatan', val: '24%' },
-                        { label: 'Anggota Aktif', val: '12rb+' },
-                        { label: 'Negara', val: '15+' },
-                        { label: 'Master Lounge', val: '28' }
-                    ].map((stat, i) => (
-                        <div key={i}>
-                            <h4 className="text-4xl md:text-6xl font-black text-gold mb-2 tracking-tighter">{stat.val}</h4>
-                            <p className="text-cream-gold/40 text-[10px] uppercase font-bold tracking-[0.3em]">{stat.label}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Investigation Form CTA */}
-            <section className="py-32 bg-coklat-kopi/5">
-                <div className="max-w-4xl mx-auto px-4 border border-gold-tua/10 p-16 bg-hitam-pekat relative overflow-hidden backdrop-blur-xl">
-                    <div className="absolute top-0 left-0 w-2 h-full bg-gold"></div>
-                    <div className="relative z-10">
-                        <div className="flex justify-center mb-10">
-                            <DocumentTextIcon className="w-16 h-16 text-gold/20 stroke-1" />
-                        </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-gold uppercase tracking-tighter text-center mb-16 italic">Permintaan Prospektus</h2>
-                        <form className="space-y-10">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                <div className="relative group">
-                                    <input type="text" placeholder="NAMA LENGKAP" className="w-full bg-transparent border-b border-gold-tua/30 py-4 text-cream-gold focus:border-gold outline-none transition-all placeholder:text-gold-tua/20 text-xs tracking-[0.2em] font-bold" />
-                                </div>
-                                <div className="relative group">
-                                    <input type="email" placeholder="ALAMAT EMAIL" className="w-full bg-transparent border-b border-gold-tua/30 py-4 text-cream-gold focus:border-gold outline-none transition-all placeholder:text-gold-tua/20 text-xs tracking-[0.2em] font-bold" />
-                                </div>
-                            </div>
-                            <div className="relative group">
-                                <input type="text" placeholder="RENTANG INVESTASI (Rp 1.5M - Rp 75M+)" className="w-full bg-transparent border-b border-gold-tua/30 py-4 text-cream-gold focus:border-gold outline-none transition-all placeholder:text-gold-tua/20 text-xs tracking-[0.2em] font-bold" />
-                            </div>
-                            <div className="relative group">
-                                <textarea placeholder="PESAN TAMBAHAN" rows="4" className="w-full bg-transparent border-b border-gold-tua/30 py-4 text-cream-gold focus:border-gold outline-none transition-all placeholder:text-gold-tua/20 text-xs tracking-[0.2em] font-bold resize-none"></textarea>
-                            </div>
-                            <div className="flex justify-center pt-8">
-                                <button className="group flex items-center space-x-4 bg-gold px-12 py-5 text-hitam-pekat font-black uppercase tracking-[0.3em] text-sm hover:bg-gold-muda transition-all duration-500 hover:scale-105 active:scale-95">
-                                    <span>Kirim Aplikasi</span>
-                                    <PaperAirplaneIcon className="w-5 h-5 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
-                                </button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </section>
         </MainLayout>
