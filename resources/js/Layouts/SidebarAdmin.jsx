@@ -26,11 +26,11 @@ export default function SidebarAdmin({ header, children }) {
 
     const navigation = [
         { name: 'Dashboard', href: route('dashboard'), active: route().current('dashboard'), icon: HomeIcon },
-        { name: 'Kelola Produk', href: route('admin.main-products.index'), active: route().current('admin.main-products*') || route().current('admin.categories*'), icon: CubeIcon },
-        { name: 'Partner', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
         { name: 'Kelola Gambar', href: route('admin.visual.index'), active: route().current('admin.visual*'), icon: PhotoIcon },
-        { name: 'Sale', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
+        { name: 'Produk', href: route('admin.main-products.index'), active: route().current('admin.main-products*') || route().current('admin.categories*'), icon: CubeIcon },
+        { name: 'Partner', href: route('admin.partners.index'), active: route().current('admin.partners*'), icon: UserGroupIcon },
         { name: 'Investment', href: route('admin.investment.index'), active: route().current('admin.investment*'), icon: BanknotesIcon },
+        { name: 'Sale', href: route('admin.sales.index'), active: route().current('admin.sales*'), icon: ShoppingBagIcon },
         { name: 'Pengaturan', href: route('admin.settings.index'), active: route().current('admin.settings*'), icon: Cog6ToothIcon },
         { name: 'Profil Akun', href: route('admin.profile.edit'), active: route().current('admin.profile*'), icon: UserIcon },
     ];

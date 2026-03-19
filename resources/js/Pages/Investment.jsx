@@ -16,7 +16,7 @@ export default function Investment({ investments }) {
             <Head title="Peluang Investasi - Master Cerutu & Kopi" />
 
             {/* Hero Section */}
-            <section className="relative h-[35vh] md:h-[45vh] flex items-center overflow-hidden">
+            <section className="relative h-[60vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
                         src={heroImage}

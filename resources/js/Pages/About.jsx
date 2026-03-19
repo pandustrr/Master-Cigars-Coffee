@@ -17,7 +17,7 @@ export default function About() {
             <Head title="Tentang Kami - Master Cerutu & Kopi" />
 
             {/* Hero Section */}
-            <section className="relative h-[40vh] flex items-center overflow-hidden">
+            <section className="relative h-[60vh] flex items-center overflow-hidden text-center">
                 <div className="absolute inset-0 z-0">
                     <img
                         src={heroImage}

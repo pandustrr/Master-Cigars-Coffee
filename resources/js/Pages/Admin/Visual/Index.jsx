@@ -174,16 +174,7 @@ export default function Index({ settings }) {
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-gray-50/50 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                                <div className="text-center md:text-left">
-                                    <h5 className="text-gray-500 font-black uppercase text-[9px] tracking-widest mb-1 flex items-center justify-center md:justify-start">
-                                        <SparklesIcon className="w-3 h-3 mr-2 text-gold" />
-                                        Verifikasi Aset
-                                    </h5>
-                                    <p className="text-[8px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed max-w-xs italic">
-                                        Perubahan akan langsung berdampak pada tampilan website secara global.
-                                    </p>
-                                </div>
+                            <div className="p-4 bg-gray-50/50 border-t border-gray-100 flex justify-end">
                                 <button
                                     type="submit"
                                     disabled={processing}
