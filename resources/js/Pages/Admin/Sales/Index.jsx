@@ -66,8 +66,8 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
         { id: 'point', name: 'Pesanan Point Corner', icon: CheckCircleIcon, count: pointCornerOrders.length },
     ];
 
-    const filteredCatalogItems = catalogFilter === 'Semua' 
-        ? saleItems 
+    const filteredCatalogItems = catalogFilter === 'Semua'
+        ? saleItems
         : saleItems.filter(item => item.category === catalogFilter);
 
     return (
@@ -120,16 +120,14 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                                         <button
                                                             key={filter}
                                                             onClick={() => setCatalogFilter(filter)}
-                                                            className={`px-3 py-1.5 flex items-center space-x-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all ${
-                                                                catalogFilter === filter 
-                                                                ? 'bg-white text-gold shadow-sm border border-gray-200' 
+                                                            className={`px-3 py-1.5 flex items-center space-x-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all ${catalogFilter === filter
+                                                                ? 'bg-white text-gold shadow-sm border border-gray-200'
                                                                 : 'text-gray-400 hover:text-gray-600'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             <span>{filter}</span>
-                                                            <span className={`px-1.5 py-0.5 rounded-md text-[8px] ${
-                                                                catalogFilter === filter ? 'bg-gold/10 text-gold-muda border border-gold/20' : 'bg-gray-200/50 text-gray-500'
-                                                            }`}>{count}</span>
+                                                            <span className={`px-1.5 py-0.5 rounded-md text-[8px] ${catalogFilter === filter ? 'bg-gold/10 text-gold-muda border border-gold/20' : 'bg-gray-200/50 text-gray-500'
+                                                                }`}>{count}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -215,36 +213,36 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                         <table className="min-w-full divide-y divide-gray-100">
                                             <thead>
                                                 <tr className="bg-gray-50/80">
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Pelanggan</th>
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Pesanan</th>
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Total Harga</th>
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Bukti Bayar</th>
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Status</th>
-                                                    <th className="px-8 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">No. Resi</th>
-                                                    <th className="px-8 py-5 text-right text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Aksi</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Pelanggan</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Pesanan</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Total Harga</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Bukti Bayar</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Status</th>
+                                                    <th className="px-4 py-5 text-left text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">No. Resi</th>
+                                                    <th className="px-4 py-5 text-right text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-100">
                                                 {(activeTab === 'retail' ? retailOrders : activeTab === 'package' ? packageOrders : pointCornerOrders).map((order) => (
                                                     <tr key={order.id} className="hover:bg-gray-50 transition-all duration-300 group">
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             <div className="text-base font-black text-gray-800 transition-colors uppercase">{order.customer_name}</div>
                                                             <div className="text-[10px] text-gray-500 font-bold font-mono tracking-tighter flex items-center mt-1">
                                                                 <ChatBubbleLeftRightIcon className="w-3.5 h-3.5 mr-2" />
                                                                 {order.whatsapp}
                                                             </div>
                                                         </td>
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             {activeTab === 'retail' ? (
                                                                 <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{order.quantity} Units</span>
                                                             ) : (
                                                                 <span className="text-[10px] font-black text-gold-muda uppercase tracking-[0.2em] bg-gold/10 px-3 py-1 rounded-lg border border-gold/20">{order.package_type || order.service_type}</span>
                                                             )}
                                                         </td>
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             <div className="text-base font-black text-gold italic">Rp {parseFloat(order.total_price || (order.price * (order.quantity || 1))).toLocaleString()}</div>
                                                         </td>
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             {order.payment_proof ? (
                                                                 <a href={`/storage/${order.payment_proof}`} target="_blank" className="inline-flex items-center px-4 py-2 bg-gold/10 text-gold-muda border border-gold/20 rounded-xl text-[10px] font-black uppercase tracking-[0.1em] hover:bg-gold hover:text-white transition-all shadow-sm active:scale-95">
                                                                     Lihat Bukti
@@ -256,7 +254,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                                                 </div>
                                                             )}
                                                         </td>
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             <div className={`inline-flex items-center px-4 py-2 text-[10px] font-black rounded-xl uppercase tracking-[0.1em] shadow-sm bg-white border ${order.status === 'Selesai' ? 'text-emerald-500 border-emerald-200' :
                                                                 order.status === 'Dikirim' ? 'text-sky-500 border-sky-200' :
                                                                     order.status === 'Menunggu Konfirmasi' ? 'text-indigo-500 border-indigo-200' :
@@ -266,7 +264,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                                                 {order.status}
                                                             </div>
                                                         </td>
-                                                        <td className="px-8 py-6">
+                                                        <td className="px-4 py-6">
                                                             <div className="flex items-center justify-between bg-gray-50 p-2.5 rounded-xl border border-gray-200 group-hover:border-gold/30 transition-all shadow-inner min-w-[120px]">
                                                                 <span className="text-[11px] font-black font-mono text-gray-500 tracking-widest px-1">{order.tracking_code || '---'}</span>
                                                                 {order.tracking_code && (
@@ -279,8 +277,8 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                                                 )}
                                                             </div>
                                                         </td>
-                                                        <td className="px-8 py-6 text-right">
-                                                            <div className="opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                                                        <td className="px-4 py-6 text-right min-w-[180px]">
+                                                            <div className="flex justify-end">
                                                                 <StatusUpdateForm order={order} type={activeTab === 'point' ? 'point-corner' : activeTab} />
                                                             </div>
                                                         </td>
@@ -349,7 +347,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                             setImagePreview(editingItem?.image ? `/storage/${editingItem.image}` : null);
                                         }
                                     }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
-                                    
+
                                     {imagePreview ? (
                                         <div className="absolute inset-0 w-full h-full z-0 p-1">
                                             <img src={imagePreview} className="w-full h-full object-cover rounded-lg" alt="Preview" />
@@ -380,13 +378,13 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                     <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setViewingItem(null)}></div>
                     <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-sm overflow-hidden border border-gray-100 scale-100 transition-all flex flex-col items-center p-8">
                         <button onClick={() => setViewingItem(null)} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-800 transition-all">&times;</button>
-                        
+
                         <div className="w-32 h-32 rounded-3xl bg-gray-50 overflow-hidden shadow-inner mb-6 border border-gray-100 p-2">
-                             {viewingItem.image ? (
-                                 <img src={`/storage/${viewingItem.image}`} className="w-full h-full object-cover rounded-2xl shadow-sm" alt={viewingItem.name} />
-                             ) : (
-                                 <div className="w-full h-full flex items-center justify-center rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 text-2xl font-black italic">MC</div>
-                             )}
+                            {viewingItem.image ? (
+                                <img src={`/storage/${viewingItem.image}`} className="w-full h-full object-cover rounded-2xl shadow-sm" alt={viewingItem.name} />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 text-2xl font-black italic">MC</div>
+                            )}
                         </div>
 
                         <div className="text-center w-full">
@@ -427,25 +425,25 @@ function StatusUpdateForm({ order, type }) {
     };
 
     return (
-        <form onSubmit={submit} className="flex items-center justify-end space-x-3 bg-white p-1.5 rounded-2xl border border-gray-200 shadow-sm ml-auto">
+        <form onSubmit={submit} className="flex items-center space-x-1.5 bg-gray-50 p-1 rounded-lg border border-gray-200 shadow-sm w-fit ml-auto">
             <select
                 value={data.status}
                 onChange={(e) => setData('status', e.target.value)}
-                className="text-[10px] font-black px-3 py-1.5 border-none bg-transparent rounded-lg focus:ring-0 transition-all uppercase tracking-widest text-gray-600 cursor-pointer appearance-none min-w-[120px] text-right"
+                className="text-[9px] font-black px-1.5 py-1 border-gray-200 bg-white rounded-md focus:ring-gold focus:border-gold transition-all uppercase tracking-tighter text-gray-700 cursor-pointer min-w-[110px]"
             >
-                <option value="Pending" className="bg-white text-left text-gray-800">Pending</option>
-                <option value="Menunggu Konfirmasi" className="bg-white text-left text-gray-800">Menunggu Konfirmasi</option>
-                <option value="Diproses" className="bg-white text-left text-gray-800">Diproses</option>
-                <option value="Dikirim" className="bg-white text-left text-gray-800">Dikirim</option>
-                <option value="Selesai" className="bg-white text-left text-gray-800">Selesai</option>
-                <option value="Dibatalkan" className="bg-white text-left text-gray-800">Dibatalkan</option>
+                <option value="Pending">Pending</option>
+                <option value="Menunggu Konfirmasi">Konfirmasi</option>
+                <option value="Diproses">Proses</option>
+                <option value="Dikirim">Kirim</option>
+                <option value="Selesai">Selesai</option>
+                <option value="Dibatalkan">Batal</option>
             </select>
             <button
                 type="submit"
                 disabled={processing}
-                className="px-5 py-2.5 bg-gold text-white text-[9px] font-black rounded-xl uppercase tracking-widest hover:bg-gold-muda active:scale-95 transition-all shadow-md shrink-0"
+                className="px-3 py-1.5 bg-gold text-white text-[8px] font-black rounded-md uppercase tracking-widest hover:bg-gold-muda active:scale-95 transition-all shadow-sm shrink-0"
             >
-                Ubah
+                OK
             </button>
         </form>
     );

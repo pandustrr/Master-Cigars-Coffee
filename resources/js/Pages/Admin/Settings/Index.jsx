@@ -1,5 +1,5 @@
 import SidebarAdmin from '@/Layouts/SidebarAdmin';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import {
     BanknotesIcon,
     QrCodeIcon,
@@ -11,11 +11,43 @@ import {
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-export default function Index({ settings }) {
+export default function Index({ settings, auth }) {
+    const { user } = auth;
+
+    // Site Settings Form
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         bank_accounts: settings.bank_accounts || [],
         whatsapp_admin: settings.whatsapp_admin || '',
         qris_image: null,
+    });
+
+    // Profile Settings Form
+    const {
+        data: profileData,
+        setData: setProfileData,
+        post: postProfile,
+        processing: profileProcessing,
+        errors: profileErrors,
+        recentlySuccessful: profileRecentlySuccessful
+    } = useForm({
+        name: user.name || '',
+        username: user.username || '',
+        email: user.email || '',
+    });
+
+    // Password Settings Form
+    const {
+        data: passwordData,
+        setData: setPasswordData,
+        post: postPassword,
+        processing: passwordProcessing,
+        errors: passwordErrors,
+        recentlySuccessful: passwordRecentlySuccessful,
+        reset: resetPassword
+    } = useForm({
+        current_password: '',
+        password: '',
+        password_confirmation: '',
     });
 
     const addBank = () => {
@@ -54,6 +86,18 @@ export default function Index({ settings }) {
         });
     };
 
+    const submitProfile = (e) => {
+        e.preventDefault();
+        postProfile(route('admin.account.profile.update'));
+    };
+
+    const submitPassword = (e) => {
+        e.preventDefault();
+        postPassword(route('admin.account.password.update'), {
+            onSuccess: () => resetPassword(),
+        });
+    };
+
     return (
         <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase">Pengaturan Sistem</h2>}
@@ -62,7 +106,7 @@ export default function Index({ settings }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-{/* 
+                    {/* 
                     <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm text-gray-800 flex justify-between items-center overflow-hidden relative border border-gray-100 group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full blur-[80px] group-hover:bg-gray-100 transition-all duration-1000"></div>
                         <div className="relative z-10">
@@ -102,7 +146,7 @@ export default function Index({ settings }) {
                                         {data.bank_accounts.map((acc, index) => (
                                             <div key={index} className="p-6 bg-gray-50/50 rounded-2xl border border-gray-200 space-y-5 group hover:border-gold hover:shadow-md transition-all duration-500 shadow-sm relative">
                                                 <div className="flex items-center justify-between">
-                                                    <input 
+                                                    <input
                                                         type="text"
                                                         value={acc.bank}
                                                         onChange={e => updateBank(index, 'bank', e.target.value)}
@@ -138,8 +182,8 @@ export default function Index({ settings }) {
                                             </div>
                                         ))}
 
-                                        <button 
-                                            type="button" 
+                                        <button
+                                            type="button"
                                             onClick={addBank}
                                             className="w-full py-5 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center space-x-2 text-gray-500 font-bold uppercase tracking-widest text-[10px] hover:border-gold hover:text-gold hover:bg-gold/5 transition-all"
                                         >
@@ -180,6 +224,114 @@ export default function Index({ settings }) {
                                                 <div className="w-5 h-5 bg-gold rounded-full flex items-center justify-center text-white shrink-0 mt-0.5 font-bold text-[10px] shadow-sm">!</div>
                                                 <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Gunakan kode negara tanpa awalan '+'. Contoh: 62812XXXXXX.</p>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Admin Account Section */}
+                            <div className="bg-white shadow-sm rounded-3xl border border-gray-100 overflow-hidden">
+                                <div className="p-8">
+                                    <div className="flex items-center space-x-6 mb-8 pb-6 border-b border-gray-100">
+                                        <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gold border border-gray-200">
+                                            <ShieldCheckIcon className="w-8 h-8" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-black text-gray-800 tracking-tight uppercase">Pengaturan Akun Admin</h3>
+                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 leading-none">Ubah username dan password login</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                        {/* Profile Form */}
+                                        <div className="space-y-6">
+                                            <form onSubmit={submitProfile} className="space-y-6">
+                                                <div className="flex items-center justify-between">
+                                                    <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Informasi Profil</h4>
+                                                    {profileRecentlySuccessful && <span className="text-[9px] font-bold text-emerald-500 uppercase animate-pulse">Tersimpan!</span>}
+                                                </div>
+
+                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
+                                                    <div className="space-y-1.5">
+                                                        <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Username Admin</label>
+                                                        <input
+                                                            type="text"
+                                                            value={profileData.username}
+                                                            onChange={e => setProfileData('username', e.target.value)}
+                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                            required
+                                                        />
+                                                        {profileErrors.username && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{profileErrors.username}</div>}
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Nama Lengkap</label>
+                                                        <input
+                                                            type="text"
+                                                            value={profileData.name}
+                                                            onChange={e => setProfileData('name', e.target.value)}
+                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                            required
+                                                        />
+                                                        {profileErrors.name && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{profileErrors.name}</div>}
+                                                    </div>
+                                                    <button
+                                                        type="submit"
+                                                        disabled={profileProcessing}
+                                                        className="w-full py-3 bg-gray-900 text-white text-[9px] font-black rounded-xl uppercase tracking-widest hover:bg-gray-800 transition-all shadow-md mt-2"
+                                                    >
+                                                        Simpan Profil
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        {/* Password Form */}
+                                        <div className="space-y-6">
+                                            <form onSubmit={submitPassword} className="space-y-6">
+                                                <div className="flex items-center justify-between">
+                                                    <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Keamanan & Password</h4>
+                                                    {passwordRecentlySuccessful && <span className="text-[9px] font-bold text-emerald-500 uppercase animate-pulse">Tersimpan!</span>}
+                                                </div>
+
+                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
+                                                    <div className="space-y-1.5">
+                                                        <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Password Saat Ini</label>
+                                                        <input
+                                                            type="password"
+                                                            value={passwordData.current_password}
+                                                            onChange={e => setPasswordData('current_password', e.target.value)}
+                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                        />
+                                                        {passwordErrors.current_password && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{passwordErrors.current_password}</div>}
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Password Baru</label>
+                                                        <input
+                                                            type="password"
+                                                            value={passwordData.password}
+                                                            onChange={e => setPasswordData('password', e.target.value)}
+                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                        />
+                                                        {passwordErrors.password && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{passwordErrors.password}</div>}
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Konfirmasi Password Baru</label>
+                                                        <input
+                                                            type="password"
+                                                            value={passwordData.password_confirmation}
+                                                            onChange={e => setPasswordData('password_confirmation', e.target.value)}
+                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                        />
+                                                    </div>
+                                                    <button
+                                                        type="submit"
+                                                        disabled={passwordProcessing}
+                                                        className="w-full py-3 bg-gold text-white text-[9px] font-black rounded-xl uppercase tracking-widest hover:bg-gold-muda transition-all shadow-md mt-2"
+                                                    >
+                                                        Ubah Password
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

@@ -96,6 +96,10 @@ Route::middleware(['auth'])->group(function () {
     // Visual Management
     Route::get('/admin/visual', [VisualController::class, 'index'])->name('admin.visual.index');
     Route::post('/admin/visual', [VisualController::class, 'update'])->name('admin.visual.update');
+
+    // Account Settings
+    Route::post('/admin/account/profile', [\App\Http\Controllers\Admin\AccountController::class, 'updateProfile'])->name('admin.account.profile.update');
+    Route::post('/admin/account/password', [\App\Http\Controllers\Admin\AccountController::class, 'updatePassword'])->name('admin.account.password.update');
 });
 
 require __DIR__.'/auth.php';
