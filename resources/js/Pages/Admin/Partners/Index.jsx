@@ -17,6 +17,7 @@ export default function Index({ partners }) {
     const { data, setData, post, delete: destroy, processing, errors, reset } = useForm({
         name: '',
         type: 'Global Partner',
+        category: 'Petani',
         description: '',
         logo: null,
     });
@@ -36,7 +37,13 @@ export default function Index({ partners }) {
 
     const handleEdit = (partner) => {
         setEditingPartner(partner);
-        setData({ name: partner.name, type: partner.type, description: partner.description || '', logo: null });
+        setData({
+            name: partner.name,
+            type: partner.type,
+            category: partner.category || 'Petani',
+            description: partner.description || '',
+            logo: null
+        });
         setIsAddModalOpen(true);
     };
 
@@ -81,6 +88,7 @@ export default function Index({ partners }) {
                                     <tr className="bg-gray-50">
                                         <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Nama Partner</th>
                                         <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Tipe</th>
+                                        <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Kategori</th>
                                         <th className="px-6 py-3.5 text-left text-[10px] font-black text-gray-500 uppercase tracking-widest">Deskripsi</th>
                                         <th className="px-6 py-3.5 text-right text-[10px] font-black text-gray-500 uppercase tracking-widest">Aksi</th>
                                     </tr>
@@ -102,6 +110,9 @@ export default function Index({ partners }) {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className="px-2.5 py-1 bg-gold/10 text-gold-muda text-[9px] font-black uppercase rounded-lg border border-gold/20">{partner.type}</span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="px-2.5 py-1 bg-gray-100 text-gray-600 text-[9px] font-black uppercase rounded-lg border border-gray-200">{partner.category}</span>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="text-xs text-gray-500 max-w-xs truncate">{partner.description || '-'}</div>
@@ -159,6 +170,20 @@ export default function Index({ partners }) {
                                 <input type="text" value={data.type} onChange={e => setData('type', e.target.value)}
                                     placeholder="Contoh: Distributor, Supplier"
                                     className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400" />
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Kategori</label>
+                                <select
+                                    value={data.category}
+                                    onChange={e => setData('category', e.target.value)}
+                                    className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800"
+                                >
+                                    <option value="Petani">Petani</option>
+                                    <option value="Marketing Agency">Marketing Agency</option>
+                                    <option value="Tour Travel">Tour Travel</option>
+                                    <option value="Horeka">Horeka</option>
+                                    <option value="UMKM">UMKM</option>
+                                </select>
                             </div>
                             <div className="space-y-1.5">
                                 <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Deskripsi</label>
