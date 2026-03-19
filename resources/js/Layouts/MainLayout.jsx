@@ -10,13 +10,21 @@ import {
     XMarkIcon,
     PhoneIcon,
     EnvelopeIcon,
-    MapPinIcon
+    MapPinIcon,
+    PaperAirplaneIcon,
+    ChatBubbleOvalLeftEllipsisIcon
 } from '@heroicons/react/24/outline';
 
 export default function MainLayout({ children }) {
     const { settings } = usePage().props;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    
+    // Contact Form State
+    const [contactData, setContactData] = useState({
+        name: '',
+        message: ''
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,6 +45,13 @@ export default function MainLayout({ children }) {
             link.href = `/storage/${settings.site_favicon}`;
         }
     }, [settings.site_favicon]);
+
+    const handleWhatsAppSubmit = (e) => {
+        e.preventDefault();
+        const waNumber = settings.site_whatsapp || '6281234567890';
+        const text = `Halo Master Cigars & Coffee,\n\nNama: ${contactData.name}\n\nPesan:\n${contactData.message}`;
+        window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, '_blank');
+    };
 
     const navLinks = [
         { name: 'Home', href: route('home'), routeName: 'home', icon: HomeIcon },
@@ -97,9 +112,9 @@ export default function MainLayout({ children }) {
                         <div className="md:hidden flex items-center">
                             <button
                                 onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className={`inline-flex items-center justify-center p-2 rounded-xl transition-all duration-300 border ${
+                                className={`inline-flex items-center justify-center p-2 rounded-md transition-all duration-300 border ${
                                     scrolled 
-                                    ? 'bg-gold text-hitam-pekat border-gold' 
+                                    ? 'bg-gold text-hitam-pekat border-gold shadow-lg shadow-gold/20' 
                                     : 'bg-white/5 text-gold border-white/10'
                                 }`}
                             >
@@ -137,68 +152,152 @@ export default function MainLayout({ children }) {
                 {children}
             </main>
 
-            {/* Footer */}
-            <footer className="bg-hitam-pekat border-t border-white/5 pt-20 pb-10 relative overflow-hidden">
-                {/* Decorative Elements */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[120px] -mr-48 -mt-48"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-coklat-kopi/10 rounded-full blur-[100px] -ml-32 -mb-32"></div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 md:grid-cols-4 gap-16">
-                    <div className="col-span-1 md:col-span-2 space-y-8">
-                        <div className="flex items-center space-x-4">
-                            {settings.site_logo ? (
-                                <img src={`/storage/${settings.site_logo}`} className="w-16 h-16 object-contain grayscale brightness-125" alt="Logo" />
-                            ) : (
-                                <div className="w-14 h-14 bg-gold/10 border border-gold/20 flex items-center justify-center rounded-2xl text-gold font-bold text-2xl">M</div>
-                            )}
-                            <div>
-                                <h2 className="text-white font-black text-2xl uppercase tracking-tighter italic">MASTER</h2>
-                                <p className="text-gold uppercase tracking-[0.4em] text-[10px] font-black leading-none opacity-60">Cigars & Coffee</p>
+            {/* Global Contact Form Section - Premium Unified Design */}
+            <section className="py-24 bg-coklat-kopi/5 border-t border-gold/5 relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/[0.03] via-transparent to-transparent pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
+                        {/* Title Side */}
+                        <div className="w-full lg:w-1/2 space-y-8">
+                            <div className="flex items-center space-x-4 mb-2">
+                                <div className="w-12 h-px bg-gold/50"></div>
+                                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Inquiry Center</span>
+                            </div>
+                            <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter italic leading-tight">Miliki Waktu <br /><span className="text-white">Yang Berharga</span></h2>
+                            <p className="text-white/40 text-lg leading-relaxed font-light font-sans max-w-lg italic">
+                                "Pertanyaan Mengenai Produk, Kemitraan, Atau Investasi? Hubungi tim ahli kami untuk layanan eksklusif."
+                            </p>
+                            <div className="flex flex-col space-y-4 pt-4">
+                                <div className="flex items-center space-x-4 text-gold/60">
+                                    <div className="w-10 h-10 rounded-full bg-gold/5 border border-gold/10 flex items-center justify-center">
+                                        <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" />
+                                    </div>
+                                    <span className="text-[10px] uppercase tracking-widest font-black">Fast Response via WhatsApp</span>
+                                </div>
                             </div>
                         </div>
-                        <p className="text-white/40 max-w-md leading-relaxed text-xs font-medium uppercase tracking-widest italic">
-                            "A sanctuary for aficionados seeking excellence in every puff and sip. Experience the finest blend of premium hand-rolled cigars and artisanal coffee."
-                        </p>
-                    </div>
 
-                    <div>
-                        <h3 className="text-gold font-black mb-8 uppercase tracking-[0.3em] text-[10px] italic">Navigation</h3>
-                        <ul className="space-y-4">
-                            {navLinks.map((link) => (
-                                <li key={link.name}>
-                                    <Link href={link.href} className="text-white/30 hover:text-gold transition-colors text-[10px] font-black uppercase tracking-[0.2em]">
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="text-gold font-black mb-8 uppercase tracking-[0.3em] text-[10px] italic">Contact Center</h3>
-                        <ul className="space-y-6 text-[10px] font-black uppercase tracking-widest text-white/30">
-                            <li className="flex items-start space-x-4 group cursor-pointer hover:text-white transition-colors">
-                                <MapPinIcon className="w-5 h-5 text-gold/40 shrink-0 group-hover:text-gold transition-colors" />
-                                <span className="leading-relaxed">Jl. Kemang Raya No. 123,<br/>Jakarta Selatan, Indonesia</span>
-                            </li>
-                            <li className="flex items-center space-x-4 group cursor-pointer hover:text-white transition-colors">
-                                <PhoneIcon className="w-5 h-5 text-gold/40 shrink-0 group-hover:text-gold transition-colors" />
-                                <span>+62 812 3456 7890</span>
-                            </li>
-                            <li className="flex items-center space-x-4 group cursor-pointer hover:text-white transition-colors">
-                                <EnvelopeIcon className="w-5 h-5 text-gold/40 shrink-0 group-hover:text-gold transition-colors" />
-                                <span>info@mastercigars.com</span>
-                            </li>
-                        </ul>
+                        {/* Form Side */}
+                        <div className="w-full lg:w-1/2 bg-hitam-pekat/40 border border-gold/10 p-8 lg:p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+                           <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl -mr-16 -mt-16 group-hover:bg-gold/10 transition-colors"></div>
+                           <form onSubmit={handleWhatsAppSubmit} className="space-y-6 relative z-10">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        required
+                                        placeholder="Enter your name"
+                                        value={contactData.name}
+                                        onChange={(e) => setContactData({...contactData, name: e.target.value})}
+                                        className="w-full bg-hitam-pekat border-0 border-b border-white/10 text-white placeholder:text-white/10 px-4 py-4 focus:ring-0 focus:border-gold transition-all font-sans italic"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">Your Inquiry</label>
+                                    <textarea 
+                                        required
+                                        rows="4"
+                                        placeholder="Pesan atau pertanyaan Anda..."
+                                        value={contactData.message}
+                                        onChange={(e) => setContactData({...contactData, message: e.target.value})}
+                                        className="w-full bg-hitam-pekat border-0 border-b border-white/10 text-white placeholder:text-white/10 px-4 py-4 focus:ring-0 focus:border-gold transition-all font-sans resize-none"
+                                    ></textarea>
+                                </div>
+                                <div className="pt-4">
+                                    <button 
+                                        type="submit"
+                                        className="w-full bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-[0.4em] py-5 flex items-center justify-center space-x-4 hover:bg-gold-muda transition-all active:scale-95 shadow-xl shadow-gold/20"
+                                    >
+                                        <span>Kirim Melalui WhatsApp</span>
+                                        <PaperAirplaneIcon className="w-4 h-4" />
+                                    </button>
+                                </div>
+                           </form>
+                        </div>
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-white/20 text-[8px] font-black uppercase tracking-[0.4em]">
-                        &copy; {new Date().getFullYear()} Master Cigars & Coffee. International Aficionado Syndicate.
-                    </p>
-                    <div className="flex space-x-6 text-[8px] font-black uppercase tracking-widest text-white/10 hover:text-white/30 transition-colors cursor-pointer">
-                        <span>Privacy Policy</span>
-                        <span>Terms of Service</span>
+            </section>
+
+            {/* Footer - Clear & Always Readable */}
+            <footer className="bg-transparent pt-12 pb-8 relative overflow-hidden">
+                {/* Decorative Elements - Subtle */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-[100px] -mr-32 -mt-32 opacity-20"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+                        {/* Brand Column */}
+                        <div className="col-span-1 md:col-span-1 space-y-5">
+                            <div className="flex items-center space-x-3">
+                                {settings.site_logo ? (
+                                    <img src={`/storage/${settings.site_logo}`} className="w-10 h-10 object-contain grayscale-0 brightness-100" alt="Logo" />
+                                ) : (
+                                    <div className="w-8 h-8 bg-gold border border-gold flex items-center justify-center rounded-lg text-hitam-pekat font-bold text-lg">M</div>
+                                )}
+                                <div>
+                                    <h2 className="text-white font-black text-lg uppercase tracking-tighter italic leading-none">MASTER</h2>
+                                    <p className="text-gold uppercase tracking-[0.3em] text-[8px] font-black leading-none mt-1">Cigars & Coffee</p>
+                                </div>
+                            </div>
+                            <p className="text-white/60 max-w-xs leading-relaxed text-[10px] font-medium uppercase tracking-widest italic">
+                                "A sanctuary for aficionados seeking excellence in every puff and sip."
+                            </p>
+                        </div>
+
+                        {/* Navigation links - High Contrast */}
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-8 col-span-1 md:col-span-2">
+                            <div>
+                                <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">Quick Menu</h3>
+                                <ul className="space-y-3">
+                                    {navLinks.slice(0, 3).map((link) => (
+                                        <li key={link.name}>
+                                            <Link href={link.href} className="text-white/60 hover:text-gold transition-colors text-[9px] font-black uppercase tracking-[0.2em] flex items-center group">
+                                                <div className="w-1.5 h-1.5 bg-gold/0 group-hover:bg-gold transition-colors rounded-full mr-2"></div>
+                                                {link.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic opacity-0 md:opacity-100">&nbsp;</h3>
+                                <ul className="space-y-3">
+                                    {navLinks.slice(3).map((link) => (
+                                        <li key={link.name}>
+                                            <Link href={link.href} className="text-white/60 hover:text-gold transition-colors text-[9px] font-black uppercase tracking-[0.2em] flex items-center group">
+                                                <div className="w-1.5 h-1.5 bg-gold/0 group-hover:bg-gold transition-colors rounded-full mr-2"></div>
+                                                {link.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Contact details - High Contrast */}
+                        <div>
+                            <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">Connect</h3>
+                            <ul className="space-y-4 text-[9px] font-black uppercase tracking-widest text-white/60">
+                                <li className="flex items-center space-x-3 group">
+                                    <MapPinIcon className="w-4 h-4 text-gold shrink-0" />
+                                    <span>Kemang Raya No. 123, Jakarta</span>
+                                </li>
+                                <li className="flex items-center space-x-3 group mt-3">
+                                    <PhoneIcon className="w-4 h-4 text-gold shrink-0" />
+                                    <span>+62 812 3456 7890</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Bottom copyright statement */}
+                    <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p className="text-white/40 text-[7px] font-black uppercase tracking-[0.4em]">
+                            &copy; {new Date().getFullYear()} Master Cigars & Coffee. All Rights Reserved.
+                        </p>
+                        <div className="flex space-x-6 text-[7px] font-black uppercase tracking-widest text-white/40">
+                            <span className="cursor-pointer hover:text-gold transition-colors">Privacy Policy</span>
+                            <span className="cursor-pointer hover:text-gold transition-colors">Terms of Service</span>
+                        </div>
                     </div>
                 </div>
             </footer>
