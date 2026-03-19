@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Admin\AdminSaleController;
 use App\Http\Controllers\Admin\VisualController;
+use App\Http\Controllers\Admin\AdminProfileController;
 
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -22,7 +23,9 @@ Route::get('/product', [\App\Http\Controllers\ProductController::class, 'index']
 Route::get('/partners', [\App\Http\Controllers\PartnersController::class, 'index'])->name('partners');
 
 Route::get('/investment', function () {
-    return Inertia::render('Investment');
+    return Inertia::render('Investment', [
+        'investments' => \App\Models\Investment::latest()->get()
+    ]);
 })->name('investment');
 
 // Sale Routes
@@ -96,6 +99,16 @@ Route::middleware(['auth'])->group(function () {
     // Visual Management
     Route::get('/admin/visual', [VisualController::class, 'index'])->name('admin.visual.index');
     Route::post('/admin/visual', [VisualController::class, 'update'])->name('admin.visual.update');
+
+    // Investment Management
+    Route::get('/admin/investment', [\App\Http\Controllers\Admin\AdminInvestmentController::class, 'index'])->name('admin.investment.index');
+    Route::post('/admin/investment', [\App\Http\Controllers\Admin\AdminInvestmentController::class, 'store'])->name('admin.investment.store');
+    Route::post('/admin/investment/{id}', [\App\Http\Controllers\Admin\AdminInvestmentController::class, 'update'])->name('admin.investment.update');
+    Route::delete('/admin/investment/{id}', [\App\Http\Controllers\Admin\AdminInvestmentController::class, 'destroy'])->name('admin.investment.destroy');
+
+    // Admin Profile Management
+    Route::get('/admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::patch('/admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 });
 
 require __DIR__.'/auth.php';

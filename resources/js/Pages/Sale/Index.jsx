@@ -12,7 +12,8 @@ import {
     InformationCircleIcon,
     ClipboardDocumentCheckIcon,
     UserIcon,
-    ChatBubbleLeftRightIcon
+    ChatBubbleLeftRightIcon,
+    MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
@@ -189,7 +190,7 @@ export default function Index({ saleItems, settings }) {
                     </div>
 
                     {/* Right Column - Content/Form */}
-                    <div className="lg:w-3/5 p-10 lg:p-14 overflow-y-auto custom-scrollbar">
+                    <div className="lg:w-3/5 p-6 md:p-10 lg:p-14 overflow-y-auto custom-scrollbar">
                         <div className="mb-10 flex justify-between items-start">
                             <div>
                                 <h4 className="text-gold text-[10px] font-black uppercase tracking-[0.4em] mb-2 flex items-center">
@@ -326,13 +327,14 @@ function RetailForm({ product, onClose, settings }) {
     return (
         <form onSubmit={submit} className="space-y-6">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 <FormGroup label="Jumlah Beli" error={errors.jumlah_beli}>
                     <input
                         type="number"
                         value={data.jumlah_beli}
                         onChange={e => setData('jumlah_beli', e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Contoh: 1, 2..."
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
                 <FormGroup label="Nama Lengkap" error={errors.nama_lengkap}>
@@ -340,7 +342,8 @@ function RetailForm({ product, onClose, settings }) {
                         type="text"
                         value={data.nama_lengkap}
                         onChange={e => setData('nama_lengkap', e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Masukkan nama lengkap Anda"
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
@@ -350,21 +353,22 @@ function RetailForm({ product, onClose, settings }) {
                     type="text"
                     value={data.nomor_whatsapp}
                     onChange={e => setData('nomor_whatsapp', e.target.value)}
-                    placeholder="628xxx"
-                    className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                    placeholder="Contoh: 6281234567890"
+                    className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                 />
             </FormGroup>
 
             <FormGroup label="Alamat Lengkap" error={errors.alamat_lengkap}>
                 <textarea
-                    rows="2"
+                    rows="3"
                     value={data.alamat_lengkap}
                     onChange={e => setData('alamat_lengkap', e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all"
+                    placeholder="Masukkan alamat lengkap berserta detail patokan jalan..."
+                    className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} onFileChange={f => setData('payment_proof', f)} error={errors.payment_proof} />
+            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
                 <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Total Bayar</span>
@@ -470,13 +474,14 @@ function PackageForm({ item, onClose, settings }) {
 
     return (
         <form onSubmit={submit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 <FormGroup label="Nama Lengkap" error={errors.nama}>
                     <input
                         type="text"
                         value={data.nama}
                         onChange={e => setData('nama', e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Masukkan nama lengkap Anda"
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
                 <FormGroup label="Nomor WhatsApp" error={errors.whatsapp}>
@@ -484,21 +489,22 @@ function PackageForm({ item, onClose, settings }) {
                         type="text"
                         value={data.whatsapp}
                         onChange={e => setData('whatsapp', e.target.value)}
-                        placeholder="628xxx"
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Contoh: 6281234567890"
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
             <FormGroup label="Alamat Lengkap" error={errors.alamat}>
                 <textarea
-                    rows="2"
+                    rows="3"
                     value={data.alamat}
                     onChange={e => setData('alamat', e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all"
+                    placeholder="Masukkan alamat lengkap berserta detail patokan jalan..."
+                    className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} onFileChange={f => setData('payment_proof', f)} error={errors.payment_proof} />
+            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
                 <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Biaya Paket</span>
@@ -605,13 +611,14 @@ function PointCornerForm({ opt, onClose, settings }) {
 
     return (
         <form onSubmit={submit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 <FormGroup label="Nama Lengkap" error={errors.nama}>
                     <input
                         type="text"
                         value={data.nama}
                         onChange={e => setData('nama', e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Masukkan nama lengkap Anda"
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
                 <FormGroup label="Nomor WhatsApp" error={errors.whatsapp}>
@@ -619,20 +626,22 @@ function PointCornerForm({ opt, onClose, settings }) {
                         type="text"
                         value={data.whatsapp}
                         onChange={e => setData('whatsapp', e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all"
+                        placeholder="Contoh: 6281234567890"
+                        className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
             <FormGroup label="Keterangan Tambahan" error={errors.keterangan}>
                 <textarea
-                    rows="2"
+                    rows="3"
                     value={data.keterangan}
                     onChange={e => setData('keterangan', e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all"
+                    placeholder="Masukkan pesan, jam reservasi, atau instruksi tambahan (Opsional)..."
+                    className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} onFileChange={f => setData('payment_proof', f)} error={errors.payment_proof} />
+            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
                 <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Total Bayar</span>
@@ -649,18 +658,38 @@ function PointCornerForm({ opt, onClose, settings }) {
     );
 }
 
-function PaymentInfoBase({ settings, onFileChange, error }) {
+function PaymentInfoBase({ settings, data, setData, error }) {
+    const [isQrisPreviewOpen, setIsQrisPreviewOpen] = useState(false);
+
     return (
         <div className="mt-8 mb-4 border border-white/5 rounded-2xl p-5 bg-[#171410]">
             <h4 className="text-gold text-[10px] font-black uppercase tracking-[0.2em] mb-4 flex items-center">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold mr-2"></span>
-                Instruksi Pembayaran
+                Metode Pembayaran
             </h4>
+
+            {/* Payment Method Selector */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
+                <button 
+                    type="button"
+                    onClick={() => setData('metode_pembayaran', 'TRANSFER')}
+                    className={`p-3 rounded-xl border flex flex-col items-center justify-center transition-all ${data.metode_pembayaran === 'TRANSFER' ? 'border-gold bg-gold/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'border-white/10 bg-white/5 hover:border-gold/30'}`}
+                >
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'TRANSFER' ? 'text-gold' : 'text-gray-400'}`}>Transfer Bank</span>
+                </button>
+                <button 
+                    type="button"
+                    onClick={() => setData('metode_pembayaran', 'QRIS')}
+                    className={`p-3 rounded-xl border flex flex-col items-center justify-center transition-all ${data.metode_pembayaran === 'QRIS' ? 'border-gold bg-gold/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'border-white/10 bg-white/5 hover:border-gold/30'}`}
+                >
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'QRIS' ? 'text-gold' : 'text-gray-400'}`}>QRIS</span>
+                </button>
+            </div>
             
             <div className="space-y-4">
                 {/* Bank Accounts */}
-                {settings?.bank_accounts && settings.bank_accounts.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {data.metode_pembayaran === 'TRANSFER' && settings?.bank_accounts && settings.bank_accounts.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-fade-in-up">
                         {settings.bank_accounts.map((bank, index) => (
                             <div key={index} className="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col hover:border-gold/30 transition-colors">
                                 <span className="text-[10px] font-bold text-gray-400 mb-1">{bank.bank}</span>
@@ -672,25 +701,36 @@ function PaymentInfoBase({ settings, onFileChange, error }) {
                 )}
 
                 {/* QRIS */}
-                {settings?.qris_image && (
-                    <div className="mt-4 border border-white/10 bg-white/5 p-4 rounded-xl flex flex-col items-center">
+                {data.metode_pembayaran === 'QRIS' && settings?.qris_image ? (
+                    <div className="mt-4 border border-white/10 bg-white/5 p-4 rounded-xl flex flex-col items-center animate-fade-in-up">
                         <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Pindai QRIS</span>
-                        <div className="bg-white p-2 rounded-xl">
+                        <div className="bg-white p-2 rounded-xl relative group">
                             <img src={`/storage/${settings.qris_image}`} alt="QRIS" className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg" />
+                            <button 
+                                type="button" 
+                                onClick={() => setIsQrisPreviewOpen(true)}
+                                className="absolute top-3 right-3 bg-black/50 hover:bg-black/80 p-1.5 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm cursor-pointer"
+                            >
+                                <MagnifyingGlassPlusIcon className="w-4 h-4 md:w-5 md:h-5" />
+                            </button>
                         </div>
                     </div>
-                )}
+                ) : (data.metode_pembayaran === 'QRIS' && !settings?.qris_image && (
+                    <div className="mt-4 border border-white/10 bg-hitam-pekat p-4 rounded-xl flex items-center justify-center h-24 border-dashed animate-fade-in-up">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 italic">MOHON MAAF, QRIS BELUM DIATUR ADMIN</span>
+                    </div>
+                ))}
 
                 {/* File Upload Component */}
-                <div className="pt-2">
-                    <FormGroup label="Unggah Bukti Transfer (Wajib)" error={error}>
+                <div className="pt-4 border-t border-white/5">
+                    <FormGroup label="Unggah Bukti Pembayaran (Wajib)" error={error}>
                         <div className="relative">
                             <input 
                                 type="file" 
                                 accept="image/*"
                                 onChange={e => {
                                     const file = e.target.files[0];
-                                    if(file) onFileChange(file);
+                                    if(file) setData('payment_proof', file);
                                 }}
                                 className="w-full bg-black/40 border border-white/10 p-2 pl-3 pb-2 text-white/80 text-[10px] rounded-xl cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-[9px] file:font-black file:uppercase file:tracking-widest file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all outline-none focus:border-gold"
                             />
@@ -698,6 +738,22 @@ function PaymentInfoBase({ settings, onFileChange, error }) {
                     </FormGroup>
                 </div>
             </div>
+
+            {/* QRIS Preview Modal */}
+            {isQrisPreviewOpen && (
+                <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm shadow-2xl animate-fade-in" onClick={() => setIsQrisPreviewOpen(false)}>
+                    <div className="relative max-w-[90vw] md:max-w-lg w-full bg-white p-4 rounded-2xl animate-modal-in" onClick={e => e.stopPropagation()}>
+                        <button 
+                            type="button"
+                            onClick={() => setIsQrisPreviewOpen(false)}
+                            className="absolute -top-4 -right-4 bg-hitam-pekat rounded-full p-2 border-2 border-white/20 text-white shadow-lg hover:scale-110 transition-transform cursor-pointer"
+                        >
+                            <XMarkIcon className="w-5 h-5" />
+                        </button>
+                        <img src={`/storage/${settings.qris_image}`} alt="QRIS Preview" className="w-full h-auto object-contain rounded-xl" />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

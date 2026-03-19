@@ -40,31 +40,38 @@ class AdminSaleController extends Controller
         }
 
         if ($order) {
-            $oldStatus = $order->status;
-            $newStatus = $validated['status'];
-            $order->update(['status' => $newStatus]);
+            $oldStatus = trim($order->status);
+            $newStatus = trim($validated['status']);
             
             $reduceStatuses = ['Diproses', 'Dikirim', 'Selesai'];
+            
+            // Logika Pengurangan Stok
+            // Jika status baru adalah status berkurang DAN status lama BUKAN status berkurang
             if (in_array($newStatus, $reduceStatuses) && !in_array($oldStatus, $reduceStatuses)) {
                 if ($order->sale_item_id) {
-                    $item = SaleItem::find($order->sale_item_id);
-                    if ($item && $item->stock > 0) {
-                        $qty = isset($order->quantity) ? $order->quantity : 1;
+                    $item = \App\Models\SaleItem::find($order->sale_item_id);
+                    if ($item) {
+                        $qty = $order->quantity ?? 1;
                         $item->stock = max(0, $item->stock - $qty);
                         $item->save();
                     }
                 }
             }
             
-            if ($newStatus === 'Dibatalkan' && in_array($oldStatus, $reduceStatuses)) {
+            // Logika Pengembalian Stok (Restock)
+            // Jika status lama adalah status berkurang DAN status baru BUKAN status berkurang
+            if (in_array($oldStatus, $reduceStatuses) && !in_array($newStatus, $reduceStatuses)) {
                 if ($order->sale_item_id) {
-                    $item = SaleItem::find($order->sale_item_id);
+                    $item = \App\Models\SaleItem::find($order->sale_item_id);
                     if ($item) {
-                        $qty = isset($order->quantity) ? $order->quantity : 1;
+                        $qty = $order->quantity ?? 1;
                         $item->increment('stock', $qty);
                     }
                 }
             }
+
+            $order->status = $newStatus;
+            $order->save();
         }
 
         return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
