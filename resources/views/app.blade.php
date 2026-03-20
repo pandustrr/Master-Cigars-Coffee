@@ -9,12 +9,8 @@
         <meta name="title" content="Master Cigars & Coffee">
         <meta name="description" content="Discover the finest selection of premium cigars and high-quality coffee at Master Cigars & Coffee. Experience luxury and taste in every puff and sip.">
         <meta name="keywords" content="cigars, premium coffee, cigar lounge, coffee beans, luxury lifestyle, Master Cigars and Coffee">
-        <meta name="author" content="Master Cigars & Coffee">
         <meta name="robots" content="index, follow">
         <link rel="canonical" href="{{ url()->current() }}">
-        
-        <!-- Google Search Console Verification (Ganti konten di bawah jika sudah ada kodenya) -->
-        <meta name="google-site-verification" content="PASTE_KODE_VERIFIKASI_GOOGLE_DI_SINI" />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
