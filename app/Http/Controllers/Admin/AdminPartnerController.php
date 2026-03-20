@@ -33,7 +33,7 @@ class AdminPartnerController extends Controller
 
         Partner::create($validated);
 
-        return redirect()->back()->with('success', 'Partner created successfully.');
+        return redirect()->back()->with('success', 'Partner berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -57,7 +57,7 @@ class AdminPartnerController extends Controller
 
         $partner->update($validated);
 
-        return redirect()->back()->with('success', 'Partner updated successfully.');
+        return redirect()->back()->with('success', 'Partner berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -68,6 +68,6 @@ class AdminPartnerController extends Controller
         }
         $partner->delete();
 
-        return redirect()->back()->with('success', 'Partner deleted successfully.');
+        return redirect()->back()->with('success', 'Partner berhasil dihapus.');
     }
 }

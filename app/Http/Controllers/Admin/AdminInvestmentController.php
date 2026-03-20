@@ -33,7 +33,7 @@ class AdminInvestmentController extends Controller
             'pdf_path' => $path,
         ]);
 
-        return redirect()->back()->with('success', 'Investment PDF uploaded successfully!');
+        return redirect()->back()->with('success', 'Dokumen investasi berhasil diunggah.');
     }
 
     public function update(Request $request, $id)
@@ -61,7 +61,7 @@ class AdminInvestmentController extends Controller
 
         $investment->update($data);
 
-        return redirect()->back()->with('success', 'Investment updated successfully!');
+        return redirect()->back()->with('success', 'Investasi berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -74,6 +74,6 @@ class AdminInvestmentController extends Controller
         
         $investment->delete();
 
-        return redirect()->back()->with('success', 'Investment deleted successfully!');
+        return redirect()->back()->with('success', 'Investasi berhasil dihapus.');
     }
 }

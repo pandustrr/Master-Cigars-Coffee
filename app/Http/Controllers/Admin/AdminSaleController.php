@@ -96,7 +96,7 @@ class AdminSaleController extends Controller
 
         SaleItem::create($validated);
 
-        return redirect()->back()->with('success', 'Catalog item added successfully.');
+        return redirect()->back()->with('success', 'Item katalog berhasil ditambahkan.');
     }
 
     public function updateItem(Request $request, $id)
@@ -124,7 +124,7 @@ class AdminSaleController extends Controller
 
         $item->update($validated);
 
-        return redirect()->back()->with('success', 'Catalog item updated successfully.');
+        return redirect()->back()->with('success', 'Item katalog berhasil diperbarui.');
     }
 
     public function destroyItem($id)
@@ -135,6 +135,6 @@ class AdminSaleController extends Controller
         }
         $item->delete();
 
-        return redirect()->back()->with('success', 'Catalog item deleted successfully.');
+        return redirect()->back()->with('success', 'Item katalog berhasil dihapus.');
     }
 }

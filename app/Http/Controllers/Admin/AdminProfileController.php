@@ -37,6 +37,6 @@ class AdminProfileController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('status', 'Profile updated successfully!');
+        return redirect()->back()->with('status', 'Profil berhasil diperbarui.');
     }
 }
