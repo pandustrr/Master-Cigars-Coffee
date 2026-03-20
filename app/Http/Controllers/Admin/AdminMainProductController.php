@@ -43,7 +43,7 @@ class AdminMainProductController extends Controller
 
         MainProduct::create($validated);
 
-        return redirect()->back()->with('success', 'Main Product created successfully.');
+        return redirect()->back()->with('success', 'Produk utama berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -89,7 +89,7 @@ class AdminMainProductController extends Controller
 
         $mainProduct->update($validated);
 
-        return redirect()->back()->with('success', 'Main Product updated successfully.');
+        return redirect()->back()->with('success', 'Produk utama berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -110,6 +110,6 @@ class AdminMainProductController extends Controller
         
         $mainProduct->delete();
 
-        return redirect()->back()->with('success', 'Main Product deleted successfully.');
+        return redirect()->back()->with('success', 'Produk utama berhasil dihapus.');
     }
 }

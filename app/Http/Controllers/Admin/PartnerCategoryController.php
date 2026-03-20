@@ -17,7 +17,7 @@ class PartnerCategoryController extends Controller
 
         PartnerCategory::create($validated);
 
-        return redirect()->back()->with('success', 'Partner category created successfully.');
+        return redirect()->back()->with('success', 'Kategori partner berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -28,12 +28,12 @@ class PartnerCategoryController extends Controller
 
         PartnerCategory::findOrFail($id)->update($validated);
 
-        return redirect()->back()->with('success', 'Partner category updated successfully.');
+        return redirect()->back()->with('success', 'Kategori partner berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         PartnerCategory::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Partner category deleted successfully.');
+        return redirect()->back()->with('success', 'Kategori partner berhasil dihapus.');
     }
 }

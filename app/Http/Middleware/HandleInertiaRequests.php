@@ -43,6 +43,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'flash' => [
+                'success' => $request->session()->get('success') ?? $request->session()->get('status') ?? $request->session()->get('message'),
+                'error' => $request->session()->get('error'),
+            ],
             'settings' => SiteSetting::all()->pluck('value', 'key'),
             'locale' => $locale,
             'translations' => $translations,

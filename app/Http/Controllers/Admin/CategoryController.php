@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
-        return redirect()->back()->with('success', 'Category created successfully.');
+        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -36,12 +36,12 @@ class CategoryController extends Controller
 
         Category::findOrFail($id)->update($validated);
 
-        return redirect()->back()->with('success', 'Category updated successfully.');
+        return redirect()->back()->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Category deleted successfully.');
+        return redirect()->back()->with('success', 'Kategori berhasil dihapus.');
     }
 }

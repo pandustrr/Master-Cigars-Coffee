@@ -333,7 +333,7 @@ export default function MainLayout({ children }) {
                             <ul className="space-y-4 text-[9px] font-black uppercase tracking-widest text-white/60">
                                 <li className="flex items-center space-x-3 group">
                                     <MapPinIcon className="w-4 h-4 text-gold shrink-0" />
-                                    <span>{settings.site_address || "Kemang Raya No. 123, Jakarta"}</span>
+                                    <span>{settings.site_address || "Gebang Tengah, Gebang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68117"}</span>
                                 </li>
                                 <li className="flex items-center space-x-3 group mt-3">
                                     <PhoneIcon className="w-4 h-4 text-gold shrink-0" />

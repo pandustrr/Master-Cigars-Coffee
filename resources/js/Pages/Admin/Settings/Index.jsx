@@ -118,12 +118,6 @@ export default function Index({ settings, auth }) {
                         <ShieldCheckIcon className="w-56 h-56 absolute -right-10 -bottom-10 text-gray-50 rotate-12 group-hover:rotate-0 transition-transform duration-1000" />
                     </div> */}
 
-                    {recentlySuccessful && (
-                        <div className="p-5 bg-gold rounded-2xl flex items-center text-hitam-pekat shadow-xl shadow-gold/5 animate-bounce">
-                            <CheckCircleIcon className="w-6 h-6 mr-3" />
-                            <span className="text-xs font-black uppercase tracking-widest">Pengaturan Berhasil Diperbarui!</span>
-                        </div>
-                    )}
 
                     <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
@@ -248,7 +242,6 @@ export default function Index({ settings, auth }) {
                                             <form onSubmit={submitProfile} className="space-y-6">
                                                 <div className="flex items-center justify-between">
                                                     <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Informasi Profil</h4>
-                                                    {profileRecentlySuccessful && <span className="text-[9px] font-bold text-emerald-500 uppercase animate-pulse">Tersimpan!</span>}
                                                 </div>
 
                                                 <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
@@ -290,7 +283,6 @@ export default function Index({ settings, auth }) {
                                             <form onSubmit={submitPassword} className="space-y-6">
                                                 <div className="flex items-center justify-between">
                                                     <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Keamanan & Password</h4>
-                                                    {passwordRecentlySuccessful && <span className="text-[9px] font-bold text-emerald-500 uppercase animate-pulse">Tersimpan!</span>}
                                                 </div>
 
                                                 <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">

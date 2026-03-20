@@ -35,7 +35,7 @@ class AdminProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->back()->with('success', 'Product created successfully.');
+        return redirect()->back()->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -60,7 +60,7 @@ class AdminProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->back()->with('success', 'Product updated successfully.');
+        return redirect()->back()->with('success', 'Produk berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -71,6 +71,6 @@ class AdminProductController extends Controller
         }
         $product->delete();
 
-        return redirect()->back()->with('success', 'Product deleted successfully.');
+        return redirect()->back()->with('success', 'Produk berhasil dihapus.');
     }
 }

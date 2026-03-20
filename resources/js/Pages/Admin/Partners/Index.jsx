@@ -1,6 +1,6 @@
 import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     PlusIcon,
     PencilSquareIcon,
@@ -20,6 +20,7 @@ export default function Index({ partners, partnerCategories }) {
     const [editingPartner, setEditingPartner] = useState(null);
     const [editingCategory, setEditingCategory] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('Semua');
+    const [logoPreview, setLogoPreview] = useState(null);
 
     const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({ name: '' });
 
@@ -30,6 +31,15 @@ export default function Index({ partners, partnerCategories }) {
         description: '',
         logo: null,
     });
+
+    // Clear preview when modal closes
+    useEffect(() => {
+        if (!isAddModalOpen) {
+            setLogoPreview(null);
+            setEditingPartner(null);
+            reset();
+        }
+    }, [isAddModalOpen]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -69,6 +79,7 @@ export default function Index({ partners, partnerCategories }) {
 
     const handleEdit = (partner) => {
         setEditingPartner(partner);
+        setLogoPreview(partner.logo ? `/storage/${partner.logo}` : null);
         setData({
             name: partner.name,
             type: partner.type,
@@ -257,11 +268,29 @@ export default function Index({ partners, partnerCategories }) {
                                     placeholder="Deskripsi singkat..."></textarea>
                             </div>
                             <div className="space-y-1.5">
-                                <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest text-center">Logo (Opsional)</label>
-                                <div className="relative group p-4 border border-dashed border-gray-300 rounded-xl hover:border-gold/50 bg-gray-50 transition-all flex flex-col items-center justify-center cursor-pointer">
-                                    <input type="file" onChange={e => setData('logo', e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                                    <PhotoIcon className="w-6 h-6 text-gray-300 mb-1 group-hover:text-gold transition-colors" />
-                                    <span className="text-[9px] font-black uppercase text-gray-400 group-hover:text-gold transition-colors">Pilih File</span>
+                                <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest text-center">Logo Partner</label>
+                                <div className="relative group p-1 border border-dashed border-gray-300 rounded-xl hover:border-gold/50 bg-gray-50 transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden aspect-video">
+                                    <input type="file" 
+                                        onChange={e => {
+                                            const file = e.target.files[0];
+                                            setData('logo', file);
+                                            if (file) setLogoPreview(URL.createObjectURL(file));
+                                        }} 
+                                        className="absolute inset-0 opacity-0 cursor-pointer z-10" 
+                                    />
+                                    {logoPreview ? (
+                                        <div className="w-full h-full relative">
+                                            <img src={logoPreview} className="w-full h-full object-contain" alt="Preview" />
+                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                                                <PhotoIcon className="w-6 h-6 text-white" />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <PhotoIcon className="w-6 h-6 text-gray-300 mb-1 group-hover:text-gold transition-colors" />
+                                            <span className="text-[9px] font-black uppercase text-gray-400 group-hover:text-gold transition-colors">Pilih Logo</span>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             <div className="pt-2 flex justify-end space-x-3">

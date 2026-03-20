@@ -3,7 +3,8 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Toast from '@/Components/Toast';
 import {
     HomeIcon,
     PresentationChartLineIcon,
@@ -22,7 +23,22 @@ import {
 
 export default function SidebarAdmin({ header, children }) {
     const user = usePage().props.auth.user;
+    const flash = usePage().props.flash;
     const [showingSidebar, setShowingSidebar] = useState(false);
+    const [toastMessage, setToastMessage] = useState(null);
+    const [toastType, setToastType] = useState('success');
+    const [toastKey, setToastKey] = useState(0);
+
+    useEffect(() => {
+        const success = flash?.success;
+        const error = flash?.error;
+        
+        if (success || error) {
+            setToastMessage(success || error);
+            setToastType(success ? 'success' : 'error');
+            setToastKey(Date.now());
+        }
+    }, [flash]);
 
     const navigation = [
         { name: 'Dashboard', href: route('dashboard'), active: route().current('dashboard'), icon: HomeIcon },
@@ -146,6 +162,13 @@ export default function SidebarAdmin({ header, children }) {
                     </div>
                 </main>
             </div>
+            
+            <Toast 
+                key={toastKey}
+                message={toastMessage} 
+                type={toastType}
+                onClose={() => setToastMessage(null)} 
+            />
         </div>
     );
 }
