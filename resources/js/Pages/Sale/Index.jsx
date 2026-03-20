@@ -204,9 +204,24 @@ export default function Index({ saleItems, settings }) {
                         {/* Description Box with Border Accent */}
                         <div className="pl-6 border-l-4 border-gold/30 mb-10">
                             <p className="text-cream-gold/80 text-sm leading-relaxed italic">
-                                {selectedProduct?.desc || selectedPointOption?.desc || "Deskripsi layanan/produk belum tersedia."}
+                                {selectedProduct?.description || selectedPointOption?.description || "Deskripsi layanan/produk belum tersedia."}
                             </p>
                         </div>
+
+                        {/* Catalog Points / Benefits */}
+                        {(selectedProduct?.specifications?.length > 0 || selectedPointOption?.specifications?.length > 0) && (
+                            <div className="mb-10 space-y-4">
+                                <h4 className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-4">Benefit & Spesifikasi</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {(selectedProduct?.specifications || selectedPointOption?.specifications).map((spec, i) => (
+                                        <div key={i} className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/5 group hover:border-gold/20 transition-all">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.8)]"></div>
+                                            <span className="text-[10px] font-bold text-cream-gold/70 uppercase tracking-tight">{spec}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Info Grids - SUGOI Style */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
@@ -441,7 +456,7 @@ function PackageSelection({ items, onSelect }) {
                         <h3 className="text-[16px] md:text-2xl lg:text-3xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{item.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(item.price).toLocaleString()}</p>
                         <div className="space-y-3 md:space-y-4 mb-12 md:mb-16">
-                            <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{item.desc}</p>
+                            <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{item.description}</p>
                         </div>
                     </div>
                     <div className="mt-auto pt-4 w-full">
@@ -579,7 +594,7 @@ function PointCornerSelection({ items, onSelect }) {
                         <h3 className="text-[16px] md:text-2xl lg:text-3xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{opt.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(opt.price).toLocaleString()}</p>
                         <div className="space-y-3 md:space-y-4 mb-12 md:mb-16">
-                            <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{opt.desc}</p>
+                            <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{opt.description}</p>
                         </div>
                     </div>
                     <div className="mt-auto pt-4 w-full">

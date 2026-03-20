@@ -10,7 +10,15 @@ use App\Http\Controllers\Admin\AdminSaleController;
 use App\Http\Controllers\Admin\VisualController;
 use App\Http\Controllers\Admin\AdminProfileController;
 
-Route::get('/', function () {
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
+Route::get('/', function (Illuminate\Http\Request $request) {
+    // Unique Visitor Tracking (IP based)
+    \App\Models\Visitor::updateOrCreate(
+        ['ip_address' => $request->ip()],
+        ['user_agent' => $request->userAgent()]
+    );
+    
     return Inertia::render('Home');
 })->name('home');
 
@@ -52,10 +60,15 @@ Route::middleware(['auth'])->group(function () {
 
         return Inertia::render('Dashboard', [
             'stats' => [
-                'totalOrders'   => $totalOrders,
+                'totalOrders'   => \App\Models\SalesOrder::count() + \App\Models\SalesPackage::count() + \App\Models\SalesPointCorner::count(),
                 'totalProducts' => \App\Models\SaleItem::count(),
                 'totalPartners' => \App\Models\Partner::count(),
                 'totalBrands'   => \App\Models\MainProduct::count(),
+                'totalInvestments' => \App\Models\Investment::count(),
+                'totalWebProducts' => \App\Models\Product::count(),
+                'totalCategories' => \App\Models\Category::count() + \App\Models\PartnerCategory::count(),
+                'totalVisitors' => \App\Models\Visitor::count(),
+                'visitors' => \App\Models\Visitor::latest()->take(100)->get(),
             ],
         ]);
     })->name('dashboard');
@@ -73,7 +86,13 @@ Route::middleware(['auth'])->group(function () {
     // Category Management
     Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.categories.index');
     Route::post('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::post('/admin/categories/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
+    // Partner Category Management
+    Route::post('/admin/partner-categories', [\App\Http\Controllers\Admin\PartnerCategoryController::class, 'store'])->name('admin.partner-categories.store');
+    Route::post('/admin/partner-categories/{id}', [\App\Http\Controllers\Admin\PartnerCategoryController::class, 'update'])->name('admin.partner-categories.update');
+    Route::delete('/admin/partner-categories/{id}', [\App\Http\Controllers\Admin\PartnerCategoryController::class, 'destroy'])->name('admin.partner-categories.destroy');
 
     // Catalog Items (Retail/Package/Point items)
     Route::post('/admin/sales/items', [AdminSaleController::class, 'storeItem'])->name('admin.sales.items.store');

@@ -10,7 +10,8 @@ class PartnersController extends Controller
     public function index()
     {
         return Inertia::render('Partners', [
-            'partners' => Partner::latest()->get()
+            'partners' => Partner::latest()->get(),
+            'partnerCategories' => \App\Models\PartnerCategory::all()
         ]);
     }
 }

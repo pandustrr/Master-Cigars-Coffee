@@ -13,7 +13,8 @@ class AdminPartnerController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Partners/Index', [
-            'partners' => Partner::latest()->get()
+            'partners' => Partner::latest()->get(),
+            'partnerCategories' => \App\Models\PartnerCategory::all()
         ]);
     }
     public function store(Request $request)

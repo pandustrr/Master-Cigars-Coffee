@@ -28,6 +28,17 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Category created successfully.');
     }
 
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Category::findOrFail($id)->update($validated);
+
+        return redirect()->back()->with('success', 'Category updated successfully.');
+    }
+
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
