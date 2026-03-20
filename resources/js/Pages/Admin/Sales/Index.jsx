@@ -80,9 +80,9 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
 
     return (
         <SidebarAdmin
-            header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase">Manajemen Penjualan</h2>}
+            header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase">Manajemen Marketplace</h2>}
         >
-            <Head title="Admin - Sales" />
+            <Head title="Admin - Marketplace" />
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">

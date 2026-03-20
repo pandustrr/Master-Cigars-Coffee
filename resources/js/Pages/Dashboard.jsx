@@ -17,7 +17,7 @@ export default function Dashboard({ auth, stats: serverStats }) {
 
     const quickLinks = [
         {
-            name: 'Sales',
+            name: 'Marketplace',
             icon: ShoppingBagIcon,
             link: route('admin.sales.index'),
             desc: 'Kelola pesanan & transaksi',

@@ -21,7 +21,7 @@ export default function Index({ settings }) {
 
     const imageKeys = [
         'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products',
-        'site_logo', 'about_story_image', 'home_quote_bg', 'investment_context_bg'
+        'site_logo', 'about_story_image', 'about_story_badge', 'about_story_sub_1', 'about_story_sub_2', 'home_quote_bg', 'investment_context_bg'
     ];
 
     const initialData = {};
@@ -71,7 +71,10 @@ export default function Index({ settings }) {
         ],
         about: [
             { key: 'hero_about', label: 'Latar Belakang Hero', desc: 'Banner halaman tentang' },
-            { key: 'about_story_image', label: 'Gambar Sejarah', desc: 'Gambar utama di bagian sejarah' },
+            { key: 'about_story_image', label: 'Gambar Sejarah Utama', desc: 'Gambar utama di bagian sejarah' },
+            { key: 'about_story_badge', label: 'Badge Sejarah', desc: 'Menggantikan teks Berdiri Sejak' },
+            { key: 'about_story_sub_1', label: 'Sub Gambar 1', desc: 'Gambar pelengkap sejarah 1' },
+            { key: 'about_story_sub_2', label: 'Sub Gambar 2', desc: 'Gambar pelengkap sejarah 2' },
         ],
         investment: [
             { key: 'hero_investment', label: 'Latar Belakang Hero', desc: 'Banner halaman investasi' },

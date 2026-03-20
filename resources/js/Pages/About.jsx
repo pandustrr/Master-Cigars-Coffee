@@ -56,7 +56,7 @@ export default function About() {
             <section className="py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                        <div className="relative">
+                        <div className="relative max-w-[450px] mx-auto md:mx-0">
                             <div className="aspect-4/5 bg-coklat-tua border border-gold/20 overflow-hidden relative group shadow-2xl">
                                 {settings.about_story_image ? (
                                     <img src={`/storage/${settings.about_story_image}`} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000" alt="Our Story" />
@@ -69,8 +69,26 @@ export default function About() {
                                     </>
                                 )}
                             </div>
-                            <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-gold flex flex-col items-center justify-center p-8 hidden md:flex ring-[12px] ring-hitam-pekat shadow-[0_20px_50px_rgba(212,175,55,0.3)] rotate-3 hover:rotate-0 transition-transform duration-700">
-                                <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">{__('about.story.badge').split(' ')[0]} {__('about.story.badge').split(' ')[1]} <br /> <span className="text-4xl block mt-1">{__('about.story.badge').split(' ').slice(2).join(' ')}</span></p>
+
+                            {/* Sub Images - Desktop Floating */}
+                            {settings.about_story_sub_1 && (
+                                <div className="absolute -left-10 top-1/4 w-32 md:w-48 aspect-square bg-hitam-pekat border-8 border-hitam-pekat shadow-2xl z-20 hidden lg:block -rotate-6 transition-all duration-700 hover:rotate-0 hover:scale-110 overflow-hidden">
+                                    <img src={`/storage/${settings.about_story_sub_1}`} className="w-full h-full object-cover" alt="Sub 1" />
+                                </div>
+                            )}
+
+                            {settings.about_story_sub_2 && (
+                                <div className="absolute -right-6 -top-10 w-28 md:w-36 aspect-4/5 bg-hitam-pekat border-8 border-hitam-pekat shadow-2xl z-20 hidden lg:block rotate-12 transition-all duration-700 hover:rotate-0 hover:scale-110 overflow-hidden">
+                                    <img src={`/storage/${settings.about_story_sub_2}`} className="w-full h-full object-cover" alt="Sub 2" />
+                                </div>
+                            )}
+
+                            <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-gold flex flex-col items-center justify-center p-8 hidden md:flex ring-[12px] ring-hitam-pekat shadow-[0_20px_50px_rgba(212,175,55,0.3)] rotate-3 hover:rotate-0 transition-transform duration-700 z-30 overflow-hidden">
+                                {settings.about_story_badge ? (
+                                    <img src={`/storage/${settings.about_story_badge}`} className="w-full h-full object-contain" alt="Badge" />
+                                ) : (
+                                    <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">{__('about.story.badge').split(' ')[0]} {__('about.story.badge').split(' ')[1]} <br /> <span className="text-4xl block mt-1">{__('about.story.badge').split(' ').slice(2).join(' ')}</span></p>
+                                )}
                             </div>
                         </div>
                         <div className="space-y-10">

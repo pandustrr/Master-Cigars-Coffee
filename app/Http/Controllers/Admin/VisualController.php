@@ -23,7 +23,8 @@ class VisualController extends Controller
         $data = $request->all();
         $imageKeys = [
             'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products',
-            'site_logo', 'site_favicon', 'about_story_image', 'home_quote_bg', 'investment_context_bg'
+            'site_logo', 'site_favicon', 'about_story_image', 'about_story_badge', 
+            'about_story_sub_1', 'about_story_sub_2', 'home_quote_bg', 'investment_context_bg'
         ];
 
         foreach ($data as $key => $value) {
