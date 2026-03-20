@@ -13,8 +13,22 @@ import {
 import { useState, useMemo } from 'react';
 
 export default function Index({ partners, partnerCategories }) {
-    const { settings } = usePage().props;
+    const { settings, translations } = usePage().props;
     const [activeCategory, setActiveCategory] = useState('Semua');
+
+    // Helper function for translations
+    const __ = (key) => {
+        const keys = key.split('.');
+        let result = translations;
+        for (const k of keys) {
+            if (result && result[k]) {
+                result = result[k];
+            } else {
+                return key;
+            }
+        }
+        return result;
+    };
 
     const categories = ['Semua', ...partnerCategories.map(c => c.name)];
 
@@ -27,7 +41,7 @@ export default function Index({ partners, partnerCategories }) {
 
     return (
         <MainLayout>
-            <Head title="Mitra & Kolaborasi - Master Cerutu & Kopi" />
+            <Head title={__('partners.head_title')} />
 
             {/* Hero Section */}
             <section className="relative h-[60vh] flex items-center overflow-hidden">
@@ -41,12 +55,12 @@ export default function Index({ partners, partnerCategories }) {
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
                     <div className="inline-block px-4 py-1 border border-gold/30 rounded-full mb-6 backdrop-blur-md bg-gold/5 animate-pulse">
-                        <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black">Synergy & Growth</span>
+                        <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black">{__('partners.hero.label')}</span>
                     </div>
                     <h1 className="text-5xl md:text-8xl font-black text-white uppercase tracking-tighter mb-4 italic">
-                        Partner <span className="text-gold">&</span> Kolaborasi
+                        {__('partners.hero.title')}
                     </h1>
-                    <p className="text-cream-gold/60 uppercase tracking-[0.5em] text-[10px] font-bold">Membangun Ekosistem Bersama Master Heritage</p>
+                    <p className="text-cream-gold/60 uppercase tracking-[0.5em] text-[10px] font-bold">{__('partners.hero.sub')}</p>
                 </div>
             </section>
 
@@ -63,7 +77,7 @@ export default function Index({ partners, partnerCategories }) {
                                         : 'bg-gold/[0.05] text-gold/50 border-gold/20 hover:border-gold-muda hover:text-gold-muda hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]'
                                     }`}
                             >
-                                {cat}
+                                {cat === 'Semua' ? __('partners.all') : cat}
                             </button>
                         ))}
                     </div>
@@ -103,7 +117,7 @@ export default function Index({ partners, partnerCategories }) {
 
                                         <div className="pt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                                             <div className="w-8 h-0.5 bg-gold/50"></div>
-                                            <span className="text-[8px] font-black text-gold uppercase tracking-widest">Global Partner</span>
+                                            <span className="text-[8px] font-black text-gold uppercase tracking-widest">{__('partners.item.global')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -113,8 +127,8 @@ export default function Index({ partners, partnerCategories }) {
                                 <div className="inline-block p-6 rounded-full bg-gold/5 mb-6">
                                     <HandRaisedIcon className="w-12 h-12 text-gold/20" />
                                 </div>
-                                <h3 className="text-gold font-black uppercase tracking-widest">Belum Ada Partner</h3>
-                                <p className="text-cream-gold/30 text-xs mt-2">Kategori ini belum memiliki mitra kolaborasi.</p>
+                                <h3 className="text-gold font-black uppercase tracking-widest">{__('partners.empty.title')}</h3>
+                                <p className="text-cream-gold/30 text-xs mt-2">{__('partners.empty.desc')}</p>
                             </div>
                         )}
                     </div>
@@ -130,13 +144,13 @@ export default function Index({ partners, partnerCategories }) {
                     <div className="flex justify-center mb-10">
                         <ChatBubbleLeftEllipsisIcon className="w-16 h-16 text-gold/20 stroke-1" />
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter mb-8 italic">Menjadi Kolaborator</h2>
+                    <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter mb-8 italic">{__('partners.cta.title')}</h2>
                     <p className="text-cream-gold/60 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Ingin menyelaraskan merek Anda dengan puncak kemewahan? Kami selalu terbuka untuk menjajaki sinergi baru dan kemitraan kreatif.
+                        {__('partners.cta.desc')}
                     </p>
                     <button className="group relative px-12 py-5 bg-transparent overflow-hidden">
                         <div className="absolute inset-0 border border-gold group-hover:bg-gold transition-all duration-500"></div>
-                        <span className="relative z-10 text-gold group-hover:text-hitam-pekat font-black uppercase tracking-[0.3em] text-sm transition-colors duration-500">Diskusikan Kemitraan</span>
+                        <span className="relative z-10 text-gold group-hover:text-hitam-pekat font-black uppercase tracking-[0.3em] text-sm transition-colors duration-500">{__('partners.cta.btn')}</span>
                     </button>
                 </div>
                 {/* Background Decoration */}

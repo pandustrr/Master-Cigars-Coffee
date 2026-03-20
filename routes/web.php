@@ -12,6 +12,13 @@ use App\Http\Controllers\Admin\AdminProfileController;
 
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['id', 'en', 'zh'])) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 Route::get('/', function (Illuminate\Http\Request $request) {
     // Unique Visitor Tracking (IP based)
     \App\Models\Visitor::updateOrCreate(

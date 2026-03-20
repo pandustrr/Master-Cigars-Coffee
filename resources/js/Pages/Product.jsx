@@ -11,10 +11,24 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function Product({ products, mainProducts, categories }) {
-    const { settings } = usePage().props;
+    const { settings, translations } = usePage().props;
     const [selectedCategory, setSelectedCategory] = useState('Semua');
     const [selectedBrandDetail, setSelectedBrandDetail] = useState(null);
     const [activeGalleryImage, setActiveGalleryImage] = useState(null);
+
+    // Helper function for translations
+    const __ = (key) => {
+        const keys = key.split('.');
+        let result = translations;
+        for (const k of keys) {
+            if (result && result[k]) {
+                result = result[k];
+            } else {
+                return key;
+            }
+        }
+        return result;
+    };
     
     const heroImage = settings.hero_products ? `/storage/${settings.hero_products}` : '/images/hero.png';
 
@@ -35,7 +49,7 @@ export default function Product({ products, mainProducts, categories }) {
 
     return (
         <MainLayout>
-            <Head title="Koleksi Kami - Master Cerutu & Kopi" />
+            <Head title={__('product.head_title')} />
 
             {/* Hero Section */}
             <section className="relative h-[60vh] flex items-center overflow-hidden text-left">
@@ -52,9 +66,9 @@ export default function Product({ products, mainProducts, categories }) {
                         <div>
                             <div className="flex items-center space-x-3 mb-4">
                                 <ShoppingBagIcon className="w-6 h-6 text-gold stroke-1" />
-                                <span className="text-gold uppercase tracking-[0.3em] text-xs font-bold underline decoration-gold-tua underline-offset-8">Catalogue</span>
+                                <span className="text-gold uppercase tracking-[0.3em] text-xs font-bold underline decoration-gold-tua underline-offset-8">{__('product.hero.label')}</span>
                             </div>
-                            <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter italic">Koleksi Kami</h1>
+                            <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter italic">{__('product.hero.title')}</h1>
                         </div>
                         <div className="flex flex-wrap gap-4">
                             <button 
@@ -65,7 +79,7 @@ export default function Product({ products, mainProducts, categories }) {
                                     : 'border-gold-tua/20 text-gold-muda/40 hover:border-gold hover:text-gold'
                                 }`}
                             >
-                                Semua
+                                {__('product.all')}
                             </button>
                             {categories.map((cat) => (
                                 <button 
@@ -104,7 +118,7 @@ export default function Product({ products, mainProducts, categories }) {
                                             )}
                                             {/* Hover Overlay Visual Hint */}
                                             <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                <div className="px-6 py-2 bg-hitam-pekat/60 backdrop-blur-sm border border-gold/30 text-gold font-black uppercase text-[8px] tracking-[0.4em] translate-y-4 group-hover:translate-y-0 transition-transform">Lihat Detail Koleksi</div>
+                                                <div className="px-6 py-2 bg-hitam-pekat/60 backdrop-blur-sm border border-gold/30 text-gold font-black uppercase text-[8px] tracking-[0.4em] translate-y-4 group-hover:translate-y-0 transition-transform">{__('product.brand.hover')}</div>
                                             </div>
                                         </div>
                                         <div className="absolute -bottom-6 -right-6 w-32 h-32 border border-gold/30 hidden md:block -z-10 group-hover:scale-110 transition-transform duration-700"></div>
@@ -112,7 +126,7 @@ export default function Product({ products, mainProducts, categories }) {
                                     <div className="w-full md:w-1/2 space-y-6">
                                         <div className="flex items-center space-x-4">
                                             <div className="w-12 h-px bg-gold/50"></div>
-                                            <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Signature Brand</span>
+                                            <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">{__('product.brand.sig')}</span>
                                         </div>
                                         <h2 className="text-4xl md:text-7xl font-black text-gold uppercase tracking-tighter italic leading-none">{brand.name}</h2>
                                         <p className="text-cream-gold/60 text-lg leading-relaxed font-light whitespace-pre-wrap line-clamp-4">
@@ -123,7 +137,7 @@ export default function Product({ products, mainProducts, categories }) {
                                                 onClick={() => openBrandDetail(brand)}
                                                 className="text-gold font-black uppercase text-[10px] tracking-[0.3em] flex items-center space-x-4 group/btn"
                                             >
-                                                <span>Lihat Detail</span>
+                                                <span>{__('product.brand.detail')}</span>
                                                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-2 transition-transform shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
                                             </button>
                                         </div>
@@ -163,10 +177,10 @@ export default function Product({ products, mainProducts, categories }) {
                                     {/* Hover Action */}
                                     <div className="absolute inset-0 bg-hitam-pekat/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-8 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500 backdrop-blur-sm">
                                         <div className="flex flex-col items-center">
-                                            <p className="text-gold uppercase tracking-widest text-[10px] font-bold mb-4">Pesan Sekarang</p>
+                                            <p className="text-gold uppercase tracking-widest text-[10px] font-bold mb-4">{__('product.item.order')}</p>
                                             <p className="text-cream-gold text-sm mb-8 leading-relaxed font-light italic">"{product.desc}"</p>
                                             <Link href={route('sale.index')} className="flex items-center space-x-3 px-8 py-4 bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-widest hover:bg-gold-muda transition-all shadow-xl shadow-gold/20 active:scale-95">
-                                                <span>Pilih Menu</span>
+                                                <span>{__('product.item.select')}</span>
                                                 <PlusIcon className="w-4 h-4" />
                                             </Link>
                                         </div>
@@ -239,14 +253,14 @@ export default function Product({ products, mainProducts, categories }) {
                             <div className="w-full lg:w-2/5 p-8 lg:p-14 flex flex-col justify-center bg-coklat-kopi relative">
                                 <div className="flex items-center space-x-4 mb-6">
                                     <div className="w-12 h-px bg-gold/50"></div>
-                                    <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Collection Detail</span>
+                                    <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">{__('product.modal.label')}</span>
                                 </div>
                                 <h1 className="text-4xl lg:text-5xl font-black text-gold uppercase tracking-tighter italic mb-8 leading-none">
                                     {selectedBrandDetail.name}
                                 </h1>
                                 <div className="space-y-6 mb-12">
                                     <div className="inline-block px-4 py-2 border border-gold/10 bg-hitam-pekat/40 text-gold uppercase tracking-[0.3em] font-bold text-[9px]">
-                                        Category: {selectedBrandDetail.category}
+                                        {__('product.item.cat')} {selectedBrandDetail.category}
                                     </div>
                                     <p className="text-cream-gold/80 text-lg leading-relaxed font-light whitespace-pre-wrap italic">
                                         "{selectedBrandDetail.description}"
@@ -256,7 +270,7 @@ export default function Product({ products, mainProducts, categories }) {
                                     href={route('sale.index')} 
                                     className="inline-flex items-center space-x-6 px-10 py-5 bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-[0.4em] hover:bg-gold-muda transition-all w-fit shadow-xl shadow-gold/10 active:scale-95"
                                 >
-                                    <span>Pesan Brand Ini</span>
+                                    <span>{__('product.brand.order')}</span>
                                     <ArrowRightIcon className="w-5 h-5" />
                                 </Link>
                                 

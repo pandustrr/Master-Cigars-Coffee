@@ -12,12 +12,26 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function About() {
-    const { settings } = usePage().props;
+    const { settings, translations } = usePage().props;
     const heroImage = settings.hero_about ? `/storage/${settings.hero_about}` : '/images/hero.png';
+
+    // Helper function for translations
+    const __ = (key) => {
+        const keys = key.split('.');
+        let result = translations;
+        for (const k of keys) {
+            if (result && result[k]) {
+                result = result[k];
+            } else {
+                return key;
+            }
+        }
+        return result;
+    };
 
     return (
         <MainLayout>
-            <Head title="Tentang Kami - Master Cerutu & Kopi" />
+            <Head title={__('about.head_title')} />
 
             {/* Hero Section */}
             <section className="relative h-[60vh] flex items-center overflow-hidden text-center">
@@ -31,10 +45,10 @@ export default function About() {
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
                     <div className="inline-block px-5 py-1.5 border border-gold/40 rounded-full mb-8 backdrop-blur-xl bg-gold/5 animate-pulse">
-                        <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">The Legacy</span>
+                        <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">{__('about.hero.label')}</span>
                     </div>
-                    <h1 className="text-5xl md:text-9xl font-black text-white uppercase tracking-tighter mb-6 italic">Warisan <span className="text-gold/80 italic">Kami</span></h1>
-                    <p className="text-cream-gold/50 uppercase tracking-[0.5em] text-[10px] max-w-md mx-auto font-bold">Tradisi Kesempurnaan Sejak 1998</p>
+                    <h1 className="text-5xl md:text-9xl font-black text-white uppercase tracking-tighter mb-6 italic">{__('about.hero.title_1')} <span className="text-gold/80 italic">{__('about.hero.title_2')}</span></h1>
+                    <p className="text-cream-gold/50 uppercase tracking-[0.5em] text-[10px] max-w-md mx-auto font-bold">{__('about.hero.sub')}</p>
                 </div>
             </section>
 
@@ -56,29 +70,29 @@ export default function About() {
                                 )}
                             </div>
                             <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-gold flex flex-col items-center justify-center p-8 hidden md:flex ring-[12px] ring-hitam-pekat shadow-[0_20px_50px_rgba(212,175,55,0.3)] rotate-3 hover:rotate-0 transition-transform duration-700">
-                                <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">Berdiri Sejak <br /> <span className="text-4xl block mt-1">1998</span></p>
+                                <p className="text-hitam-pekat font-black text-sm leading-tight text-center uppercase tracking-tighter italic">{__('about.story.badge').split(' ')[0]} {__('about.story.badge').split(' ')[1]} <br /> <span className="text-4xl block mt-1">{__('about.story.badge').split(' ').slice(2).join(' ')}</span></p>
                             </div>
                         </div>
                         <div className="space-y-10">
                             <div>
-                                <h2 className="text-3xl md:text-5xl font-black text-gold-muda mb-6 uppercase tracking-tighter leading-tight italic">Menguasai Keahlian <br /><span className="text-gold/30">Ciptakan Legasi</span></h2>
+                                <h2 className="text-3xl md:text-5xl font-black text-gold-muda mb-6 uppercase tracking-tighter leading-tight italic">{__('about.story.title_1')} <br /><span className="text-gold/30">{__('about.story.title_2')}</span></h2>
                                 <div className="w-20 h-1.5 bg-gold mb-10"></div>
                             </div>
                             <div className="space-y-8 text-cream-gold/70 leading-relaxed text-lg font-light font-sans">
                                 <p className="first-letter:text-6xl first-letter:text-gold first-letter:font-black first-letter:mr-3 first-letter:float-left first-letter:mt-1 italic">
-                                    Didirikan dengan semangat untuk perpaduan yang tak tertandingi antara tembakau halus dan kafein yang kaya, Master Cigars & Coffee telah berevolusi dari koleksi pribadi yang sederhana menjadi destinasi utama bagi para penikmat.
+                                    {__('about.story.p1')}
                                 </p>
                                 <p>
-                                    Perjalanan kami dimulai di tanah vulkanik Karibia, di mana kami menemukan bahwa rahasia asap yang sempurna terletak pada kesabaran penuaan dan ketepatan campuran. Kami membawa filosofi ini pulang, memasangkan cerutu kami dengan biji kopi yang dipilih dengan cermat dari kepulauan Indonesia.
+                                    {__('about.story.p2')}
                                 </p>
                                 <div className="pt-6 border-t border-gold-tua/10 grid grid-cols-2 gap-8">
                                     <div className="space-y-2">
                                         <GlobeAltIcon className="w-8 h-8 text-gold stroke-1 opacity-40" />
-                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Sumber Global <br /> Terpilih</p>
+                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">{__('about.story.stat_source')}</p>
                                     </div>
                                     <div className="space-y-2">
                                         <ShieldCheckIcon className="w-8 h-8 text-gold stroke-1 opacity-40" />
-                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">Standar <br /> Kualitas Tinggi</p>
+                                        <p className="text-[10px] text-gold uppercase tracking-widest font-black leading-tight">{__('about.story.stat_quality')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -105,10 +119,10 @@ export default function About() {
                                     <div className="p-5 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.1)] group-hover:scale-110 transition-transform duration-700">
                                         <EyeIcon className="w-12 h-12 stroke-[1px]" />
                                     </div>
-                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">Visi</h3>
+                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">{__('about.vision.title')}</h3>
                                 </div>
                                 <p className="text-cream-gold/50 text-2xl md:text-3xl font-light leading-relaxed italic border-l-4 border-gold/30 pl-10 group-hover:text-cream-gold transition-colors duration-1000">
-                                    "Menjadi standar emas internasional dalam industri cerutu dan kopi, di mana kemewahan bertemu dengan tradisi."
+                                    {__('about.vision.text')}
                                 </p>
                             </div>
                         </div>
@@ -123,13 +137,13 @@ export default function About() {
                                     <div className="p-5 bg-gold/5 rounded-2xl border border-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.1)] group-hover:scale-110 transition-transform duration-700">
                                         <RocketLaunchIcon className="w-12 h-12 stroke-[1px]" />
                                     </div>
-                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">Misi</h3>
+                                    <h3 className="text-4xl font-black text-gold uppercase tracking-tighter italic">{__('about.mission.title')}</h3>
                                 </div>
                                 <ul className="space-y-8">
                                     {[
-                                        'Mengkurasi biji kopi dan tembakau terbaik dunia.',
-                                        'Memberikan pelayanan personal yang eksklusif.',
-                                        'Membangun ekosistem penikmat yang saling berbagi.'
+                                        __('about.mission.m1'),
+                                        __('about.mission.m2'),
+                                        __('about.mission.m3')
                                     ].map((mission, i) => (
                                         <li key={i} className="flex items-start space-x-6 group/item">
                                             <div className="w-3 h-3 bg-gold mt-2.5 shrink-0 group-hover/item:scale-150 group-hover/item:rotate-45 transition-all duration-500"></div>
@@ -151,18 +165,18 @@ export default function About() {
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center space-x-4 mb-4">
                             <div className="w-12 h-px bg-gold/30"></div>
-                            <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Core Philosophy</span>
+                            <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">{__('about.values.label')}</span>
                             <div className="w-12 h-px bg-gold/30"></div>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-gold uppercase tracking-tighter italic">Prinsip Inti</h2>
+                        <h2 className="text-3xl md:text-5xl font-black text-gold uppercase tracking-tighter italic">{__('about.values.title')}</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gold/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-hitam-pekat/20">
                         {[
-                            { title: 'Otentik', body: 'Keaslian tanpa kompromi pada asal dan kualitas bahan setiap produk.', icon: ShieldCheckIcon },
-                            { title: 'Elegan', body: 'Detail presentasi yang dirancang untuk estetika kelas dunia.', icon: SparklesIcon },
-                            { title: 'Eksklusif', body: 'Menjaga gengsi dan standar pelayanan bagi para penikmat sejati.', icon: TrophyIcon },
-                            { title: 'Komunitas', body: 'Membangun persaudaraan penggemar dalam atmosfer premium.', icon: GlobeAltIcon }
+                            { title: __('about.values.v1_t'), body: __('about.values.v1_b'), icon: ShieldCheckIcon },
+                            { title: __('about.values.v2_t'), body: __('about.values.v2_b'), icon: SparklesIcon },
+                            { title: __('about.values.v3_t'), body: __('about.values.v3_b'), icon: TrophyIcon },
+                            { title: __('about.values.v4_t'), body: __('about.values.v4_b'), icon: GlobeAltIcon }
                         ].map((v, i) => (
                             <div key={i} className={`group p-8 lg:p-10 border-b sm:border-b-0 border-gold/10 bg-hitam-pekat/40 hover:bg-gold/[0.02] transition-all duration-500 relative overflow-hidden ${i < 3 ? 'sm:border-r' : ''} ${i === 1 ? 'lg:border-r' : ''} ${i === 2 ? 'lg:border-r' : ''}`}>
                                 <div className="p-3 bg-gold/10 border border-gold/20 rounded-xl w-fit mb-8 group-hover:scale-110 transition-transform shadow-xl">
