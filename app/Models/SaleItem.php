@@ -10,8 +10,13 @@ class SaleItem extends Model
         'name',
         'price',
         'description',
+        'specifications',
         'image',
         'category',
         'stock',
+    ];
+
+    protected $casts = [
+        'specifications' => 'array',
     ];
 }

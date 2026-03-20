@@ -1,22 +1,24 @@
 import SidebarAdmin from '@/Layouts/SidebarAdmin';
 import { Head, Link } from '@inertiajs/react';
+import { useState } from 'react';
 import {
     ShoppingBagIcon,
     UserGroupIcon,
     BanknotesIcon,
     ArchiveBoxIcon,
-    ArrowRightIcon,
     CubeIcon,
-    PhotoIcon,
     Cog6ToothIcon,
-    ChartBarIcon,
+    XMarkIcon,
+    GlobeAltIcon,
 } from '@heroicons/react/24/outline';
 
 export default function Dashboard({ auth, stats: serverStats }) {
+    const [showVisitorModal, setShowVisitorModal] = useState(false);
+
     const quickLinks = [
         {
             name: 'Sales',
-            icon: BanknotesIcon,
+            icon: ShoppingBagIcon,
             link: route('admin.sales.index'),
             desc: 'Kelola pesanan & transaksi',
         },
@@ -33,22 +35,33 @@ export default function Dashboard({ auth, stats: serverStats }) {
             desc: 'Kolaborator & mitra',
         },
         {
-            name: 'Produk Web',
-            icon: ShoppingBagIcon,
-            link: route('admin.products.index'),
-            desc: 'Elemen halaman statis',
-        },
-        {
-            name: 'Visual',
-            icon: PhotoIcon,
-            link: route('admin.visual.index'),
-            desc: 'Aset visual & media',
+            name: 'Investment',
+            icon: BanknotesIcon,
+            link: route('admin.investment.index'),
+            desc: 'Program investasi aktif',
         },
         {
             name: 'Pengaturan',
             icon: Cog6ToothIcon,
             link: route('admin.settings.index'),
             desc: 'Konfigurasi sistem',
+        },
+    ];
+
+    const stats = [
+        { label: 'Total Pesanan', value: serverStats?.totalOrders ?? '0', sub: 'Semua transaksi', icon: BanknotesIcon, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+        { label: 'Produk Aktif', value: serverStats?.totalProducts ?? '0', sub: 'Katalog jualan', icon: ArchiveBoxIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
+        { label: 'Partner', value: serverStats?.totalPartners ?? '0', sub: 'Mitra terdaftar', icon: UserGroupIcon, color: 'text-blue-500', bg: 'bg-blue-50' },
+        { label: 'Main Product', value: serverStats?.totalBrands ?? '0', sub: 'Brand utama', icon: CubeIcon, color: 'text-purple-500', bg: 'bg-purple-50' },
+        { 
+            label: 'Pengunjung', 
+            value: serverStats?.totalVisitors ?? '0', 
+            sub: 'Unique Visitor', 
+            icon: GlobeAltIcon, 
+            color: 'text-rose-500', 
+            bg: 'bg-rose-50',
+            clickable: true,
+            onClick: () => setShowVisitorModal(true)
         },
     ];
 
@@ -74,7 +87,7 @@ export default function Dashboard({ auth, stats: serverStats }) {
                     </div>
 
                     {/* Quick Access Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         {quickLinks.map((item, idx) => (
                             <Link
                                 key={idx}
@@ -93,21 +106,26 @@ export default function Dashboard({ auth, stats: serverStats }) {
                     </div>
 
                     {/* Stats Row */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { label: 'Total Pesanan', value: serverStats?.totalOrders ?? '—', sub: 'Semua transaksi', icon: BanknotesIcon },
-                            { label: 'Produk Aktif', value: serverStats?.totalProducts ?? '—', sub: 'Di katalog', icon: ArchiveBoxIcon },
-                            { label: 'Partner', value: serverStats?.totalPartners ?? '—', sub: 'Mitra aktif', icon: UserGroupIcon },
-                            { label: 'Merek', value: serverStats?.totalBrands ?? '—', sub: 'Brand terdaftar', icon: CubeIcon },
-                        ].map((stat, i) => (
-                            <div key={i} className="bg-white rounded-3xl border border-gray-100 p-6 flex items-center space-x-5 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="w-14 h-14 bg-gold/5 rounded-2xl flex items-center justify-center shrink-0">
-                                    <stat.icon className="w-6 h-6 text-gold" />
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
+                        {stats.map((stat, i) => (
+                            <div 
+                                key={i} 
+                                onClick={stat.onClick}
+                                className={`bg-white rounded-[32px] border border-gray-100 p-6 flex flex-col items-start gap-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden ${stat.clickable ? 'cursor-pointer' : ''}`}
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity">
+                                    <stat.icon className="w-24 h-24 -mr-8 -mt-8" />
+                                </div>
+                                <div className={`w-12 h-12 ${stat.bg} rounded-2xl flex items-center justify-center shrink-0`}>
+                                    <stat.icon className={`w-6 h-6 ${stat.color}`} />
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-black text-gray-800 leading-none">{stat.value}</div>
-                                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1.5">{stat.label}</div>
-                                    <div className="text-[10px] text-gray-300 mt-0.5 italic">{stat.sub}</div>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-3xl font-black text-gray-800 leading-none tracking-tight">{stat.value}</span>
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none">Pcs</span>
+                                    </div>
+                                    <div className="text-[10px] font-black text-gray-800 uppercase tracking-widest mt-3">{stat.label}</div>
+                                    <div className="text-[9px] text-gray-400 font-bold mt-1 uppercase tracking-tight">{stat.sub}</div>
                                 </div>
                             </div>
                         ))}
@@ -115,7 +133,64 @@ export default function Dashboard({ auth, stats: serverStats }) {
 
                 </div>
             </div>
+
+            {/* Visitor Modal */}
+            {showVisitorModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    {/* Clickable Overlay without BG */}
+                    <div className="absolute inset-0" onClick={() => setShowVisitorModal(false)}></div>
+                    <div className="relative bg-white w-full max-w-2xl rounded-3xl border border-gray-100 shadow-[0_30px_100px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 overflow-hidden">
+                        <div className="p-8 border-b border-gray-50 flex items-center justify-between bg-gray-50/50">
+                            <div>
+                                <h3 className="text-xl font-black text-gray-800 uppercase tracking-tight">Detail Pengunjung</h3>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">100 Pengunjung Terakhir (Unik)</p>
+                            </div>
+                            <button 
+                                onClick={() => setShowVisitorModal(false)}
+                                className="p-3 bg-white rounded-2xl border border-gray-100 text-gray-400 hover:text-red-500 transition-all hover:rotate-90"
+                            >
+                                <XMarkIcon className="w-5 h-5" />
+                            </button>
+                        </div>
+                        
+                        <div className="p-8 max-h-[60vh] overflow-y-auto">
+                            <div className="space-y-3">
+                                {serverStats?.visitors?.length > 0 ? (
+                                    serverStats.visitors.map((v, i) => (
+                                        <div key={v.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:bg-white hover:border-gold/20 transition-all group">
+                                            <div className="flex items-center space-x-4">
+                                                <div className="w-10 h-10 bg-white rounded-xl border border-gray-100 flex items-center justify-center text-[10px] font-black text-gray-400 group-hover:text-gold transition-colors">
+                                                    {i + 1}
+                                                </div>
+                                                <div>
+                                                    <p className="text-xs font-black text-gray-800 uppercase tracking-tight">{v.ip_address}</p>
+                                                    <p className="text-[9px] text-gray-400 font-bold mt-0.5 truncate max-w-[300px]">{v.user_agent}</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[9px] font-black text-gray-800 uppercase tracking-widest">Waktu Kunjungan</p>
+                                                <p className="text-[9px] text-gray-400 font-bold mt-0.5">{new Date(v.created_at).toLocaleString('id-ID')}</p>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="text-center py-12">
+                                        <GlobeAltIcon className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+                                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Belum ada pengunjung tercatat</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="p-8 border-t border-gray-50 bg-gray-50/50 text-center">
+                            <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest items-center flex justify-center space-x-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>Data realtime sistem pelacakan unik</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </SidebarAdmin>
     );
 }
-

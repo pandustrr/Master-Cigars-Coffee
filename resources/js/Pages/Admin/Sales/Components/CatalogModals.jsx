@@ -5,9 +5,9 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
     if (!isItemModalOpen) return null;
     
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in pointer-events-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setIsItemModalOpen(false)}></div>
-            <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-md overflow-hidden border border-gray-100 scale-100 transition-all">
+            <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-md overflow-hidden border border-gray-100">
                 <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                     <div>
                         <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">{editingItem ? 'Edit Item' : 'Tambah Item'}</h4>
@@ -41,6 +41,27 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
                     <div className="space-y-1.5">
                         <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Deskripsi</label>
                         <textarea rows="2" value={data.description} onChange={e => setData('description', e.target.value)} className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all resize-none text-gray-800 placeholder-gray-400" placeholder="Deskripsi singkat produk..."></textarea>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                            <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Poin Katalog / Benefit</label>
+                            <button type="button" onClick={() => setData('specifications', [...data.specifications, ''])} className="text-[8px] font-black uppercase text-gold hover:text-gold-muda transition-colors">+ Tambah Poin</button>
+                        </div>
+                        <div className="space-y-2 max-h-32 overflow-y-auto pr-1 no-scrollbar">
+                            {data.specifications.map((spec, index) => (
+                                <div key={index} className="flex gap-2">
+                                    <input type="text" value={spec} onChange={e => {
+                                        const newSpecs = [...data.specifications];
+                                        newSpecs[index] = e.target.value;
+                                        setData('specifications', newSpecs);
+                                    }} className="flex-1 border-gray-100 bg-gray-50/50 rounded-lg text-[10px] font-bold p-2 focus:ring-gold focus:border-gold transition-all text-gray-700 placeholder-gray-300" placeholder={`Poin ${index + 1}...`} />
+                                    <button type="button" onClick={() => setData('specifications', data.specifications.filter((_, i) => i !== index))} className="w-8 h-8 flex items-center justify-center text-red-300 hover:text-red-500 transition-colors">&times;</button>
+                                </div>
+                            ))}
+                            {data.specifications.length === 0 && (
+                                <p className="text-[8px] text-gray-300 italic">Belum ada poin benefit ditambahkan.</p>
+                            )}
+                        </div>
                     </div>
                     <div className="space-y-1.5">
                         <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest text-center">Gambar (Opsional)</label>
@@ -86,9 +107,9 @@ export function ViewItemModal({ viewingItem, setViewingItem }) {
     if (!viewingItem) return null;
     
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-fade-in pointer-events-none">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setViewingItem(null)}></div>
-            <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-sm overflow-hidden border border-gray-100 scale-100 transition-all flex flex-col items-center p-8">
+            <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-sm overflow-hidden border border-gray-100 flex flex-col items-center p-8">
                 <button onClick={() => setViewingItem(null)} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-800 transition-all">&times;</button>
                 
                 <div className="w-32 h-32 rounded-3xl bg-gray-50 overflow-hidden shadow-inner mb-6 border border-gray-100 p-2">
@@ -114,6 +135,20 @@ export function ViewItemModal({ viewingItem, setViewingItem }) {
                             {viewingItem.description || 'Tidak ada deskripsi.'}
                         </p>
                     </div>
+
+                    {viewingItem.specifications && viewingItem.specifications.length > 0 && (
+                        <div className="text-left w-full space-y-2 mt-4">
+                            <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Poin Benefit / Detail</label>
+                            <div className="space-y-2">
+                                {viewingItem.specifications.map((spec, i) => (
+                                    <div key={i} className="flex items-center space-x-2 bg-gray-50/50 p-2 rounded-lg border border-gray-100">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+                                        <span className="text-[10px] font-bold text-gray-600 uppercase tracking-tight">{spec}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="mt-8 relative z-20">

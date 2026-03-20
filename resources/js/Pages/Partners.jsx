@@ -12,11 +12,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { useState, useMemo } from 'react';
 
-export default function Partners({ partners }) {
+export default function Index({ partners, partnerCategories }) {
     const { settings } = usePage().props;
     const [activeCategory, setActiveCategory] = useState('Semua');
 
-    const categories = ['Semua', 'Petani', 'Marketing Agency', 'Tour Travel', 'Horeka', 'UMKM'];
+    const categories = ['Semua', ...partnerCategories.map(c => c.name)];
 
     const filteredPartners = useMemo(() => {
         if (activeCategory === 'Semua') return partners;
@@ -51,16 +51,16 @@ export default function Partners({ partners }) {
             </section>
 
             {/* Category Filter Section */}
-            <section className="sticky top-20 z-40 bg-hitam-pekat/80 backdrop-blur-2xl border-y border-gold/10 py-6">
+            <section className="sticky top-20 z-40 bg-hitam-pekat/60 backdrop-blur-xl border-y border-gold/5 py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-wrap justify-center gap-3">
+                    <div className="flex flex-wrap justify-center gap-4">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 border ${activeCategory === cat
-                                        ? 'bg-gold text-hitam-pekat border-gold shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105'
-                                        : 'bg-transparent text-gold/50 border-gold/20 hover:border-gold hover:text-gold'
+                                className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-700 border ${activeCategory === cat
+                                        ? 'bg-gold text-hitam-pekat border-gold shadow-[0_10px_35px_-5px_rgba(212,175,55,0.45)] scale-105'
+                                        : 'bg-gold/[0.05] text-gold/50 border-gold/20 hover:border-gold-muda hover:text-gold-muda hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]'
                                     }`}
                             >
                                 {cat}
