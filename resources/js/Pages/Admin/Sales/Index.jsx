@@ -68,7 +68,7 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
     };
 
     const tabs = [
-        { id: 'catalog', name: 'Manajemen Katalog', icon: ArchiveBoxIcon, count: saleItems.length },
+        { id: 'catalog', name: 'Manajemen Marketplace', icon: ArchiveBoxIcon, count: saleItems.length },
         { id: 'retail', name: 'Pesanan Ritel', icon: ShoppingBagIcon, count: retailOrders.length },
         { id: 'package', name: 'Pesanan Paket', icon: TruckIcon, count: packageOrders.length },
         { id: 'point', name: 'Pesanan Point Corner', icon: CheckCircleIcon, count: pointCornerOrders.length },

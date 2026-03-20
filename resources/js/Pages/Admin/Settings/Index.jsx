@@ -7,7 +7,9 @@ import {
     CloudArrowUpIcon,
     CheckCircleIcon,
     PhotoIcon,
-    ShieldCheckIcon
+    ShieldCheckIcon,
+    EyeIcon,
+    EyeSlashIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
@@ -99,6 +101,10 @@ export default function Index({ settings, auth }) {
         });
     };
 
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     return (
         <SidebarAdmin
             header={<h2 className="font-black text-2xl text-gold leading-tight tracking-tighter uppercase">Pengaturan Sistem</h2>}
@@ -107,19 +113,6 @@ export default function Index({ settings, auth }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    {/* 
-                    <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm text-gray-800 flex justify-between items-center overflow-hidden relative border border-gray-100 group">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full blur-[80px] group-hover:bg-gray-100 transition-all duration-1000"></div>
-                        <div className="relative z-10">
-                            <h3 className="text-2xl md:text-3xl font-black tracking-tight mb-3 uppercase text-gray-800">Neural Payment Nexus</h3>
-                            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest max-w-xl leading-relaxed">
-                                Orchestrate the financial infrastructure. Global payment protocols and secure contact integration management.
-                            </p>
-                        </div>
-                        <ShieldCheckIcon className="w-56 h-56 absolute -right-10 -bottom-10 text-gray-50 rotate-12 group-hover:rotate-0 transition-transform duration-1000" />
-                    </div> */}
-
-
                     <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
                         {/* Left Column: Bank & WhatsApp */}
@@ -256,14 +249,14 @@ export default function Index({ settings, auth }) {
                                                     <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Informasi Profil</h4>
                                                 </div>
 
-                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
+                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100 shadow-inner">
                                                     <div className="space-y-1.5">
                                                         <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Username Admin</label>
                                                         <input
                                                             type="text"
                                                             value={profileData.username}
                                                             onChange={e => setProfileData('username', e.target.value)}
-                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                            className="w-full border-gray-300 bg-white rounded-xl text-xs font-black p-3 focus:ring-gold focus:border-gold transition-all shadow-sm text-gray-800"
                                                             required
                                                         />
                                                         {profileErrors.username && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{profileErrors.username}</div>}
@@ -274,7 +267,7 @@ export default function Index({ settings, auth }) {
                                                             type="text"
                                                             value={profileData.name}
                                                             onChange={e => setProfileData('name', e.target.value)}
-                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
+                                                            className="w-full border-gray-300 bg-white rounded-xl text-xs font-black p-3 focus:ring-gold focus:border-gold transition-all shadow-sm text-gray-800"
                                                             required
                                                         />
                                                         {profileErrors.name && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{profileErrors.name}</div>}
@@ -297,35 +290,62 @@ export default function Index({ settings, auth }) {
                                                     <h4 className="text-[11px] font-black uppercase text-gold tracking-widest">Keamanan & Password</h4>
                                                 </div>
 
-                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
+                                                <div className="space-y-4 bg-gray-50/50 p-5 rounded-2xl border border-gray-100 shadow-inner">
                                                     <div className="space-y-1.5">
                                                         <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Password Saat Ini</label>
-                                                        <input
-                                                            type="password"
-                                                            value={passwordData.current_password}
-                                                            onChange={e => setPasswordData('current_password', e.target.value)}
-                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
-                                                        />
+                                                        <div className="relative">
+                                                            <input
+                                                                type={showCurrentPassword ? "text" : "password"}
+                                                                value={passwordData.current_password}
+                                                                onChange={e => setPasswordData('current_password', e.target.value)}
+                                                                className="w-full border-gray-300 bg-white rounded-xl text-xs font-black p-3 pr-10 focus:ring-gold focus:border-gold transition-all shadow-sm text-gray-800"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gold transition-colors"
+                                                            >
+                                                                {showCurrentPassword ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                                                            </button>
+                                                        </div>
                                                         {passwordErrors.current_password && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{passwordErrors.current_password}</div>}
                                                     </div>
                                                     <div className="space-y-1.5">
                                                         <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Password Baru</label>
-                                                        <input
-                                                            type="password"
-                                                            value={passwordData.password}
-                                                            onChange={e => setPasswordData('password', e.target.value)}
-                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
-                                                        />
+                                                        <div className="relative">
+                                                            <input
+                                                                type={showNewPassword ? "text" : "password"}
+                                                                value={passwordData.password}
+                                                                onChange={e => setPasswordData('password', e.target.value)}
+                                                                className="w-full border-gray-300 bg-white rounded-xl text-xs font-black p-3 pr-10 focus:ring-gold focus:border-gold transition-all shadow-sm text-gray-800"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setShowNewPassword(!showNewPassword)}
+                                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gold transition-colors"
+                                                            >
+                                                                {showNewPassword ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                                                            </button>
+                                                        </div>
                                                         {passwordErrors.password && <div className="text-[9px] text-red-500 font-bold uppercase mt-1">{passwordErrors.password}</div>}
                                                     </div>
                                                     <div className="space-y-1.5">
                                                         <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest">Konfirmasi Password Baru</label>
-                                                        <input
-                                                            type="password"
-                                                            value={passwordData.password_confirmation}
-                                                            onChange={e => setPasswordData('password_confirmation', e.target.value)}
-                                                            className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all"
-                                                        />
+                                                        <div className="relative">
+                                                            <input
+                                                                type={showConfirmPassword ? "text" : "password"}
+                                                                value={passwordData.password_confirmation}
+                                                                onChange={e => setPasswordData('password_confirmation', e.target.value)}
+                                                                className="w-full border-gray-300 bg-white rounded-xl text-xs font-black p-3 pr-10 focus:ring-gold focus:border-gold transition-all shadow-sm text-gray-800"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gold transition-colors"
+                                                            >
+                                                                {showConfirmPassword ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                     <button
                                                         type="submit"

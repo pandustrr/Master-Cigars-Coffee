@@ -7,7 +7,7 @@ export default function CatalogTab({ saleItems, catalogFilter, setCatalogFilter,
             <div className="p-6">
                 <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
                     <div>
-                        <h3 className="text-base font-black text-gray-800 tracking-tight uppercase">Katalog Produk</h3>
+                        <h3 className="text-base font-black text-gray-800 tracking-tight uppercase">Marketplace Produk</h3>
                         <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">Kelola produk dan layanan</p>
                     </div>
                     <div className="flex items-center space-x-3">
@@ -81,7 +81,7 @@ export default function CatalogTab({ saleItems, catalogFilter, setCatalogFilter,
                             )) : (
                                 <tr>
                                     <td colSpan="4" className="px-4 py-10 text-center text-gray-400 text-[10px] font-black uppercase tracking-widest border-t border-gray-50">
-                                        Belum ada katalog untuk kategori ini
+                                        Belum ada produk Marketplace untuk kategori ini
                                     </td>
                                 </tr>
                             )}

@@ -81,7 +81,7 @@ export default function Index({ settings }) {
             { key: 'hero_partners', label: 'Latar Belakang Hero', desc: 'Banner halaman mitra' },
         ],
         products: [
-            { key: 'hero_products', label: 'Latar Belakang Hero', desc: 'Banner halaman katalog' },
+            { key: 'hero_products', label: 'Latar Belakang Hero', desc: 'Banner halaman Marketplace' },
         ],
     };
 

@@ -60,7 +60,7 @@ export default function Index({ products, categories }) {
     };
 
     const handleDelete = (id) => {
-        if (confirm('Hapus produk ini dari katalog?')) {
+        if (confirm('Hapus produk ini dari Marketplace?')) {
             destroy(route('admin.products.destroy', id));
         }
     };
@@ -158,7 +158,7 @@ export default function Index({ products, categories }) {
             {isAddModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-gray-900/40 backdrop-blur-sm animate-fade-in transition-all duration-500">
                     <div className="absolute inset-0" onClick={() => setIsAddModalOpen(false)}></div>
-                    <div className="relative bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-100 transform scale-100 animate-in zoom-in duration-300">
+                    <div className="relative bg-white rounded-4xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-100 transform scale-100 animate-in zoom-in duration-300">
                         <div className="px-10 py-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                             <div>
                                 <h4 className="font-black uppercase tracking-[0.2em] text-xl text-gray-800 italic">{editingProduct ? 'Modifikasi Protokol' : 'Entri Data Baru'}</h4>
@@ -180,7 +180,7 @@ export default function Index({ products, categories }) {
                                     placeholder="Contoh: Cohiba Behike 56"
                                     required
                                 />
-                                {errors.name && <div className="text-red-500 text-[10px] font-black uppercase mt-1 tracking-[0.1em] italic">{errors.name}</div>}
+                                {errors.name && <div className="text-red-500 text-[10px] font-black uppercase mt-1 tracking-widest italic">{errors.name}</div>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -5,7 +5,7 @@
         "product": "产品",
         "partners": "合作伙伴",
         "investment": "投资",
-        "sale": "目录",
+        "sale": "市场",
         "tracking": "追踪"
     },
     "hero": {
@@ -75,7 +75,7 @@
     "product": {
         "head_title": "我们的收藏 - 大师雪茄与咖啡",
         "hero": {
-            "label": "产品目录",
+            "label": "市场",
             "title": "我们的收藏"
         },
         "all": "全部",
