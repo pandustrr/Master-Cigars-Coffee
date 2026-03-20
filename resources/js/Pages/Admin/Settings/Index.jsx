@@ -18,6 +18,7 @@ export default function Index({ settings, auth }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         bank_accounts: settings.bank_accounts || [],
         whatsapp_admin: settings.whatsapp_admin || '',
+        site_address: settings.site_address || '',
         qris_image: null,
     });
 
@@ -218,6 +219,17 @@ export default function Index({ settings, auth }) {
                                                 <div className="w-5 h-5 bg-gold rounded-full flex items-center justify-center text-white shrink-0 mt-0.5 font-bold text-[10px] shadow-sm">!</div>
                                                 <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Gunakan kode negara tanpa awalan '+'. Contoh: 62812XXXXXX.</p>
                                             </div>
+
+                                            <div className="pt-6 space-y-4">
+                                                <label className="block text-[10px] font-bold uppercase text-gray-400 tracking-wider">Alamat Website Utama</label>
+                                                <textarea
+                                                    rows="3"
+                                                    value={data.site_address}
+                                                    onChange={e => setData('site_address', e.target.value)}
+                                                    placeholder="Tuliskan alamat lengkap..."
+                                                    className="w-full border-gray-300 rounded-xl text-sm font-bold p-3 focus:ring-2 focus:ring-gold/50 focus:border-gold bg-white text-gray-800 shadow-sm transition-all resize-none"
+                                                ></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -333,7 +345,7 @@ export default function Index({ settings, auth }) {
                         {/* Right Column: QRIS */}
                         <div className="space-y-6">
                             <div className="bg-white shadow-sm rounded-3xl border border-gray-100 p-8 text-center sticky top-20 overflow-hidden group/qris">
-                                <div className="absolute -top-16 -left-16 w-32 h-32 bg-gray-50 rounded-full blur-[40px] group-hover/qris:bg-gray-100 transition-colors"></div>
+                                <div className="absolute -top-16 -left-16 w-32 h-32 bg-gray-50 rounded-full blur-2xl group-hover/qris:bg-gray-100 transition-colors"></div>
                                 <div className="flex flex-col items-center relative z-10">
                                     <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gold mb-6 border border-gray-200 group-hover/qris:rotate-12 transition-transform duration-500">
                                         <QrCodeIcon className="w-8 h-8" />

@@ -29,6 +29,7 @@ class SiteSettingSeeder extends Seeder
             'about_story_image' => null,
             'home_quote_bg' => null,
             'investment_context_bg' => null,
+            'site_address' => 'Gebang Tengah, Gebang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68117',
         ];
 
         foreach ($settings as $key => $value) {

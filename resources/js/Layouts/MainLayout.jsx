@@ -62,7 +62,7 @@ export default function MainLayout({ children }) {
 
     const handleWhatsAppSubmit = (e) => {
         e.preventDefault();
-        const waNumber = settings.site_whatsapp || '6281234567890';
+        const waNumber = settings.whatsapp_admin || '6281234567890';
         const text = `Halo Master Cigars & Coffee,\n\nNama: ${contactData.name}\n\nPesan:\n${contactData.message}`;
         window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, '_blank');
     };
@@ -331,13 +331,13 @@ export default function MainLayout({ children }) {
                         <div>
                             <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">{__('layout.connect')}</h3>
                             <ul className="space-y-4 text-[9px] font-black uppercase tracking-widest text-white/60">
-                                <li className="flex items-center space-x-3 group">
-                                    <MapPinIcon className="w-4 h-4 text-gold shrink-0" />
+                                <li className="flex items-start space-x-3 group">
+                                    <MapPinIcon className="w-4 h-4 text-gold shrink-0 mt-1" />
                                     <span>{settings.site_address || "Gebang Tengah, Gebang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68117"}</span>
                                 </li>
                                 <li className="flex items-center space-x-3 group mt-3">
                                     <PhoneIcon className="w-4 h-4 text-gold shrink-0" />
-                                    <span>{settings.site_whatsapp || "+62 812 3456 7890"}</span>
+                                    <span>{settings.whatsapp_admin ? `+${settings.whatsapp_admin}` : "+62 812 3456 7890"}</span>
                                 </li>
                             </ul>
                         </div>
