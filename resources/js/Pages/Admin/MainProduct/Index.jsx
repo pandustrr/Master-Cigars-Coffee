@@ -331,7 +331,7 @@ export default function Index({ mainProducts, categories }) {
                         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center shrink-0">
                             <div>
                                 <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs italic">{editingProduct ? 'Modifikasi Produk' : 'Registrasi Produk'}</h4>
-                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Integrasi arsitektur katalog produk</p>
+                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Integrasi arsitektur Marketplace produk</p>
                             </div>
                             <button onClick={() => setIsAddModalOpen(false)} className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-red-500 transition-all">
                                 <XMarkIcon className="w-4 h-4" />

@@ -5,7 +5,7 @@
         "product": "Produk",
         "partners": "Mitra",
         "investment": "Investasi",
-        "sale": "Katalog",
+        "sale": "Marketplace",
         "tracking": "Lacak"
     },
     "hero": {
@@ -75,7 +75,7 @@
     "product": {
         "head_title": "Koleksi Kami - Master Cerutu & Kopi",
         "hero": {
-            "label": "Catalogue",
+            "label": "Marketplace",
             "title": "Koleksi Kami"
         },
         "all": "Semua",

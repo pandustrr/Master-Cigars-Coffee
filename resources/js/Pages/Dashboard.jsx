@@ -50,7 +50,7 @@ export default function Dashboard({ auth, stats: serverStats }) {
 
     const stats = [
         { label: 'Total Pesanan', value: serverStats?.totalOrders ?? '0', sub: 'Semua transaksi', icon: BanknotesIcon, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-        { label: 'Produk Aktif', value: serverStats?.totalProducts ?? '0', sub: 'Katalog jualan', icon: ArchiveBoxIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
+        { label: 'Produk Aktif', value: serverStats?.totalProducts ?? '0', sub: 'Marketplace jualan', icon: ArchiveBoxIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
         { label: 'Partner', value: serverStats?.totalPartners ?? '0', sub: 'Mitra terdaftar', icon: UserGroupIcon, color: 'text-blue-500', bg: 'bg-blue-50' },
         { label: 'Main Product', value: serverStats?.totalBrands ?? '0', sub: 'Brand utama', icon: CubeIcon, color: 'text-purple-500', bg: 'bg-purple-50' },
         { 
@@ -136,7 +136,7 @@ export default function Dashboard({ auth, stats: serverStats }) {
 
             {/* Visitor Modal */}
             {showVisitorModal && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-100 flex items-center justify-center p-4 pointer-events-none">
                     {/* Clickable Overlay without BG */}
                     <div className="absolute inset-0" onClick={() => setShowVisitorModal(false)}></div>
                     <div className="relative bg-white w-full max-w-2xl rounded-3xl border border-gray-100 shadow-[0_30px_100px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 overflow-hidden">

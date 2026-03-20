@@ -5,7 +5,7 @@
         "product": "Products",
         "partners": "Partners",
         "investment": "Investment",
-        "sale": "Catalog",
+        "sale": "Marketplace",
         "tracking": "Tracking"
     },
     "hero": {
@@ -75,7 +75,7 @@
     "product": {
         "head_title": "Our Collection - Master Cigars & Coffee",
         "hero": {
-            "label": "Catalogue",
+            "label": "Marketplace",
             "title": "Our Collection"
         },
         "all": "All",

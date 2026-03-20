@@ -44,7 +44,7 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
                     </div>
                     <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                            <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Poin Katalog / Benefit</label>
+                            <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Poin Marketplace / Benefit</label>
                             <button type="button" onClick={() => setData('specifications', [...data.specifications, ''])} className="text-[8px] font-black uppercase text-gold hover:text-gold-muda transition-colors">+ Tambah Poin</button>
                         </div>
                         <div className="space-y-2 max-h-32 overflow-y-auto pr-1 no-scrollbar">
@@ -107,7 +107,7 @@ export function ViewItemModal({ viewingItem, setViewingItem }) {
     if (!viewingItem) return null;
     
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 pointer-events-none">
             <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setViewingItem(null)}></div>
             <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-sm overflow-hidden border border-gray-100 flex flex-col items-center p-8">
                 <button onClick={() => setViewingItem(null)} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-800 transition-all">&times;</button>

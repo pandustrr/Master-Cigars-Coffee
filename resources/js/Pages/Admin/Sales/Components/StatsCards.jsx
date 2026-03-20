@@ -64,7 +64,7 @@ export default function StatsCards({ retailOrders, packageOrders, pointCornerOrd
                         <CircleStackIcon className="w-6 h-6" />
                     </div>
                     <div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-1">Total Stok Katalog</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-1">Total Stok Marketplace</span>
                         <span className="text-lg font-black text-gray-800 tracking-tighter">{totalStock} <span className="text-[10px] uppercase opacity-50">Unit</span></span>
                     </div>
                 </div>
