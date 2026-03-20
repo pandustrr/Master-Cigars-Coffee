@@ -1,0 +1,276 @@
+{
+    "nav": {
+        "home": "首页",
+        "about": "关于我们",
+        "product": "产品",
+        "partners": "合作伙伴",
+        "investment": "投资",
+        "sale": "目录",
+        "tracking": "追踪"
+    },
+    "hero": {
+        "title": "高级雪茄和咖啡",
+        "description": "每一口雪茄和每一滴最好的咖啡都能带给您完美的奢华体验。"
+    },
+    "home": {
+        "head_title": "优质雪茄与手工咖啡",
+        "hero": {
+            "sub": "终极发烧友庇护所",
+            "title": "大师传承",
+            "desc": "沉浸在独特的手卷雪茄世界中，搭配我们招牌的手工咖啡拼配。",
+            "explore": "探索收藏",
+            "story": "我们的故事",
+            "scroll": "向下滚动"
+        },
+        "features": {
+            "f1_title": "手工卷制",
+            "f1_desc": "每支雪茄均由专家级卷制师选用精选烟叶精心打造。",
+            "f2_title": "手工烘焙",
+            "f2_desc": "我们的咖啡豆源自高海拔庄园，经过烘焙以展现复杂的风味精髓。",
+            "f3_title": "专属休息室",
+            "f3_desc": "致力于隐私和纯粹舒适的会员制环境。"
+        },
+        "quote": "“雪茄既是一种仪式，也是一种放松。这是那一刻，其他一切都不重要。”"
+    },
+    "about": {
+        "head_title": "关于我们 - 大师雪茄与咖啡",
+        "hero": {
+            "label": "传奇",
+            "title_1": "我们的",
+            "title_2": "传承",
+            "sub": "始于1998年的卓越传统"
+        },
+        "story": {
+            "badge": "始创于 1998",
+            "title_1": "精通工艺",
+            "title_2": "创造传奇",
+            "p1": "大师雪茄与咖啡创立于对优质烟草和浓郁咖啡因无与伦比的搭配热情，已从简单的私人收藏演变为鉴赏家的首选目的地。",
+            "p2": "我们的旅程始于加勒比地区的火山土壤，在那里我们发现完美吸食的秘密在于缓慢的陈化和精确的调配。我们将这一哲学带回国内，将我们的雪茄与从印度尼西亚群岛精心挑选的咖啡豆配对。",
+            "stat_source": "精选全球来源",
+            "stat_quality": "高质量标准"
+        },
+        "vision": {
+            "title": "愿景",
+            "text": "“成为雪茄和咖啡行业的国际金标准，让奢华与传统交汇。”"
+        },
+        "mission": {
+            "title": "使命",
+            "m1": "策划世界上最好的咖啡豆和烟草。",
+            "m2": "提供独特的私人服务。",
+            "m3": "建立一个分享热情的鉴赏家生态系统。"
+        },
+        "values": {
+            "label": "核心哲学",
+            "title": "核心原则",
+            "v1_t": "真实",
+            "v1_b": "在每件产品的材料来源和质量上毫不妥协的真实性。",
+            "v2_t": "优雅",
+            "v2_b": "为世界级美学设计的展示细节。",
+            "v3_t": "专属",
+            "v3_b": "为真正的鉴赏家维持声望和服务标准。",
+            "v4_t": "社区",
+            "v4_b": "在优质氛围中建立狂热者的兄弟情谊。"
+        }
+    },
+    "product": {
+        "head_title": "我们的收藏 - 大师雪茄与咖啡",
+        "hero": {
+            "label": "产品目录",
+            "title": "我们的收藏"
+        },
+        "all": "全部",
+        "brand": {
+            "sig": "招牌品牌",
+            "hover": "查看收藏详情",
+            "detail": "查看详情",
+            "order": "预订此品牌"
+        },
+        "item": {
+            "order": "现在下单",
+            "select": "选择菜单",
+            "cat": "类别："
+        },
+        "modal": {
+            "label": "收藏详情"
+        }
+    },
+    "partners": {
+        "head_title": "合作伙伴与协作 - 大师雪茄与咖啡",
+        "hero": {
+            "label": "协同与增长",
+            "title": "合作伙伴与协作",
+            "sub": "与大师传承共同构建生态系统"
+        },
+        "all": "全部",
+        "item": {
+            "global": "全球合作伙伴"
+        },
+        "empty": {
+            "title": "暂无合作伙伴",
+            "desc": "此类别目前没有任何合作伙伴。"
+        },
+        "cta": {
+            "title": "成为合作者",
+            "desc": "想让您的品牌与奢侈品的巅峰对齐吗？我们始终愿意探索新的协同效应和创意伙伴关系。",
+            "btn": "讨论伙伴关系"
+        }
+    },
+    "investment": {
+        "head_title": "投资机会 - 大师雪茄与咖啡",
+        "hero": {
+            "label": "资本增长",
+            "title": "品质投资",
+            "sub": "可持续增长愿景"
+        },
+        "story": {
+            "title_1": "共同成长",
+            "title_2": "建立传奇",
+            "desc": "大师雪茄与咖啡不只是一个品牌；它是一种生活方式资产。我们为那些了解长期声望价值的人提供独特的投资工具。"
+        },
+        "pillars": {
+            "p1_t": "特许经营模式",
+            "p1_d": "在主要大都市拥有大师休息室，并提供完整的供应链支持。",
+            "p2_t": "基于资产",
+            "p2_d": "由实物陈年烟草库存和高山种植咖啡地支持的投资组合。",
+            "p3_t": "增长系列",
+            "p3_d": "参与我们的数字扩张和国际航运物流基础设施。"
+        },
+        "doc": {
+            "title": "投资文件",
+            "type": "官方 PDF 文件",
+            "download": "下载文件"
+        }
+    },
+    "sale": {
+        "head_title": "销售中心 - 大师雪茄与咖啡",
+        "hero": {
+            "label": "市场",
+            "title": "销售中心",
+            "track": "查询订单"
+        },
+        "retail": {
+            "title": "零售 / 单件",
+            "desc": "以实惠的优质价格购买零售产品。",
+            "buy": "购买"
+        },
+        "package": {
+            "title": "套套餐变更",
+            "desc": "选择我们精选的独家套餐。",
+            "select": "选择套餐"
+        },
+        "point": {
+            "title": "积分角",
+            "desc": "专属半加粗和全设施服务。",
+            "select": "选择服务"
+        },
+        "modal": {
+            "detail_label": "注册详情",
+            "online_system": "在线系统（实时处理）",
+            "benefit": "福利与规格",
+            "cat": "类别",
+            "stock": "库存剩余",
+            "available": "有货",
+            "empty": "缺货",
+            "flow": "购买流程",
+            "s1": "注册",
+            "s2": "支付",
+            "s3": "验证",
+            "s4": "送货",
+            "admin": "管理支持"
+        },
+        "form": {
+            "title": "选择并填写数据",
+            "name": "全名",
+            "name_ph": "输入您的全名",
+            "wa": "WhatsApp 号码",
+            "wa_ph": "例如：6281234567890",
+            "address": "详细地址",
+            "address_ph": "输入详细地址和街道详情...",
+            "qty": "购买数量",
+            "qty_ph": "例如：1, 2...",
+            "notes": "备注",
+            "notes_ph": "输入信息、预约时间或额外说明（可选）...",
+            "proof": "上传付款凭证（必填）",
+            "total": "支付总额",
+            "cost": "套餐费用",
+            "confirm": "确认购买",
+            "out": "库存不足"
+        },
+        "payment": {
+            "method": "付款方式",
+            "transfer": "银行转账",
+            "qris": "扫码支付",
+            "scan": "扫描 QRIS",
+            "missing": "抱歉，管理员尚未设置 QRIS"
+        },
+        "tracking": {
+            "head_title": "追踪订单 - Master Cigars & Coffee",
+            "back": "返回销售中心",
+            "title_1": "追踪",
+            "title_2": "订单",
+            "desc": "输入追踪 ID 以查看订单的最新状态。",
+            "id_label": "追踪 ID",
+            "id_ph": "例如：MST-A1B2C3",
+            "button": "追踪",
+            "cancel_title": "订单已取消",
+            "cancel_desc": "抱歉，您的订单无法继续。请联系管理员了解更多信息。",
+            "curr_status": "当前状态",
+            "tracking_id": "追踪 ID",
+            "status_wait": "等待确认",
+            "status_wait_sub": "管理员正在审核付款证明",
+            "status_process": "处理中",
+            "status_process_sub": "付款有效，商品正在准备中",
+            "status_ship": "已发货",
+            "status_ship_sub": "包裹正在运往您的位置",
+            "status_done": "已完成",
+            "status_done_sub": "货物已到达目的地",
+            "customer_name": "客户姓名",
+            "service_type": "服务类型",
+            "ordered_item": "订购商品",
+            "type_retail": "零售 / 单件商品",
+            "type_package": "服务套餐",
+            "type_point": "网点角落"
+        },
+        "invoice": {
+            "head_title": "发票 #%id% - 大师雪茄与咖啡",
+            "back": "返回销售中心",
+            "disc_title": "重要注意事项",
+            "disc_desc": "请截图此页面或保存您的追踪 ID。追踪 ID 必须保存，因为它是追踪订单状态的唯一方式。",
+            "order_status": "订单状态",
+            "order_id": "发票号码",
+            "customer": "客户",
+            "item": "服务 / 产品",
+            "method": "付款方式",
+            "total": "支付总额",
+            "vat": "包含增值税和服务费",
+            "instr_title": "付款说明",
+            "instr_tf": "转账 %bank%",
+            "instr_scan": "扫描 QRIS 支付",
+            "instr_e_wallet": "支持所有电子钱包和手机银行",
+            "pay_status": "付款状态",
+            "your_id": "您的追踪 ID",
+            "id_note": "*保存此追踪 ID。管理员将核实您的订单（5-10 分钟）。",
+            "track_button": "追踪订单",
+            "confirm_button": "告知管理员",
+            "copied": "已复制到剪贴板！",
+            "type_retail": "零售产品",
+            "wa_msg": "管理员您好，我想确认以下订单的付款：\n订单编号：#%id%\n姓名：%name%\n类型：%type%\n总额：Rp %total%\n\n付款凭证已上传系统。请尽快核实。谢谢。"
+        }
+    },
+    "layout": {
+        "inquiry_center": "咨询中心",
+        "fast_response": "通过 WhatsApp 快速回复",
+        "full_name": "全名",
+        "name_placeholder": "输入您的姓名",
+        "your_inquiry": "您的咨询",
+        "msg_placeholder": "您的留言或问题...",
+        "send_wa": "通过 WhatsApp 发送",
+        "quick_menu": "快捷菜单",
+        "connect": "联系我们",
+        "privacy": "隐私政策",
+        "terms": "服务条款"
+    },
+    "footer": {
+        "rights": "版权所有。"
+    }
+}

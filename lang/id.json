@@ -1,0 +1,276 @@
+{
+    "nav": {
+        "home": "Beranda",
+        "about": "Tentang Kami",
+        "product": "Produk",
+        "partners": "Mitra",
+        "investment": "Investasi",
+        "sale": "Katalog",
+        "tracking": "Lacak"
+    },
+    "hero": {
+        "title": "Cigar & Kopi Premium",
+        "description": "Nikmati kemewahan dalam setiap hisapan dan tetesan kopi terbaik kami."
+    },
+    "home": {
+        "head_title": "Cerutu Premium & Kopi Artisan",
+        "hero": {
+            "sub": "The Ultimate Aficionado Sanctuary",
+            "title": "Master Heritage",
+            "desc": "Manjakan diri dalam dunia cerutu lintingan tangan yang eksklusif, dipadukan dengan racikan kopi artisan khas kami.",
+            "explore": "Jelajahi Koleksi",
+            "story": "Kisah Kami",
+            "scroll": "Scroll Down"
+        },
+        "features": {
+            "f1_title": "Lintingan Tangan",
+            "f1_desc": "Setiap cerutu dibuat dengan teliti oleh pakar torcedores menggunakan daun tembakau pilihan.",
+            "f2_title": "Sangrai Artisan",
+            "f2_desc": "Biji kopi kami berasal dari perkebunan dataran tinggi dan disangrai untuk memunculkan cita rasa kompleks.",
+            "f3_title": "Lounge Eksklusif",
+            "f3_desc": "Lingkungan khusus anggota yang didedikasikan untuk privasi dan kenyamanan murni."
+        },
+        "quote": "\"Cerutu adalah sebuah ritual sekaligus relaksasi. Ini adalah momen waktu di mana tidak ada hal lain yang penting.\""
+    },
+    "about": {
+        "head_title": "Tentang Kami - Master Cerutu & Kopi",
+        "hero": {
+            "label": "The Legacy",
+            "title_1": "Warisan",
+            "title_2": "Kami",
+            "sub": "Tradisi Kesempurnaan Sejak 1998"
+        },
+        "story": {
+            "badge": "Berdiri Sejak 1998",
+            "title_1": "Menguasai Keahlian",
+            "title_2": "Ciptakan Legasi",
+            "p1": "Didirikan dengan semangat untuk perpaduan yang tak tertandingi antara tembakau halus dan kafein yang kaya, Master Cigars & Coffee telah berevolusi dari koleksi pribadi yang sederhana menjadi destinasi utama bagi para penikmat.",
+            "p2": "Perjalanan kami dimulai di tanah vulkanik Karibia, di mana kami menemukan bahwa rahasia asap yang sempurna terletak pada kesabaran penuaan dan ketepatan campuran. Kami membawa filosofi ini pulang, memasangkan cerutu kami dengan biji kopi yang dipilih dengan cermat dari kepulauan Indonesia.",
+            "stat_source": "Sumber Global Terpilih",
+            "stat_quality": "Standar Kualitas Tinggi"
+        },
+        "vision": {
+            "title": "Visi",
+            "text": "\"Menjadi standar emas internasional dalam industri cerutu dan kopi, di mana kemewahan bertemu dengan tradisi.\""
+        },
+        "mission": {
+            "title": "Misi",
+            "m1": "Mengkurasi biji kopi dan tembakau terbaik dunia.",
+            "m2": "Memberikan pelayanan personal yang eksklusif.",
+            "m3": "Membangun ekosistem penikmat yang saling berbagi."
+        },
+        "values": {
+            "label": "Core Philosophy",
+            "title": "Prinsip Inti",
+            "v1_t": "Otentik",
+            "v1_b": "Keaslian tanpa kompromi pada asal dan kualitas bahan setiap produk.",
+            "v2_t": "Elegan",
+            "v2_b": "Detail presentasi yang dirancang untuk estetika kelas dunia.",
+            "v3_t": "Eksklusif",
+            "v3_b": "Menjaga gengsi dan standar pelayanan bagi para penikmat sejati.",
+            "v4_t": "Komunitas",
+            "v4_b": "Membangun persaudaraan penggemar dalam atmosfer premium."
+        }
+    },
+    "product": {
+        "head_title": "Koleksi Kami - Master Cerutu & Kopi",
+        "hero": {
+            "label": "Catalogue",
+            "title": "Koleksi Kami"
+        },
+        "all": "Semua",
+        "brand": {
+            "sig": "Signature Brand",
+            "hover": "Lihat Detail Koleksi",
+            "detail": "Lihat Detail",
+            "order": "Pesan Brand Ini"
+        },
+        "item": {
+            "order": "Pesan Sekarang",
+            "select": "Pilih Menu",
+            "cat": "Kategori:"
+        },
+        "modal": {
+            "label": "Collection Detail"
+        }
+    },
+    "partners": {
+        "head_title": "Mitra & Kolaborasi - Master Cerutu & Kopi",
+        "hero": {
+            "label": "Synergy & Growth",
+            "title": "Partner & Kolaborasi",
+            "sub": "Membangun Ekosistem Bersama Master Heritage"
+        },
+        "all": "Semua",
+        "item": {
+            "global": "Global Partner"
+        },
+        "empty": {
+            "title": "Belum Ada Partner",
+            "desc": "Kategori ini belum memiliki mitra kolaborasi."
+        },
+        "cta": {
+            "title": "Menjadi Kolaborator",
+            "desc": "Ingin menyelaraskan merek Anda dengan puncak kemewahan? Kami selalu terbuka untuk menjajaki sinergi baru dan kemitraan kreatif.",
+            "btn": "Diskusikan Kemitraan"
+        }
+    },
+    "investment": {
+        "head_title": "Peluang Investasi - Master Cerutu & Kopi",
+        "hero": {
+            "label": "Capital Growth",
+            "title": "Investasi Kualitas",
+            "sub": "Visi Pertumbuhan Berkelanjutan"
+        },
+        "story": {
+            "title_1": "Tumbuh Bersama",
+            "title_2": "Membangun Legasi",
+            "desc": "Master Cigars & Coffee bukan sekadar merek; ini adalah aset gaya hidup. Kami menawarkan instrumen investasi unik bagi mereka yang memahami nilai prestise jangka panjang."
+        },
+        "pillars": {
+            "p1_t": "Model Waralaba",
+            "p1_d": "Miliki Master Lounge di lokasi metropolis utama dengan dukungan rantai pasokan penuh.",
+            "p2_t": "Berdasarkan Aset",
+            "p2_d": "Portofolio investasi yang didukung oleh stok tembakau fisik yang dimatangkan dan lahan kopi perkebunan pegunungan.",
+            "p3_t": "Seri Pertumbuhan",
+            "p3_d": "Berpartisipasi dalam ekspansi digital kami and infrastruktur logistik pengiriman internasional."
+        },
+        "doc": {
+            "title": "Dokumen Investasi",
+            "type": "Official PDF Document",
+            "download": "Unduh Dokumen"
+        }
+    },
+    "sale": {
+        "head_title": "SALE CENTER - Master Cerutu & Kopi",
+        "hero": {
+            "label": "Marketplace",
+            "title": "SALE CENTER",
+            "track": "Lacak Pesanan"
+        },
+        "retail": {
+            "title": "Retail / Eceran",
+            "desc": "Beli produk eceran dengan harga terjangkau dan premium.",
+            "buy": "Beli"
+        },
+        "package": {
+            "title": "Paket Change",
+            "desc": "Pilih paket eksklusif unggulan kami.",
+            "select": "Pilih Paket"
+        },
+        "point": {
+            "title": "Point Corner",
+            "desc": "Layanan Semi Bold & Full Facility eksklusif.",
+            "select": "Pilih Layanan"
+        },
+        "modal": {
+            "detail_label": "Detail Pendaftaran",
+            "online_system": "Sistem Online (Proses Realtime)",
+            "benefit": "Benefit & Spesifikasi",
+            "cat": "Kategori",
+            "stock": "Sisa Stok",
+            "available": "Tersedia",
+            "empty": "Habis",
+            "flow": "Alur Pembelian",
+            "s1": "Registrasi",
+            "s2": "Pembayaran",
+            "s3": "Verifikasi",
+            "s4": "Pengiriman",
+            "admin": "Dukungan Admin"
+        },
+        "form": {
+            "title": "Pilih & Isi Data",
+            "name": "Nama Lengkap",
+            "name_ph": "Masukkan nama lengkap Anda",
+            "wa": "Nomor WhatsApp",
+            "wa_ph": "Contoh: 6281234567890",
+            "address": "Alamat Lengkap",
+            "address_ph": "Masukkan alamat lengkap berserta detail patokan jalan...",
+            "qty": "Jumlah Beli",
+            "qty_ph": "Contoh: 1, 2...",
+            "notes": "Keterangan Tambahan",
+            "notes_ph": "Masukkan pesan, jam reservasi, atau instruksi tambahan (Opsional)...",
+            "proof": "Unggah Bukti Pembayaran (Wajib)",
+            "total": "Total Bayar",
+            "cost": "Biaya Paket",
+            "confirm": "Konfirmasi Pembelian",
+            "out": "Stok Habis"
+        },
+        "payment": {
+            "method": "Metode Pembayaran",
+            "transfer": "Transfer Bank",
+            "qris": "QRIS",
+            "scan": "Pindai QRIS",
+            "missing": "MOHON MAAF, QRIS BELUM DIATUR ADMIN"
+        },
+        "tracking": {
+            "head_title": "Lacak Pesanan - Master Cigars & Coffee",
+            "back": "Kembali ke Sale Center",
+            "title_1": "Lacak",
+            "title_2": "Pesanan",
+            "desc": "Masukkan ID Pelacakan untuk melihat status terbaru pesanan Anda.",
+            "id_label": "ID Pelacakan",
+            "id_ph": "Contoh: MST-A1B2C3",
+            "button": "Lacak",
+            "cancel_title": "Pesanan Dibatalkan",
+            "cancel_desc": "Mohon maaf, pesanan Anda tidak dapat dilanjutkan. Silakan hubungi admin untuk info lebih lanjut.",
+            "curr_status": "Status Saat Ini",
+            "tracking_id": "ID Tracking",
+            "status_wait": "Menunggu Konfirmasi",
+            "status_wait_sub": "Admin melihat bukti bayar",
+            "status_process": "Diproses",
+            "status_process_sub": "Pembayaran Sah, barang disiapkan",
+            "status_ship": "Dikirim",
+            "status_ship_sub": "Paket sedang menuju lokasi Anda",
+            "status_done": "Selesai",
+            "status_done_sub": "Kiriman telah sampai di tujuan",
+            "customer_name": "Nama Pemesan",
+            "service_type": "Jenis Layanan",
+            "ordered_item": "Item yang Dipesan",
+            "type_retail": "Retail / Eceran",
+            "type_package": "Paket Layanan",
+            "type_point": "Point Corner"
+        },
+        "invoice": {
+            "head_title": "Invoice #%id% - Master Cerutu & Kopi",
+            "back": "Kembali ke Sale Center",
+            "disc_title": "Perhatian Penting",
+            "disc_desc": "Harap Screenshot (Tangkap Layar) halaman ini atau simpan ID Tracking Anda. Kode id tracking wajib disimpan sebagai satu-satunya cara melacak status pesanan Anda.",
+            "order_status": "Status Pesanan",
+            "order_id": "Nomor Invoice",
+            "customer": "Pelanggan",
+            "item": "Layanan / Produk",
+            "method": "Metode Pembayaran",
+            "total": "Total Pembayaran",
+            "vat": "Sudah termasuk PPN & Biaya Layanan",
+            "instr_title": "Instruksi Pembayaran",
+            "instr_tf": "Transfer %bank%",
+            "instr_scan": "Scan QRIS untuk Bayar",
+            "instr_e_wallet": "Mendukung Semua E-Wallet & Mobile Banking",
+            "pay_status": "Status Pembayaran",
+            "your_id": "ID Tracking Anda",
+            "id_note": "*Simpan ID Tracking ini. Admin akan memverifikasi pesanan Anda (5-10 mnt).",
+            "track_button": "Lacak Pesanan",
+            "confirm_button": "Konfirmasi Admin",
+            "copied": "Disalin ke clipboard!",
+            "type_retail": "Produk Retail",
+            "wa_msg": "Halo Admin, saya ingin konfirmasi pembayaran untuk pesanan:\nNomor Pesanan: #%id%\nNama: %name%\nTipe: %type%\nTotal: Rp %total%\n\nBukti pembayaran telah diunggah di sistem. Mohon segera diverifikasi. Terima kasih."
+        }
+    },
+    "layout": {
+        "inquiry_center": "Pusat Pertanyaan",
+        "fast_response": "Respon Cepat via WhatsApp",
+        "full_name": "Nama Lengkap",
+        "name_placeholder": "Masukkan nama Anda",
+        "your_inquiry": "Pertanyaan Anda",
+        "msg_placeholder": "Pesan atau pertanyaan Anda...",
+        "send_wa": "Kirim Melalui WhatsApp",
+        "quick_menu": "Menu Cepat",
+        "connect": "Hubungi Kami",
+        "privacy": "Kebijakan Privasi",
+        "terms": "Syarat & Ketentuan"
+    },
+    "footer": {
+        "rights": "Seluruh Hak Cipta Dilindungi."
+    }
+}

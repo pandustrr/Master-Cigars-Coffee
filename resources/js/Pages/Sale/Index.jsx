@@ -1,5 +1,5 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import {
     ShoppingBagIcon,
     SparklesIcon,
@@ -21,26 +21,41 @@ export default function Index({ saleItems, settings }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedPointOption, setSelectedPointOption] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { translations } = usePage().props;
+
+    // Helper function for translations
+    const __ = (key) => {
+        const keys = key.split('.');
+        let result = translations;
+        for (const k of keys) {
+            if (result && result[k]) {
+                result = result[k];
+            } else {
+                return key;
+            }
+        }
+        return result;
+    };
 
     const categories = [
         {
             id: 'retail',
-            name: 'Retail / Eceran',
-            description: 'Beli paket eceran dengan harga terjangkau.',
+            name: __('sale.retail.title'),
+            description: __('sale.retail.desc'),
             icon: ShoppingBagIcon,
             color: 'from-gold/20 to-transparent'
         },
         {
             id: 'package',
-            name: 'Paket Change',
-            description: 'Pilih paket eksklusif Sultan atau Bamsroed.',
+            name: __('sale.package.title'),
+            description: __('sale.package.desc'),
             icon: SparklesIcon,
             color: 'from-coklat-kopi/40 to-transparent'
         },
         {
             id: 'point-corner',
-            name: 'Point Corner',
-            description: 'Layanan Semi Bold & Full Facility.',
+            name: __('sale.point.title'),
+            description: __('sale.point.desc'),
             icon: MapPinIcon,
             color: 'from-gold-muda/20 to-transparent'
         }
@@ -78,7 +93,7 @@ export default function Index({ saleItems, settings }) {
 
     return (
         <MainLayout>
-            <Head title="SALE CENTER - Master Cerutu & Kopi" />
+            <Head title={__('sale.head_title')} />
 
             {/* Hero Section */}
             <section className="relative h-[45vh] flex items-center overflow-hidden">
@@ -95,10 +110,10 @@ export default function Index({ saleItems, settings }) {
                         <div>
                             <div className="flex items-center space-x-3 mb-4">
                                 <TagIcon className="w-6 h-6 text-gold stroke-1" />
-                                <span className="text-gold uppercase tracking-[0.3em] text-xs font-bold underline decoration-gold-tua underline-offset-8">Marketplace</span>
+                                <span className="text-gold uppercase tracking-[0.3em] text-xs font-bold underline decoration-gold-tua underline-offset-8">{__('sale.hero.label')}</span>
                             </div>
                             <h1 className="text-4xl md:text-7xl font-bold text-gold uppercase tracking-tighter">
-                                SALE CENTER
+                                {__('sale.hero.title')}
                             </h1>
                         </div>
                         <a
@@ -106,7 +121,7 @@ export default function Index({ saleItems, settings }) {
                             className="flex items-center space-x-3 px-8 py-4 border border-gold bg-gold/10 backdrop-blur-md text-gold font-bold uppercase text-[10px] tracking-widest hover:bg-gold hover:text-hitam-pekat transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
                         >
                             <ClipboardDocumentCheckIcon className="w-4 h-4" />
-                            <span>Lacak Pesanan</span>
+                            <span>{__('sale.hero.track')}</span>
                         </a>
                     </div>
                 </div>
@@ -119,8 +134,8 @@ export default function Index({ saleItems, settings }) {
                     {retailProducts.length > 0 && (
                         <div className="mb-24">
                             <div className="mb-12">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">Retail / Eceran</h2>
-                                <p className="text-gold-muda/60 md:text-lg">Beli produk eceran dengan harga terjangkau dan premium.</p>
+                                <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.retail.title')}</h2>
+                                <p className="text-gold-muda/60 md:text-lg">{__('sale.retail.desc')}</p>
                                 <div className="w-24 h-1 bg-gold mt-6"></div>
                             </div>
                             <div className="flex flex-wrap justify-center gap-4 lg:gap-8 animate-fade-in-up w-full">
@@ -138,7 +153,7 @@ export default function Index({ saleItems, settings }) {
                                             onClick={() => openRetailForm(p)}
                                             className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest hover:bg-gold hover:text-hitam-pekat transition-all rounded-lg"
                                         >
-                                            Beli
+                                            {__('sale.retail.buy')}
                                         </button>
                                     </div>
                                 ))}
@@ -149,21 +164,21 @@ export default function Index({ saleItems, settings }) {
                     {/* Package Section */}
                     <div className="mb-24">
                         <div className="mb-12">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">Paket Change</h2>
-                            <p className="text-gold-muda/60 md:text-lg">Pilih paket eksklusif unggulan kami.</p>
+                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.package.title')}</h2>
+                            <p className="text-gold-muda/60 md:text-lg">{__('sale.package.desc')}</p>
                             <div className="w-24 h-1 bg-gold mt-6"></div>
                         </div>
-                        <PackageSelection items={packageItems} onSelect={(item) => { setSelectedProduct(item); setIsModalOpen(true); }} />
+                        <PackageSelection __={__} items={packageItems} onSelect={(item) => { setSelectedProduct(item); setIsModalOpen(true); }} />
                     </div>
 
                     {/* Point Corner Section */}
                     <div className="mb-12">
                         <div className="mb-12">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">Point Corner</h2>
-                            <p className="text-gold-muda/60 md:text-lg">Layanan Semi Bold & Full Facility eksklusif.</p>
+                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.point.title')}</h2>
+                            <p className="text-gold-muda/60 md:text-lg">{__('sale.point.desc')}</p>
                             <div className="w-24 h-1 bg-gold mt-6"></div>
                         </div>
-                        <PointCornerSelection items={pointCornerOptions} onSelect={openPointForm} />
+                        <PointCornerSelection __={__} items={pointCornerOptions} onSelect={openPointForm} />
                     </div>
 
                 </div>
@@ -195,9 +210,9 @@ export default function Index({ saleItems, settings }) {
                             <div>
                                 <h4 className="text-gold text-[10px] font-black uppercase tracking-[0.4em] mb-2 flex items-center">
                                     <InformationCircleIcon className="w-3 h-3 mr-2" />
-                                    Detail Pendaftaran
+                                    {__('sale.modal.detail_label')}
                                 </h4>
-                                <p className="text-white font-bold uppercase tracking-widest text-xs opacity-40">Online System (Realtime Processing)</p>
+                                <p className="text-white font-bold uppercase tracking-widest text-xs opacity-40">{__('sale.modal.online_system')}</p>
                             </div>
                         </div>
 
@@ -211,7 +226,7 @@ export default function Index({ saleItems, settings }) {
                         {/* Catalog Points / Benefits */}
                         {(selectedProduct?.specifications?.length > 0 || selectedPointOption?.specifications?.length > 0) && (
                             <div className="mb-10 space-y-4">
-                                <h4 className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-4">Benefit & Spesifikasi</h4>
+                                <h4 className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-4">{__('sale.modal.benefit')}</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     {(selectedProduct?.specifications || selectedPointOption?.specifications).map((spec, i) => (
                                         <div key={i} className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/5 group hover:border-gold/20 transition-all">
@@ -226,21 +241,21 @@ export default function Index({ saleItems, settings }) {
                         {/* Info Grids - SUGOI Style */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                             <div className="bg-white/5 border border-white/5 p-4 rounded-xl">
-                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block mb-2 opacity-50">Kategori</span>
+                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block mb-2 opacity-50">{__('sale.modal.cat')}</span>
                                 <p className="text-white text-xs font-bold uppercase tracking-tight">
-                                    {selectedPointOption ? selectedPointOption?.name : (selectedProduct?.category === 'Retail' ? 'Produk Eceran' : 'Paket Eksklusif')}
+                                    {selectedPointOption ? selectedPointOption?.name : (selectedProduct?.category === 'Retail' ? __('sale.retail.title') : __('sale.package.title'))}
                                 </p>
                             </div>
                             <div className="bg-white/5 border border-white/5 p-4 rounded-xl">
-                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block mb-2 opacity-50">Sisa Stok</span>
+                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block mb-2 opacity-50">{__('sale.modal.stock')}</span>
                                 <p className="text-white text-xs font-bold uppercase tracking-tight">
                                     {(() => {
                                         const stock = selectedProduct ? selectedProduct.stock : (selectedPointOption ? selectedPointOption.stock : null);
                                         if (stock !== null && stock !== undefined) {
                                             return stock > 0 ? (
-                                                <span className="text-[#00b37e] tracking-widest">{stock} Tersedia</span>
+                                                <span className="text-[#00b37e] tracking-widest">{stock} {__('sale.modal.available')}</span>
                                             ) : (
-                                                <span className="text-red-500 tracking-widest">Habis</span>
+                                                <span className="text-red-500 tracking-widest">{__('sale.modal.empty')}</span>
                                             );
                                         }
                                         return <span className="text-white/50 tracking-widest">-</span>;
@@ -251,13 +266,13 @@ export default function Index({ saleItems, settings }) {
 
                         {/* Order Flow - SUGOI Style Steps */}
                         <div className="mb-12">
-                            <h4 className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-6">Alur Pembelian</h4>
+                            <h4 className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-6">{__('sale.modal.flow')}</h4>
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                                 {[
-                                    { step: 1, label: 'Registrasi' },
-                                    { step: 2, label: 'Pembayaran' },
-                                    { step: 3, label: 'Verifikasi' },
-                                    { step: 4, label: 'Pengiriman' }
+                                    { step: 1, label: __('sale.modal.s1') },
+                                    { step: 2, label: __('sale.modal.s2') },
+                                    { step: 3, label: __('sale.modal.s3') },
+                                    { step: 4, label: __('sale.modal.s4') }
                                 ].map((item) => (
                                     <div key={item.step} className="bg-white/5 p-3 rounded-lg border border-white/5 flex items-center space-x-3 group hover:border-gold/20 transition-all">
                                         <span className="w-6 h-6 rounded-full bg-gold/10 text-gold flex items-center justify-center text-[10px] font-black border border-gold/20 group-hover:bg-gold group-hover:text-hitam-pekat transition-colors">
@@ -275,17 +290,17 @@ export default function Index({ saleItems, settings }) {
                                 <ChatBubbleLeftRightIcon className="w-5 h-5 text-hitam-pekat" />
                             </div>
                             <div>
-                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block opacity-60">Admin Support</span>
+                                <span className="text-gold text-[9px] font-black uppercase tracking-widest block opacity-60">{__('sale.modal.admin')}</span>
                                 <p className="text-white text-xs font-bold font-mono tracking-widest">Master Support - 0812 3456 7890</p>
                             </div>
                         </div>
 
                         {/* Form Integration */}
                         <div className="mt-16 border-t border-white/5 pt-12">
-                            <h3 className="text-white font-black uppercase tracking-[0.2em] text-xs mb-8">Pilih & Isi Data</h3>
-                            {selectedProduct?.category === 'Retail' && <RetailForm product={selectedProduct} onClose={handleCloseModal} settings={settings} />}
-                            {selectedPointOption && <PointCornerForm opt={selectedPointOption} onClose={handleCloseModal} settings={settings} />}
-                            {!selectedPointOption && selectedProduct?.category === 'Package' && <PackageForm item={selectedProduct} onClose={handleCloseModal} settings={settings} />}
+                            <h3 className="text-white font-black uppercase tracking-[0.2em] text-xs mb-8">{__('sale.form.title')}</h3>
+                            {selectedProduct?.category === 'Retail' && <RetailForm __={__} product={selectedProduct} onClose={handleCloseModal} settings={settings} />}
+                            {selectedPointOption && <PointCornerForm __={__} opt={selectedPointOption} onClose={handleCloseModal} settings={settings} />}
+                            {!selectedPointOption && selectedProduct?.category === 'Package' && <PackageForm __={__} item={selectedProduct} onClose={handleCloseModal} settings={settings} />}
                         </div>
                     </div>
                 </div>
@@ -320,7 +335,7 @@ function Modal({ isOpen, onClose, children }) {
     );
 }
 
-function RetailForm({ product, onClose, settings }) {
+function RetailForm({ product, onClose, settings, __ }) {
     const { data, setData, post, processing, errors } = useForm({
         foto_produk: null,
         harga: product.price,
@@ -343,50 +358,50 @@ function RetailForm({ product, onClose, settings }) {
         <form onSubmit={submit} className="space-y-6">
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                <FormGroup label="Jumlah Beli" error={errors.jumlah_beli}>
+                <FormGroup label={__('sale.form.qty')} error={errors.jumlah_beli}>
                     <input
                         type="number"
                         value={data.jumlah_beli}
                         onChange={e => setData('jumlah_beli', e.target.value)}
-                        placeholder="Contoh: 1, 2..."
+                        placeholder={__('sale.form.qty_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
-                <FormGroup label="Nama Lengkap" error={errors.nama_lengkap}>
+                <FormGroup label={__('sale.form.name')} error={errors.nama_lengkap}>
                     <input
                         type="text"
                         value={data.nama_lengkap}
                         onChange={e => setData('nama_lengkap', e.target.value)}
-                        placeholder="Masukkan nama lengkap Anda"
+                        placeholder={__('sale.form.name_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
 
-            <FormGroup label="Nomor WhatsApp" error={errors.nomor_whatsapp}>
+            <FormGroup label={__('sale.form.wa')} error={errors.nomor_whatsapp}>
                 <input
                     type="text"
                     value={data.nomor_whatsapp}
                     onChange={e => setData('nomor_whatsapp', e.target.value)}
-                    placeholder="Contoh: 6281234567890"
+                    placeholder={__('sale.form.wa_ph')}
                     className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                 />
             </FormGroup>
 
-            <FormGroup label="Alamat Lengkap" error={errors.alamat_lengkap}>
+            <FormGroup label={__('sale.form.address')} error={errors.alamat_lengkap}>
                 <textarea
                     rows="3"
                     value={data.alamat_lengkap}
                     onChange={e => setData('alamat_lengkap', e.target.value)}
-                    placeholder="Masukkan alamat lengkap berserta detail patokan jalan..."
+                    placeholder={__('sale.form.address_ph')}
                     className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
+            <PaymentInfoBase __={__} settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
-                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Total Bayar</span>
+                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">{__('sale.form.total')}</span>
                 <span className="text-gold text-lg font-black tracking-tight">Rp {(data.harga * data.jumlah_beli).toLocaleString()}</span>
             </div>
 
@@ -394,13 +409,13 @@ function RetailForm({ product, onClose, settings }) {
                 disabled={processing || !data.payment_proof || product?.stock < 1}
                 className="w-full py-5 disabled:opacity-50 border disabled:border-white/10 border-transparent bg-gold disabled:bg-hitam-pekat disabled:text-white/30 shadow-[0_10px_30px_rgba(212,175,55,0.2)] disabled:shadow-none hover:shadow-[0_20px_40px_rgba(212,175,55,0.4)] hover:bg-gold-muda rounded-xl text-hitam-pekat font-black uppercase tracking-[0.4em] text-[10px] transform hover:-translate-y-1 transition-all duration-300"
             >
-                {product?.stock < 1 ? 'Stok Habis' : 'Konfirmasi Pembelian'}
+                {product?.stock < 1 ? __('sale.form.out') : __('sale.form.confirm')}
             </button>
         </form>
     );
 }
 
-function PackageSelection({ items, onSelect }) {
+function PackageSelection({ items, onSelect, __ }) {
     if (items.length === 0) {
         const options = [
             {
@@ -435,7 +450,7 @@ function PackageSelection({ items, onSelect }) {
                         </div>
                         <div className="mt-auto pt-4 w-full">
                             <button className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-hitam-pekat transition-all rounded-lg">
-                                Pilih Paket
+                                {__('sale.package.select')}
                             </button>
                         </div>
                     </div>
@@ -461,7 +476,7 @@ function PackageSelection({ items, onSelect }) {
                     </div>
                     <div className="mt-auto pt-4 w-full">
                         <button className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-hitam-pekat transition-all rounded-lg">
-                            Pilih Paket
+                            {__('sale.package.select')}
                         </button>
                     </div>
                 </div>
@@ -470,7 +485,7 @@ function PackageSelection({ items, onSelect }) {
     );
 }
 
-function PackageForm({ item, onClose, settings }) {
+function PackageForm({ item, onClose, settings, __ }) {
     const { data, setData, post, processing, errors } = useForm({
         package_type: item?.name || 'Sultan',
         price: item?.price || 0,
@@ -490,39 +505,39 @@ function PackageForm({ item, onClose, settings }) {
     return (
         <form onSubmit={submit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                <FormGroup label="Nama Lengkap" error={errors.nama}>
+                <FormGroup label={__('sale.form.name')} error={errors.nama}>
                     <input
                         type="text"
                         value={data.nama}
                         onChange={e => setData('nama', e.target.value)}
-                        placeholder="Masukkan nama lengkap Anda"
+                        placeholder={__('sale.form.name_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
-                <FormGroup label="Nomor WhatsApp" error={errors.whatsapp}>
+                <FormGroup label={__('sale.form.wa')} error={errors.whatsapp}>
                     <input
                         type="text"
                         value={data.whatsapp}
                         onChange={e => setData('whatsapp', e.target.value)}
-                        placeholder="Contoh: 6281234567890"
+                        placeholder={__('sale.form.wa_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
-            <FormGroup label="Alamat Lengkap" error={errors.alamat}>
+            <FormGroup label={__('sale.form.address')} error={errors.alamat}>
                 <textarea
                     rows="3"
                     value={data.alamat}
                     onChange={e => setData('alamat', e.target.value)}
-                    placeholder="Masukkan alamat lengkap berserta detail patokan jalan..."
+                    placeholder={__('sale.form.address_ph')}
                     className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
+            <PaymentInfoBase __={__} settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
-                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Biaya Paket</span>
+                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">{__('sale.form.cost')}</span>
                 <span className="text-gold text-lg font-black tracking-tight">Rp {parseFloat(data.price).toLocaleString()}</span>
             </div>
 
@@ -530,13 +545,13 @@ function PackageForm({ item, onClose, settings }) {
                 disabled={processing || !data.payment_proof || item?.stock < 1}
                 className="w-full py-5 disabled:opacity-50 border disabled:border-white/10 border-transparent bg-gold disabled:bg-hitam-pekat disabled:text-white/30 shadow-[0_10px_30px_rgba(212,175,55,0.2)] disabled:shadow-none hover:shadow-[0_20px_40px_rgba(212,175,55,0.4)] hover:bg-gold-muda rounded-xl text-hitam-pekat font-black uppercase tracking-[0.4em] text-[10px] transform hover:-translate-y-1 transition-all duration-300"
             >
-                {item?.stock < 1 ? 'Stok Habis' : 'Konfirmasi Pembelian'}
+                {item?.stock < 1 ? __('sale.form.out') : __('sale.form.confirm')}
             </button>
         </form>
     );
 }
 
-function PointCornerSelection({ items, onSelect }) {
+function PointCornerSelection({ items, onSelect, __ }) {
     if (items.length === 0) {
         const options = [
             {
@@ -573,7 +588,7 @@ function PointCornerSelection({ items, onSelect }) {
                         </div>
                         <div className="mt-auto pt-4 w-full">
                             <button className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-hitam-pekat transition-all rounded-lg">
-                                Pilih Layanan
+                                {__('sale.point.select')}
                             </button>
                         </div>
                     </div>
@@ -599,7 +614,7 @@ function PointCornerSelection({ items, onSelect }) {
                     </div>
                     <div className="mt-auto pt-4 w-full">
                         <button className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest group-hover:bg-gold group-hover:text-hitam-pekat transition-all rounded-lg">
-                            Pilih Layanan
+                            {__('sale.point.select')}
                         </button>
                     </div>
                 </div>
@@ -608,7 +623,7 @@ function PointCornerSelection({ items, onSelect }) {
     );
 }
 
-function PointCornerForm({ opt, onClose, settings }) {
+function PointCornerForm({ opt, onClose, settings, __ }) {
     const { data, setData, post, processing, errors } = useForm({
         service_type: opt.name,
         price: opt.price || 0,
@@ -627,39 +642,39 @@ function PointCornerForm({ opt, onClose, settings }) {
     return (
         <form onSubmit={submit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                <FormGroup label="Nama Lengkap" error={errors.nama}>
+                <FormGroup label={__('sale.form.name')} error={errors.nama}>
                     <input
                         type="text"
                         value={data.nama}
                         onChange={e => setData('nama', e.target.value)}
-                        placeholder="Masukkan nama lengkap Anda"
+                        placeholder={__('sale.form.name_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
-                <FormGroup label="Nomor WhatsApp" error={errors.whatsapp}>
+                <FormGroup label={__('sale.form.wa')} error={errors.whatsapp}>
                     <input
                         type="text"
                         value={data.whatsapp}
                         onChange={e => setData('whatsapp', e.target.value)}
-                        placeholder="Contoh: 6281234567890"
+                        placeholder={__('sale.form.wa_ph')}
                         className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none rounded-xl transition-all placeholder:text-white/20"
                     />
                 </FormGroup>
             </div>
-            <FormGroup label="Keterangan Tambahan" error={errors.keterangan}>
+            <FormGroup label={__('sale.form.note')} error={errors.keterangan}>
                 <textarea
                     rows="3"
                     value={data.keterangan}
                     onChange={e => setData('keterangan', e.target.value)}
-                    placeholder="Masukkan pesan, jam reservasi, atau instruksi tambahan (Opsional)..."
+                    placeholder={__('sale.form.note_ph')}
                     className="w-full bg-white/5 border border-white/10 p-3 md:p-4 text-white text-xs focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none rounded-xl transition-all placeholder:text-white/20"
                 ></textarea>
             </FormGroup>
 
-            <PaymentInfoBase settings={settings} data={data} setData={setData} error={errors.payment_proof} />
+            <PaymentInfoBase __={__} settings={settings} data={data} setData={setData} error={errors.payment_proof} />
 
             <div className="p-5 bg-gold/10 border border-gold/20 rounded-xl flex justify-between items-center shadow-[0_0_20px_rgba(212,175,55,0.05)]">
-                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">Total Bayar</span>
+                <span className="text-white/40 text-[9px] font-black uppercase tracking-widest">{__('sale.form.total')}</span>
                 <span className="text-gold text-lg font-black tracking-tight">Rp {parseFloat(data.price).toLocaleString()}</span>
             </div>
 
@@ -667,20 +682,20 @@ function PointCornerForm({ opt, onClose, settings }) {
                 disabled={processing || !data.payment_proof || opt?.stock < 1}
                 className="w-full py-5 disabled:opacity-50 border disabled:border-white/10 border-transparent bg-gold disabled:bg-hitam-pekat disabled:text-white/30 shadow-[0_10px_30px_rgba(212,175,55,0.2)] disabled:shadow-none hover:shadow-[0_20px_40px_rgba(212,175,55,0.4)] hover:bg-gold-muda rounded-xl text-hitam-pekat font-black uppercase tracking-[0.4em] text-[10px] transform hover:-translate-y-1 transition-all duration-300"
             >
-                {opt?.stock < 1 ? 'Stok Habis' : 'Konfirmasi Pembelian'}
+                {opt?.stock < 1 ? __('sale.form.out') : __('sale.form.confirm')}
             </button>
         </form>
     );
 }
 
-function PaymentInfoBase({ settings, data, setData, error }) {
+function PaymentInfoBase({ settings, data, setData, error, __ }) {
     const [isQrisPreviewOpen, setIsQrisPreviewOpen] = useState(false);
 
     return (
         <div className="mt-8 mb-4 border border-white/5 rounded-2xl p-5 bg-[#171410]">
             <h4 className="text-gold text-[10px] font-black uppercase tracking-[0.2em] mb-4 flex items-center">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold mr-2"></span>
-                Metode Pembayaran
+                {__('sale.payment.method')}
             </h4>
 
             {/* Payment Method Selector */}
@@ -690,7 +705,7 @@ function PaymentInfoBase({ settings, data, setData, error }) {
                     onClick={() => setData('metode_pembayaran', 'TRANSFER')}
                     className={`p-3 rounded-xl border flex flex-col items-center justify-center transition-all ${data.metode_pembayaran === 'TRANSFER' ? 'border-gold bg-gold/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'border-white/10 bg-white/5 hover:border-gold/30'}`}
                 >
-                    <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'TRANSFER' ? 'text-gold' : 'text-gray-400'}`}>Transfer Bank</span>
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'TRANSFER' ? 'text-gold' : 'text-gray-400'}`}>{__('sale.payment.tf_bank')}</span>
                 </button>
                 <button 
                     type="button"
@@ -709,7 +724,7 @@ function PaymentInfoBase({ settings, data, setData, error }) {
                             <div key={index} className="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col hover:border-gold/30 transition-colors">
                                 <span className="text-[10px] font-bold text-gray-400 mb-1">{bank.bank}</span>
                                 <span className="text-sm md:text-base font-black text-white font-mono tracking-wider">{bank.norek}</span>
-                                <span className="text-[9px] uppercase tracking-widest text-gold mt-1">A.N {bank.name}</span>
+                                <span className="text-[9px] uppercase tracking-widest text-gold mt-1">{__('sale.payment.name')} {bank.name}</span>
                             </div>
                         ))}
                     </div>
@@ -718,7 +733,7 @@ function PaymentInfoBase({ settings, data, setData, error }) {
                 {/* QRIS */}
                 {data.metode_pembayaran === 'QRIS' && settings?.qris_image ? (
                     <div className="mt-4 border border-white/10 bg-white/5 p-4 rounded-xl flex flex-col items-center animate-fade-in-up">
-                        <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Pindai QRIS</span>
+                        <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">{__('sale.payment.scan')}</span>
                         <div className="bg-white p-2 rounded-xl relative group">
                             <img src={`/storage/${settings.qris_image}`} alt="QRIS" className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg" />
                             <button 
@@ -732,13 +747,13 @@ function PaymentInfoBase({ settings, data, setData, error }) {
                     </div>
                 ) : (data.metode_pembayaran === 'QRIS' && !settings?.qris_image && (
                     <div className="mt-4 border border-white/10 bg-hitam-pekat p-4 rounded-xl flex items-center justify-center h-24 border-dashed animate-fade-in-up">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 italic">MOHON MAAF, QRIS BELUM DIATUR ADMIN</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 italic">{__('sale.payment.no_qris')}</span>
                     </div>
                 ))}
 
                 {/* File Upload Component */}
                 <div className="pt-4 border-t border-white/5">
-                    <FormGroup label="Unggah Bukti Pembayaran (Wajib)" error={error}>
+                    <FormGroup label={__('sale.payment.upload_req')} error={error}>
                         <div className="relative">
                             <input 
                                 type="file" 

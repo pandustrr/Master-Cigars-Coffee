@@ -1,0 +1,276 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "product": "Products",
+        "partners": "Partners",
+        "investment": "Investment",
+        "sale": "Catalog",
+        "tracking": "Tracking"
+    },
+    "hero": {
+        "title": "Premium Cigar & Coffee",
+        "description": "Experience luxury in every puff and sip of our finest coffee."
+    },
+    "home": {
+        "head_title": "Premium Cigar & Artisan Coffee",
+        "hero": {
+            "sub": "The Ultimate Aficionado Sanctuary",
+            "title": "Master Heritage",
+            "desc": "Indulge in the world of exclusive hand-rolled cigars, paired with our signature artisan coffee blends.",
+            "explore": "Explore Collection",
+            "story": "Our Story",
+            "scroll": "Scroll Down"
+        },
+        "features": {
+            "f1_title": "Hand-Rolled",
+            "f1_desc": "Each cigar is meticulously crafted by expert torcedores using selected tobacco leaves.",
+            "f2_title": "Artisan Roasting",
+            "f2_desc": "Our coffee beans are sourced from high-altitude estates and roasted to bring out complex flavor profiles.",
+            "f3_title": "Exclusive Lounge",
+            "f3_desc": "A members-only environment dedicated to privacy and pure comfort."
+        },
+        "quote": "\"A cigar is a ritual as well as a relaxation. It is a moment in time when nothing else matters.\""
+    },
+    "about": {
+        "head_title": "About Us - Master Cigars & Coffee",
+        "hero": {
+            "label": "The Legacy",
+            "title_1": "Our",
+            "title_2": "Legacy",
+            "sub": "A Tradition of Excellence Since 1998"
+        },
+        "story": {
+            "badge": "Est. Since 1998",
+            "title_1": "Mastering Craft",
+            "title_2": "Creating Legacy",
+            "p1": "Founded with a passion for the unparalleled pairing of fine tobacco and rich caffeine, Master Cigars & Coffee has evolved from a simple private collection to a premier destination for connoisseurs.",
+            "p2": "Our journey began in the volcanic soils of the Caribbean, where we discovered that the secret to the perfect smoke lies in slow aging and precise blending. We brought this philosophy home, pairing our cigars with meticulously selected coffee beans from the Indonesian archipelago.",
+            "stat_source": "Selected Global Sources",
+            "stat_quality": "High Quality Standards"
+        },
+        "vision": {
+            "title": "Vision",
+            "text": "\"To be the international gold standard in the cigar and coffee industry, where luxury meets tradition.\""
+        },
+        "mission": {
+            "title": "Mission",
+            "m1": "Curating the world's finest coffee beans and tobacco.",
+            "m2": "Providing exclusive personal service.",
+            "m3": "Building an ecosystem of connoisseurs who share their passion."
+        },
+        "values": {
+            "label": "Core Philosophy",
+            "title": "Core Principles",
+            "v1_t": "Authentic",
+            "v1_b": "Uncompromising authenticity in the origin and quality of every product's materials.",
+            "v2_t": "Elegant",
+            "v2_b": "Presentation details designed for world-class aesthetics.",
+            "v3_t": "Exclusive",
+            "v3_b": "Maintaining prestige and service standards for true connoisseurs.",
+            "v4_t": "Community",
+            "v4_b": "Building a brotherhood of enthusiasts in a premium atmosphere."
+        }
+    },
+    "product": {
+        "head_title": "Our Collection - Master Cigars & Coffee",
+        "hero": {
+            "label": "Catalogue",
+            "title": "Our Collection"
+        },
+        "all": "All",
+        "brand": {
+            "sig": "Signature Brand",
+            "hover": "View Collection Details",
+            "detail": "View Details",
+            "order": "Order This Brand"
+        },
+        "item": {
+            "order": "Order Now",
+            "select": "Select Menu",
+            "cat": "Category:"
+        },
+        "modal": {
+            "label": "Collection Detail"
+        }
+    },
+    "partners": {
+        "head_title": "Partners & Collaboration - Master Cigars & Coffee",
+        "hero": {
+            "label": "Synergy & Growth",
+            "title": "Partners & Collaboration",
+            "sub": "Building an Ecosystem with Master Heritage"
+        },
+        "all": "All",
+        "item": {
+            "global": "Global Partner"
+        },
+        "empty": {
+            "title": "No Partners Available",
+            "desc": "This category doesn't have any collaboration partners yet."
+        },
+        "cta": {
+            "title": "Become a Collaborator",
+            "desc": "Want to align your brand with the pinnacle of luxury? We are always open to exploring new synergies and creative partnerships.",
+            "btn": "Discuss Partnership"
+        }
+    },
+    "investment": {
+        "head_title": "Investment Opportunities - Master Cigars & Coffee",
+        "hero": {
+            "label": "Capital Growth",
+            "title": "Quality Investment",
+            "sub": "Sustaining Growth Vision"
+        },
+        "story": {
+            "title_1": "Grow Together",
+            "title_2": "Building Legacy",
+            "desc": "Master Cigars & Coffee is not just a brand; it is a lifestyle asset. We offer unique investment instruments for those who understand the value of long-term prestige."
+        },
+        "pillars": {
+            "p1_t": "Franchise Model",
+            "p1_d": "Own a Master Lounge in major metropolises with full supply chain support.",
+            "p2_t": "Asset-Based",
+            "p2_d": "Investment portfolio backed by physical aged tobacco stock and mountain plantation coffee lands.",
+            "p3_t": "Growth Series",
+            "p3_d": "Participate in our digital expansion and international shipping logistics infrastructure."
+        },
+        "doc": {
+            "title": "Investment Documents",
+            "type": "Official PDF Document",
+            "download": "Download Document"
+        }
+    },
+    "sale": {
+        "head_title": "SALE CENTER - Master Cigars & Coffee",
+        "hero": {
+            "label": "Marketplace",
+            "title": "SALE CENTER",
+            "track": "Track Order"
+        },
+        "retail": {
+            "title": "Retail / Single Items",
+            "desc": "Buy retail products at affordable and premium prices.",
+            "buy": "Buy"
+        },
+        "package": {
+            "title": "Package Change",
+            "desc": "Choose our featured exclusive packages.",
+            "select": "Choose Package"
+        },
+        "point": {
+            "title": "Point Corner",
+            "desc": "Exclusive Semi Bold & Full Facility services.",
+            "select": "Choose Service"
+        },
+        "modal": {
+            "detail_label": "Registration Details",
+            "online_system": "Online System (Real-time Processing)",
+            "benefit": "Benefits & Specifications",
+            "cat": "Category",
+            "stock": "Stock Left",
+            "available": "Available",
+            "empty": "Out of Stock",
+            "flow": "Purchasing Flow",
+            "s1": "Registration",
+            "s2": "Payment",
+            "s3": "Verification",
+            "s4": "Delivery",
+            "admin": "Admin Support"
+        },
+        "form": {
+            "title": "Select & Fill Data",
+            "name": "Full Name",
+            "name_ph": "Enter your full name",
+            "wa": "WhatsApp Number",
+            "wa_ph": "Example: 6281234567890",
+            "address": "Full Address",
+            "address_ph": "Enter full address with street details...",
+            "qty": "Purchase Quantity",
+            "qty_ph": "E.g.: 1, 2...",
+            "notes": "Additional Notes",
+            "notes_ph": "Enter message, reservation time, or extra instructions (Optional)...",
+            "proof": "Upload Payment Proof (Required)",
+            "total": "Total Payment",
+            "cost": "Package Cost",
+            "confirm": "Confirm Purchase",
+            "out": "Out of Stock"
+        },
+        "payment": {
+            "method": "Payment Method",
+            "transfer": "Bank Transfer",
+            "qris": "QRIS",
+            "scan": "Scan QRIS",
+            "missing": "SORRY, QRIS HAS NOT BEEN SET BY ADMIN"
+        },
+        "tracking": {
+            "head_title": "Track Order - Master Cigars & Coffee",
+            "back": "Back to Sale Center",
+            "title_1": "Track",
+            "title_2": "Order",
+            "desc": "Enter Tracking ID to see the latest status of your order.",
+            "id_label": "Tracking ID",
+            "id_ph": "Example: MST-A1B2C3",
+            "button": "Track",
+            "cancel_title": "Order Cancelled",
+            "cancel_desc": "Sorry, your order cannot be continued. Please contact admin for more info.",
+            "curr_status": "Current Status",
+            "tracking_id": "Tracking ID",
+            "status_wait": "Awaiting Confirmation",
+            "status_wait_sub": "Admin is reviewing payment proof",
+            "status_process": "Processed",
+            "status_process_sub": "Payment valid, items being prepared",
+            "status_ship": "Shipped",
+            "status_ship_sub": "Package is on its way to your location",
+            "status_done": "Completed",
+            "status_done_sub": "Shipment has reached its destination",
+            "customer_name": "Customer Name",
+            "service_type": "Service Type",
+            "ordered_item": "Ordered Item",
+            "type_retail": "Retail / Single Item",
+            "type_package": "Service Package",
+            "type_point": "Point Corner"
+        },
+        "invoice": {
+            "head_title": "Invoice #%id% - Master Cigars & Coffee",
+            "back": "Back to Sale Center",
+            "disc_title": "Important Attention",
+            "disc_desc": "Please Screenshot this page or save your Tracking ID. Tracking ID must be saved as the only way to track your order status.",
+            "order_status": "Order Status",
+            "order_id": "Invoice Number",
+            "customer": "Customer",
+            "item": "Service / Product",
+            "method": "Payment Method",
+            "total": "Total Payment",
+            "vat": "Includes VAT & Service Fees",
+            "instr_title": "Payment Instructions",
+            "instr_tf": "Transfer %bank%",
+            "instr_scan": "Scan QRIS to Pay",
+            "instr_e_wallet": "Supports All E-Wallet & Mobile Banking",
+            "pay_status": "Payment Status",
+            "your_id": "Your Tracking ID",
+            "id_note": "*Save this Tracking ID. Admin will verify your order (5-10 mins).",
+            "track_button": "Track Order",
+            "confirm_button": "Confirm to Admin",
+            "copied": "Copied to clipboard!",
+            "type_retail": "Retail Product",
+            "wa_msg": "Hello Admin, I would like to confirm payment for order:\nOrder Number: #%id%\nName: %name%\nType: %type%\nTotal: Rp %total%\n\nPayment proof has been uploaded. Please verify soon. Thank you."
+        }
+    },
+    "layout": {
+        "inquiry_center": "Inquiry Center",
+        "fast_response": "Fast Response via WhatsApp",
+        "full_name": "Full Name",
+        "name_placeholder": "Enter your name",
+        "your_inquiry": "Your Inquiry",
+        "msg_placeholder": "Your message or question...",
+        "send_wa": "Send via WhatsApp",
+        "quick_menu": "Quick Menu",
+        "connect": "Connect",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service"
+    },
+    "footer": {
+        "rights": "All Rights Reserved."
+    }
+}

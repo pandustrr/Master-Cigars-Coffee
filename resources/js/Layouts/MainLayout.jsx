@@ -16,10 +16,24 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function MainLayout({ children }) {
-    const { settings } = usePage().props;
+    const { settings, locale, translations } = usePage().props;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     
+    // Helper function for translations
+    const __ = (key) => {
+        const keys = key.split('.');
+        let result = translations;
+        for (const k of keys) {
+            if (result && result[k]) {
+                result = result[k];
+            } else {
+                return key; // Fallback to key if not found
+            }
+        }
+        return result;
+    };
+
     // Contact Form State
     const [contactData, setContactData] = useState({
         name: '',
@@ -54,12 +68,18 @@ export default function MainLayout({ children }) {
     };
 
     const navLinks = [
-        { name: 'Home', href: route('home'), routeName: 'home', icon: HomeIcon },
-        { name: 'About', href: route('about'), routeName: 'about', icon: InformationCircleIcon },
-        { name: 'Product', href: route('product'), routeName: 'product', icon: ShoppingBagIcon },
-        { name: 'Partners', href: route('partners'), routeName: 'partners', icon: UserGroupIcon },
-        { name: 'Investment', href: route('investment'), routeName: 'investment', icon: CurrencyDollarIcon },
-        { name: 'SALE', href: route('sale.index'), routeName: 'sale.*', icon: ShoppingBagIcon },
+        { name: __('nav.home'), href: route('home'), routeName: 'home', icon: HomeIcon },
+        { name: __('nav.about'), href: route('about'), routeName: 'about', icon: InformationCircleIcon },
+        { name: __('nav.product'), href: route('product'), routeName: 'product', icon: ShoppingBagIcon },
+        { name: __('nav.partners'), href: route('partners'), routeName: 'partners', icon: UserGroupIcon },
+        { name: __('nav.investment'), href: route('investment'), routeName: 'investment', icon: CurrencyDollarIcon },
+        { name: __('nav.sale'), href: route('sale.index'), routeName: 'sale.*', icon: ShoppingBagIcon },
+    ];
+
+    const languages = [
+        { code: 'id', name: 'ID', flag: '🇮🇩' },
+        { code: 'en', name: 'EN', flag: '🇺🇸' },
+        { code: 'zh', name: 'ZH', flag: '🇨🇳' },
     ];
 
     return (
@@ -106,6 +126,23 @@ export default function MainLayout({ children }) {
                                     <span className={`absolute -bottom-1 left-0 h-px bg-gold transition-all duration-300 ${route().current(link.routeName) ? 'w-full shadow-[0_0_10px_rgba(212,175,55,0.8)]' : 'w-0 group-hover/link:w-full'}`}></span>
                                 </Link>
                             ))}
+
+                            {/* Language Switcher Desktop */}
+                            <div className="flex items-center space-x-2 border-l border-white/10 pl-6 ml-2">
+                                {languages.map((lang) => (
+                                    <a
+                                        key={lang.code}
+                                        href={route('lang.switch', lang.code)}
+                                        className={`text-[9px] font-black px-2 py-1 rounded transition-all ${
+                                            locale === lang.code 
+                                            ? 'bg-gold text-hitam-pekat shadow-[0_0_10px_rgba(212,175,55,0.4)]' 
+                                            : 'text-white/40 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        {lang.name}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Mobile menu button */}
@@ -143,6 +180,23 @@ export default function MainLayout({ children }) {
                                 {link.name}
                             </Link>
                         ))}
+
+                        {/* Language Switcher Mobile */}
+                        <div className="flex items-center space-x-4 pt-6 mt-4 border-t border-white/5">
+                            {languages.map((lang) => (
+                                <a
+                                    key={lang.code}
+                                    href={route('lang.switch', lang.code)}
+                                    className={`flex-1 text-center py-4 rounded-xl text-[10px] font-black tracking-widest transition-all ${
+                                        locale === lang.code 
+                                        ? 'bg-gold text-hitam-pekat shadow-lg shadow-gold/20' 
+                                        : 'bg-white/5 text-white/40 border border-white/10'
+                                    }`}
+                                >
+                                    <span className="mr-2 text-base">{lang.flag}</span> {lang.name}
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -154,25 +208,25 @@ export default function MainLayout({ children }) {
 
             {/* Global Contact Form Section - Premium Unified Design */}
             <section className="py-24 bg-coklat-kopi/5 border-t border-gold/5 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/[0.03] via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-gold/3 via-transparent to-transparent pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center gap-16">
                         {/* Title Side */}
                         <div className="w-full lg:w-1/2 space-y-8">
                             <div className="flex items-center space-x-4 mb-2">
                                 <div className="w-12 h-px bg-gold/50"></div>
-                                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">Inquiry Center</span>
+                                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic">{__('layout.inquiry_center')}</span>
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter italic leading-tight">Miliki Waktu <br /><span className="text-white">Yang Berharga</span></h2>
+                            <h2 className="text-4xl md:text-6xl font-black text-gold uppercase tracking-tighter italic leading-tight">{__('hero.title')}</h2>
                             <p className="text-white/40 text-lg leading-relaxed font-light font-sans max-w-lg italic">
-                                "Pertanyaan Mengenai Produk, Kemitraan, Atau Investasi? Hubungi tim ahli kami untuk layanan eksklusif."
+                                {__('hero.description')}
                             </p>
                             <div className="flex flex-col space-y-4 pt-4">
                                 <div className="flex items-center space-x-4 text-gold/60">
                                     <div className="w-10 h-10 rounded-full bg-gold/5 border border-gold/10 flex items-center justify-center">
                                         <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" />
                                     </div>
-                                    <span className="text-[10px] uppercase tracking-widest font-black">Fast Response via WhatsApp</span>
+                                    <span className="text-[10px] uppercase tracking-widest font-black">{__('layout.fast_response')}</span>
                                 </div>
                             </div>
                         </div>
@@ -182,22 +236,22 @@ export default function MainLayout({ children }) {
                            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl -mr-16 -mt-16 group-hover:bg-gold/10 transition-colors"></div>
                            <form onSubmit={handleWhatsAppSubmit} className="space-y-6 relative z-10">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">Full Name</label>
+                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">{__('layout.full_name')}</label>
                                     <input 
                                         type="text" 
                                         required
-                                        placeholder="Enter your name"
+                                        placeholder={__('layout.name_placeholder')}
                                         value={contactData.name}
                                         onChange={(e) => setContactData({...contactData, name: e.target.value})}
                                         className="w-full bg-hitam-pekat border-0 border-b border-white/10 text-white placeholder:text-white/10 px-4 py-4 focus:ring-0 focus:border-gold transition-all font-sans italic"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">Your Inquiry</label>
+                                    <label className="text-[10px] font-black text-gold/40 uppercase tracking-[0.3em] ml-1">{__('layout.your_inquiry')}</label>
                                     <textarea 
                                         required
                                         rows="4"
-                                        placeholder="Pesan atau pertanyaan Anda..."
+                                        placeholder={__('layout.msg_placeholder')}
                                         value={contactData.message}
                                         onChange={(e) => setContactData({...contactData, message: e.target.value})}
                                         className="w-full bg-hitam-pekat border-0 border-b border-white/10 text-white placeholder:text-white/10 px-4 py-4 focus:ring-0 focus:border-gold transition-all font-sans resize-none"
@@ -208,7 +262,7 @@ export default function MainLayout({ children }) {
                                         type="submit"
                                         className="w-full bg-gold text-hitam-pekat font-black uppercase text-[10px] tracking-[0.4em] py-5 flex items-center justify-center space-x-4 hover:bg-gold-muda transition-all active:scale-95 shadow-xl shadow-gold/20"
                                     >
-                                        <span>Kirim Melalui WhatsApp</span>
+                                        <span>{__('layout.send_wa')}</span>
                                         <PaperAirplaneIcon className="w-4 h-4" />
                                     </button>
                                 </div>
@@ -246,7 +300,7 @@ export default function MainLayout({ children }) {
                         {/* Navigation links - High Contrast */}
                         <div className="grid grid-cols-2 md:grid-cols-2 gap-8 col-span-1 md:col-span-2">
                             <div>
-                                <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">Quick Menu</h3>
+                                <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">{__('layout.quick_menu')}</h3>
                                 <ul className="space-y-3">
                                     {navLinks.slice(0, 3).map((link) => (
                                         <li key={link.name}>
@@ -275,15 +329,15 @@ export default function MainLayout({ children }) {
 
                         {/* Contact details - High Contrast */}
                         <div>
-                            <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">Connect</h3>
+                            <h3 className="text-gold font-black mb-5 uppercase tracking-[0.2em] text-[10px] italic underline underline-offset-8 decoration-gold/30">{__('layout.connect')}</h3>
                             <ul className="space-y-4 text-[9px] font-black uppercase tracking-widest text-white/60">
                                 <li className="flex items-center space-x-3 group">
                                     <MapPinIcon className="w-4 h-4 text-gold shrink-0" />
-                                    <span>Kemang Raya No. 123, Jakarta</span>
+                                    <span>{settings.site_address || "Kemang Raya No. 123, Jakarta"}</span>
                                 </li>
                                 <li className="flex items-center space-x-3 group mt-3">
                                     <PhoneIcon className="w-4 h-4 text-gold shrink-0" />
-                                    <span>+62 812 3456 7890</span>
+                                    <span>{settings.site_whatsapp || "+62 812 3456 7890"}</span>
                                 </li>
                             </ul>
                         </div>
@@ -292,11 +346,11 @@ export default function MainLayout({ children }) {
                     {/* Bottom copyright statement */}
                     <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className="text-white/40 text-[7px] font-black uppercase tracking-[0.4em]">
-                            &copy; {new Date().getFullYear()} Master Cigars & Coffee. All Rights Reserved.
+                            &copy; {new Date().getFullYear()} Master Cigars & Coffee. {__('footer.rights')}
                         </p>
                         <div className="flex space-x-6 text-[7px] font-black uppercase tracking-widest text-white/40">
-                            <span className="cursor-pointer hover:text-gold transition-colors">Privacy Policy</span>
-                            <span className="cursor-pointer hover:text-gold transition-colors">Terms of Service</span>
+                            <span className="cursor-pointer hover:text-gold transition-colors">{__('layout.privacy')}</span>
+                            <span className="cursor-pointer hover:text-gold transition-colors">{__('layout.terms')}</span>
                         </div>
                     </div>
                 </div>
