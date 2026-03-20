@@ -237,10 +237,10 @@ export default function Index({ mainProducts, categories }) {
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex justify-end space-x-1.5">
-                                                    <button onClick={() => handleEdit(product)} className="p-2 text-gold bg-gold/5 hover:bg-gold/10 rounded-xl transition-all shadow-sm border border-gold/10">
+                                                    <button onClick={() => handleEdit(product)} className="p-3 text-gold bg-gold/5 hover:bg-gold/10 rounded-xl transition-all shadow-sm border border-gold/10">
                                                         <PencilSquareIcon className="w-4 h-4" />
                                                     </button>
-                                                    <button onClick={() => handleDelete(product.id)} className="p-2 text-red-500 bg-red-50/50 hover:bg-red-50 rounded-xl transition-all shadow-sm border border-red-100">
+                                                    <button onClick={() => handleDelete(product.id)} className="p-3 text-red-500 bg-red-50/50 hover:bg-red-50 rounded-xl transition-all shadow-sm border border-red-100">
                                                         <TrashIcon className="w-4 h-4" />
                                                     </button>
                                                 </div>
@@ -269,7 +269,7 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Category Modal */}
             {isCategoryModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
+                <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
                     <div className="absolute inset-0" onClick={() => { setIsCategoryModalOpen(false); setEditingCategory(null); resetCat(); }}></div>
                     <div className="relative bg-white rounded-2xl shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] w-full max-w-md overflow-hidden border border-gray-100">
                         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
@@ -325,7 +325,7 @@ export default function Index({ mainProducts, categories }) {
 
             {/* Product Modal - Horizontal Layout With Gallery */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
+                <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-transparent pointer-events-auto overflow-hidden">
                     <div className="absolute inset-0" onClick={() => setIsAddModalOpen(false)}></div>
                     <div className="relative bg-white rounded-2xl shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] w-full max-w-4xl overflow-hidden border border-gray-100 max-h-[95vh] flex flex-col">
                         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center shrink-0">

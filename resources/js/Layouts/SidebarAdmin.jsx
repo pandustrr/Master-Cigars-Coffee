@@ -56,13 +56,13 @@ export default function SidebarAdmin({ header, children }) {
             {/* Mobile Overlay */}
             {showingSidebar && (
                 <div
-                    className="fixed inset-0 z-40 bg-hitam-pekat/60 backdrop-blur-sm md:hidden transition-opacity duration-300"
+                    className="fixed inset-0 z-40 bg-hitam-pekat/60 backdrop-blur-sm lg:hidden transition-opacity duration-300"
                     onClick={() => setShowingSidebar(false)}
                 />
             )}
 
             {/* Sidebar Desktop/Mobile */}
-            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-coklat-kopi/60 backdrop-blur-xl border-r border-gold/10 transition-all duration-300 shadow-[10px_0_30px_rgba(0,0,0,0.2)] transform ${showingSidebar ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-coklat-kopi/60 backdrop-blur-xl border-r border-gold/10 transition-all duration-300 shadow-[10px_0_30px_rgba(0,0,0,0.2)] transform ${showingSidebar ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
                 <div className="flex flex-col h-full">
                     {/* Brand Logo */}
                     <div className="h-16 flex items-center justify-center border-b border-gold/10 px-6">
@@ -117,14 +117,14 @@ export default function SidebarAdmin({ header, children }) {
             </aside>
 
             {/* Main Content Area */}
-            <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 md:pl-64`}>
+            <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 lg:pl-64`}>
                 {/* Header Top Bar */}
-                <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 md:px-8 sticky top-0 z-40 shadow-sm">
+                <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 lg:px-8 sticky top-0 z-40 shadow-sm">
                     <div className="flex items-center space-x-4">
                         {/* Mobile Toggle */}
                         <button
                             onClick={() => setShowingSidebar(!showingSidebar)}
-                            className="md:hidden text-gold p-2 rounded-xl bg-gold/5 border border-gold/10 active:scale-95 transition-all"
+                            className="lg:hidden text-gold p-2 rounded-xl bg-gold/5 border border-gold/10 active:scale-95 transition-all"
                         >
                             {showingSidebar ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
                         </button>
@@ -156,7 +156,7 @@ export default function SidebarAdmin({ header, children }) {
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 p-4 md:p-6 bg-gray-50">
+                <main className="flex-1 p-4 lg:p-6 bg-gray-50">
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>
