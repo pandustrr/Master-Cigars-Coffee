@@ -1,40 +1,39 @@
 #!/bin/bash
 
-# Exit on error
+# Keluar jika ada error
 set -e
 
-echo "🚀 Starting Production Deployment on Server..."
+echo "🚀 Memulai Deployment di Server..."
 
-# 1. Maintenance Mode
-echo "🚧 Switching to Maintenance Mode..."
+# 1. Mode Pemeliharaan
+echo "🚧 Mengaktifkan Maintenance Mode..."
 php artisan down || true
 
-# 2. Pull latest changes from Main branch
-echo "📥 Pulling latest changes from Main branch..."
+# 2. Pull dari GitHub (Pastikan sudah di-merge ke Main)
+echo "📥 Menarik data terbaru dari GitHub..."
 git pull origin main
 
-# 3. Install/Update PHP dependencies
-echo "🐘 Updating Composer dependencies..."
-composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+# 3. Instalasi Dependency PHP (Menggunakan composer.phar yang baru diunduh)
+echo "🐘 Mengupdate Composer dependencies..."
+php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
-# 4. Migrate database
-echo "🗄️ Running database migrations..."
+# 4. Migrasi Database
+echo "🗄️ Menjalankan migrasi database..."
 php artisan migrate --force
 
-# 5. Optimization & Caching
-echo "⚡ Optimizing application performance..."
+# 5. Optimasi & Cache
+echo "⚡ Mengoptimalkan performa aplikasi..."
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan event:cache
 
-# 6. Build is already pushed to GitHub, so we just clear cache
-echo "🗑️ Clearing old application cache..."
+# 6. Bersihkan Cache lama
+echo "🗑️ Membersihkan cache aplikasi..."
 php artisan cache:clear
 
-# 7. Final Step: Exit Maintenance Mode
-echo "🌐 Taking application back online..."
+# 7. Selesai: Website Aktif Kembali
+echo "🌐 Websiste dionlinekan kembali..."
 php artisan up
 
-echo "✅ Deployment finished successfully!"
-    
+echo "✅ Deployment Selesai dengan Mantab!"
