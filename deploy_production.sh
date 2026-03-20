@@ -15,7 +15,7 @@ git pull origin main
 
 # 3. Instalasi Dependency PHP (Menggunakan composer.phar yang baru diunduh)
 echo "🐘 Mengupdate Composer dependencies..."
-php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev --ignore-platform-req=ext-fileinfo
 
 # 4. Migrasi Database
 echo "🗄️ Menjalankan migrasi database..."
