@@ -19,7 +19,7 @@ export default function Toast({ message, type = 'success', onClose }) {
 
     return (
         <div 
-            className={`fixed top-10 right-10 z-[9999] transition-all duration-300 transform ${
+            className={`fixed top-10 right-10 z-9999 transition-all duration-300 transform ${
                 visible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
             }`}
         >

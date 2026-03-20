@@ -291,7 +291,7 @@ export default function Index({ saleItems, settings }) {
                             </div>
                             <div>
                                 <span className="text-gold text-[9px] font-black uppercase tracking-widest block opacity-60">{__('sale.modal.admin')}</span>
-                                <p className="text-white text-xs font-bold font-mono tracking-widest">Master Support - 0812 3456 7890</p>
+                                <p className="text-white text-xs font-bold font-mono tracking-widest">Master Support - {settings?.whatsapp_admin || "0812 3456 7890"}</p>
                             </div>
                         </div>
 

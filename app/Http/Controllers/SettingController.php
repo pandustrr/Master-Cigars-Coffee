@@ -41,7 +41,7 @@ class SettingController extends Controller
         $data = $request->all();
 
         $imageKeys = ['qris_image', 'hero_home', 'hero_about', 'hero_investment', 'hero_partners', 'hero_products'];
-        $textKeys = ['whatsapp_admin'];
+        $textKeys = ['whatsapp_admin', 'site_address'];
 
         foreach ($data as $key => $value) {
             // Handle image uploads
