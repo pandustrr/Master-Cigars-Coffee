@@ -74,7 +74,7 @@ export default function Index({ partners, partnerCategories }) {
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-700 border ${activeCategory === cat
                                         ? 'bg-gold text-hitam-pekat border-gold shadow-[0_10px_35px_-5px_rgba(212,175,55,0.45)] scale-105'
-                                        : 'bg-gold/[0.05] text-gold/50 border-gold/20 hover:border-gold-muda hover:text-gold-muda hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]'
+                                        : 'bg-gold/5 text-gold/50 border-gold/20 hover:border-gold-muda hover:text-gold-muda hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]'
                                     }`}
                             >
                                 {cat === 'Semua' ? __('partners.all') : cat}
@@ -110,14 +110,26 @@ export default function Index({ partners, partnerCategories }) {
                                             <h4 className="text-xl font-black text-gold uppercase tracking-tight mb-3 italic group-hover:text-gold-muda transition-colors">
                                                 {item.name}
                                             </h4>
-                                            <p className="text-cream-gold/40 text-[11px] leading-relaxed font-sans uppercase tracking-[0.1em] italic group-hover:text-cream-gold/60 transition-all duration-700">
+                                            <p className="text-cream-gold/40 text-[11px] leading-relaxed font-sans uppercase tracking-widest italic group-hover:text-cream-gold/60 transition-all duration-700">
                                                 {item.description}
                                             </p>
                                         </div>
 
-                                        <div className="pt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                                            <div className="w-8 h-0.5 bg-gold/50"></div>
-                                            <span className="text-[8px] font-black text-gold uppercase tracking-widest">{__('partners.item.global')}</span>
+                                        <div className="pt-4 flex items-center justify-between border-t border-gold/5">
+                                            <div className="flex items-center space-x-2 opacity-60 group-hover:opacity-100 transition-opacity duration-700">
+                                                <div className="w-8 h-0.5 bg-gold/50"></div>
+                                                <span className="text-[8px] font-black text-gold uppercase tracking-widest">{__('partners.item.global')}</span>
+                                            </div>
+                                            {item.link && (
+                                                <a 
+                                                    href={item.link} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="text-[9px] font-black text-gold uppercase tracking-widest px-4 py-2 bg-gold/5 border border-gold/20 rounded-lg hover:bg-gold hover:text-hitam-pekat transition-all transform hover:-translate-y-1"
+                                                >
+                                                    Visit Site
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

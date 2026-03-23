@@ -33,7 +33,10 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
         image: null,
     });
 
-    const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({ name: '' });
+    const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({
+        name: '',
+        description: '',
+    });
 
     const submitItem = (e) => {
         e.preventDefault();
@@ -73,7 +76,10 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
 
     const handleEditCategory = (cat) => {
         setEditingCategory(cat);
-        setCatData('name', cat.name);
+        setCatData({
+            name: cat.name,
+            description: cat.description || '',
+        });
     };
 
     const handleDeleteCategory = (id) => {
@@ -104,7 +110,15 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
 
     const filteredCatalogItems = catalogFilter === 'Semua'
         ? saleItems
-        : saleItems.filter(item => item.category === catalogFilter);
+        : saleItems.filter(item => {
+            if (catalogFilter === 'Retail' || catalogFilter === 'Retail / Eceran' || catalogFilter === 'Ritel') {
+                return item.category === 'Retail' || item.category === 'Retail / Eceran' || item.category === 'Ritel';
+            }
+            if (catalogFilter === 'Package' || catalogFilter === 'Paket Change' || catalogFilter === 'Paket') {
+                return item.category === 'Package' || item.category === 'Paket Change' || item.category === 'Paket';
+            }
+            return item.category === catalogFilter;
+        });
 
     return (
         <SidebarAdmin
