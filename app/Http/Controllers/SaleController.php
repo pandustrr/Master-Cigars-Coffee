@@ -40,6 +40,7 @@ class SaleController extends Controller
 
         return Inertia::render('Sale/Index', [
             'saleItems' => \App\Models\SaleItem::latest()->get(),
+            'categories' => \App\Models\Category::all(),
             'settings' => $settingsArray
         ]);
     }

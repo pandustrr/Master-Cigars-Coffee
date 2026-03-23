@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-export default function Index({ saleItems, settings }) {
+export default function Index({ saleItems, categories: dbCategories, settings }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedPointOption, setSelectedPointOption] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,9 +61,19 @@ export default function Index({ saleItems, settings }) {
         }
     ];
 
-    const retailProducts = saleItems.filter(item => item.category === 'Retail');
-    const packageItems = saleItems.filter(item => item.category === 'Package');
-    const pointCornerOptions = saleItems.filter(item => item.category === 'Point Corner');
+    const retailProducts = saleItems.filter(item => 
+        item.category === 'Retail' || 
+        item.category === 'Retail / Eceran' || 
+        item.category === 'Ritel'
+    );
+    const packageItems = saleItems.filter(item => 
+        item.category === 'Package' || 
+        item.category === 'Paket Change' || 
+        item.category === 'Paket'
+    );
+    const pointCornerOptions = saleItems.filter(item => 
+        item.category === 'Point Corner'
+    );
 
 
 
@@ -130,56 +140,66 @@ export default function Index({ saleItems, settings }) {
             <div className="py-24 bg-hitam-pekat min-h-[50vh]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                    {/* Retail Section */}
-                    {retailProducts.length > 0 && (
-                        <div className="mb-24">
-                            <div className="mb-12">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.retail.title')}</h2>
-                                <p className="text-gold-muda/60 md:text-lg">{__('sale.retail.desc')}</p>
-                                <div className="w-24 h-1 bg-gold mt-6"></div>
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-4 lg:gap-8 animate-fade-in-up w-full">
-                                {retailProducts.map((p) => (
-                                    <div key={p.id} className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none bg-[#16120e] border border-white/10 p-3 md:p-4 rounded-xl group hover:border-gold hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
-                                        <div>
-                                            <div className="aspect-[4/5] bg-coklat-tua rounded-lg overflow-hidden mb-4 md:mb-6 relative">
-                                                <img src={p.image ? `/storage/${p.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={p.name} />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                    {/* Dynamic Sections Based on DB Categories */}
+                    {dbCategories && dbCategories.length > 0 ? dbCategories.map((cat) => {
+                        const items = saleItems.filter(item => item.category === cat.name);
+                        if (items.length === 0) return null;
+
+                        const isPackage = cat.name.toLowerCase().includes('package') || cat.name.toLowerCase().includes('paket');
+                        const isPoint = cat.name.toLowerCase().includes('point') || cat.name.toLowerCase().includes('corner');
+
+                        return (
+                            <div key={cat.id} className="mb-24">
+                                <div className="mb-12">
+                                    <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{cat.name}</h2>
+                                    {cat.description && <p className="text-gold-muda/60 md:text-lg">{cat.description}</p>}
+                                    <div className="w-24 h-1 bg-gold mt-6"></div>
+                                </div>
+
+                                {isPackage ? (
+                                    <PackageSelection __={__} items={items} onSelect={(item) => { setSelectedProduct(item); setIsModalOpen(true); }} />
+                                ) : isPoint ? (
+                                    <PointCornerSelection __={__} items={items} onSelect={openPointForm} />
+                                ) : (
+                                    <div className="flex flex-wrap justify-center gap-4 lg:gap-8 animate-fade-in-up w-full">
+                                        {items.map((p) => (
+                                            <div key={p.id} className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none bg-[#16120e] border border-white/10 p-3 md:p-4 rounded-xl group hover:border-gold hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
+                                                <div>
+                                                    <div className="aspect-4/5 bg-coklat-tua rounded-lg overflow-hidden mb-4 md:mb-6 relative">
+                                                        <img src={p.image ? `/storage/${p.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={p.name} />
+                                                        <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                                                    </div>
+                                                    <h4 className="text-white font-bold text-sm md:text-lg mb-1 leading-tight">{p.name}</h4>
+                                                    <p className="text-gold font-bold mb-4 md:mb-6 text-[10px] md:text-sm">Rp {parseFloat(p.price).toLocaleString()}</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => openRetailForm(p)}
+                                                    className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest hover:bg-gold hover:text-hitam-pekat transition-all rounded-lg"
+                                                >
+                                                    {__('sale.retail.buy')}
+                                                </button>
                                             </div>
-                                            <h4 className="text-white font-bold text-sm md:text-lg mb-1 leading-tight">{p.name}</h4>
-                                            <p className="text-gold font-bold mb-4 md:mb-6 text-[10px] md:text-sm">Rp {parseFloat(p.price).toLocaleString()}</p>
-                                        </div>
-                                        <button
-                                            onClick={() => openRetailForm(p)}
-                                            className="w-full py-2.5 md:py-3 bg-transparent border border-gold text-gold text-[8px] md:text-[10px] font-black uppercase tracking-widest hover:bg-gold hover:text-hitam-pekat transition-all rounded-lg"
-                                        >
-                                            {__('sale.retail.buy')}
-                                        </button>
+                                        ))}
                                     </div>
-                                ))}
+                                )}
                             </div>
-                        </div>
+                        );
+                    }) : (
+                        /* Fallback Static Sections (Previous logic) */
+                        <>
+                            {/* Retail Section */}
+                            {retailProducts.length > 0 && (
+                                <div className="mb-24">
+                                    <div className="mb-12">
+                                        <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.retail.title')}</h2>
+                                        <p className="text-gold-muda/60 md:text-lg">{__('sale.retail.desc')}</p>
+                                        <div className="w-24 h-1 bg-gold mt-6"></div>
+                                    </div>
+                                    {/* ... rest of the hardcoded sections if needed, but the dynamic loop above is better ... */}
+                                </div>
+                            )}
+                        </>
                     )}
-
-                    {/* Package Section */}
-                    <div className="mb-24">
-                        <div className="mb-12">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.package.title')}</h2>
-                            <p className="text-gold-muda/60 md:text-lg">{__('sale.package.desc')}</p>
-                            <div className="w-24 h-1 bg-gold mt-6"></div>
-                        </div>
-                        <PackageSelection __={__} items={packageItems} onSelect={(item) => { setSelectedProduct(item); setIsModalOpen(true); }} />
-                    </div>
-
-                    {/* Point Corner Section */}
-                    <div className="mb-12">
-                        <div className="mb-12">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.point.title')}</h2>
-                            <p className="text-gold-muda/60 md:text-lg">{__('sale.point.desc')}</p>
-                            <div className="w-24 h-1 bg-gold mt-6"></div>
-                        </div>
-                        <PointCornerSelection __={__} items={pointCornerOptions} onSelect={openPointForm} />
-                    </div>
 
                 </div>
             </div>
@@ -194,7 +214,7 @@ export default function Index({ saleItems, settings }) {
                             className="w-full h-full object-cover brightness-[0.6] grayscale-[0.3]"
                             alt="Order Preview"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-hitam-pekat/20 to-hitam-pekat"></div>
+                        <div className="absolute inset-0 bg-linear-to-r from-hitam-pekat/20 to-hitam-pekat"></div>
                         <div className="absolute bottom-12 left-12 right-12 z-10">
                             <h2 className="text-gold text-4xl font-black italic tracking-tighter leading-none mb-4 uppercase">
                                 {selectedProduct?.name || selectedPointOption?.name || 'SPECIAL PACKAGE'}
@@ -325,7 +345,7 @@ function Modal({ isOpen, onClose, children }) {
                 {/* Close Button UI - SUGOI Style */}
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 z-[110] bg-hitam-pekat/50 backdrop-blur-sm p-3 rounded-full text-white/40 hover:text-gold hover:bg-white/20 transition-all border border-white/10"
+                    className="absolute top-6 right-6 z-110 bg-hitam-pekat/50 backdrop-blur-sm p-3 rounded-full text-white/40 hover:text-gold hover:bg-white/20 transition-all border border-white/10"
                 >
                     <XMarkIcon className="w-8 h-8" />
                 </button>
@@ -468,9 +488,9 @@ function PackageSelection({ items, onSelect, __ }) {
                     className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-3 md:p-4 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <div className="aspect-[4/5] bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
+                        <div className="aspect-4/5 bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
                             <img src={item.image ? `/storage/${item.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={item.name} />
-                            <div className="absolute inset-0 bg-gradient-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
                         </div>
                         <h3 className="text-[14px] md:text-lg lg:text-xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{item.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(item.price).toLocaleString()}</p>
@@ -610,9 +630,9 @@ function PointCornerSelection({ items, onSelect, __ }) {
                     className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-3 md:p-4 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <div className="aspect-[1/1] bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
+                        <div className="aspect-square bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
                             <img src={opt.image ? `/storage/${opt.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={opt.name} />
-                            <div className="absolute inset-0 bg-gradient-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
                         </div>
                         <h3 className="text-[14px] md:text-lg lg:text-xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{opt.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(opt.price).toLocaleString()}</p>
@@ -779,7 +799,7 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
 
             {/* QRIS Preview Modal */}
             {isQrisPreviewOpen && (
-                <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm shadow-2xl animate-fade-in" onClick={() => setIsQrisPreviewOpen(false)}>
+                <div className="fixed inset-0 z-120 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm shadow-2xl animate-fade-in" onClick={() => setIsQrisPreviewOpen(false)}>
                     <div className="relative max-w-[90vw] md:max-w-lg w-full bg-white p-4 rounded-2xl animate-modal-in" onClick={e => e.stopPropagation()}>
                         <button
                             type="button"

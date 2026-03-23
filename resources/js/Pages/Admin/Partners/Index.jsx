@@ -228,82 +228,134 @@ export default function Index({ partners, partnerCategories }) {
                 {/* Modal Partner */}
                 {isAddModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsAddModalOpen(false)}></div>
-                        <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
-                            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                                <div>
-                                    <h4 className="font-black uppercase tracking-widest text-gray-800 text-xs">{editingPartner ? 'Edit Partner' : 'Tambah Partner'}</h4>
-                                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Isi data mitra</p>
-                                </div>
-                                <button onClick={() => setIsAddModalOpen(false)} className="w-7 h-7 rounded-lg border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50 hover:text-gray-800 transition-all">&times;</button>
-                            </div>
-                            <form onSubmit={submit} className="p-5 space-y-4">
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Nama Partner</label>
-                                    <input type="text" value={data.name} onChange={e => setData('name', e.target.value)}
-                                        className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400"
-                                        required placeholder="Contoh: Royal Tobacco Alliance" />
-                                    {errors.name && <div className="text-red-500 text-[9px] italic mt-0.5">{errors.name}</div>}
-                                </div>
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Tipe Kolaborasi</label>
-                                    <input type="text" value={data.type} onChange={e => setData('type', e.target.value)}
-                                        placeholder="Contoh: Distributor, Supplier"
-                                        className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400" />
-                                </div>
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Kategori</label>
-                                    <select
-                                        value={data.category}
-                                        onChange={e => setData('category', e.target.value)}
-                                        className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800"
-                                    >
-                                        {partnerCategories.map((cat) => (
-                                            <option key={cat.id} value={cat.name}>{cat.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Deskripsi</label>
-                                    <textarea rows="2" value={data.description} onChange={e => setData('description', e.target.value)}
-                                        placeholder="Deskripsi singkat..."></textarea>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Link Partner (URL)</label>
-                                    <input type="url" value={data.link} onChange={e => setData('link', e.target.value)}
-                                        className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400"
-                                        placeholder="https://example.com" />
-                                    {errors.link && <div className="text-red-500 text-[9px] italic mt-0.5">{errors.link}</div>}
-                                </div>
-                                <div className="space-y-1.5">
-                                    <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest text-center">Logo Partner</label>
-                                    <div className="relative group p-1 border border-dashed border-gray-300 rounded-xl hover:border-gold/50 bg-gray-50 transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden aspect-video">
-                                        <input type="file"
-                                            onChange={e => {
-                                                const file = e.target.files[0];
-                                                setData('logo', file);
-                                                if (file) setLogoPreview(URL.createObjectURL(file));
-                                            }}
-                                            className="absolute inset-0 opacity-0 cursor-pointer z-10"
-                                        />
-                                        {logoPreview ? (
-                                            <div className="w-full h-full relative">
-                                                <img src={logoPreview} className="w-full h-full object-contain" alt="Preview" />
-                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-                                                    <PhotoIcon className="w-6 h-6 text-white" />
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <>
-                                                <PhotoIcon className="w-6 h-6 text-gray-300 mb-1 group-hover:text-gold transition-colors" />
-                                                <span className="text-[9px] font-black uppercase text-gray-400 group-hover:text-gold transition-colors">Pilih Logo</span>
-                                            </>
-                                        )}
+                        <div className="absolute inset-0 bg-transparent" onClick={() => setIsAddModalOpen(false)}></div>
+                        <div className="relative bg-white rounded-3xl shadow-[0_30px_100px_-10px_rgba(0,0,0,0.35)] w-full max-w-4xl overflow-hidden border border-gray-100/50 flex flex-col">
+                            <div className="px-8 py-5 border-b border-gray-100 flex justify-between items-center bg-white">
+                                <div className="flex items-center space-x-3">
+                                    <div className="w-9 h-9 bg-gold/5 rounded-xl flex items-center justify-center">
+                                        <PlusIcon className="w-5 h-5 text-gold" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-black uppercase tracking-widest text-gray-800 text-sm">{editingPartner ? 'Edit Partner' : 'Tambah Partner Baru'}</h4>
+                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Lengkapi informasi mitra kolaborasi Anda</p>
                                     </div>
                                 </div>
-                                <div className="pt-2 flex justify-end space-x-3">
-                                    <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-4 py-2 text-gray-500 font-black uppercase text-[9px] tracking-widest hover:text-gray-800 transition-colors">Batal</button>
-                                    <button type="submit" disabled={processing} className="px-6 py-2.5 bg-gold text-white rounded-xl font-black uppercase text-[9px] tracking-widest shadow-md hover:bg-gold-muda transition-all disabled:opacity-50">Simpan</button>
+                                <button onClick={() => setIsAddModalOpen(false)} 
+                                    className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-red-500 transition-all duration-300">
+                                    <XMarkIcon className="w-5 h-5" />
+                                </button>
+                            </div>
+                            
+                            <form onSubmit={submit} className="flex-1 overflow-y-auto">
+                                <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
+                                    {/* Left Side: Logo Upload */}
+                                    <div className="md:col-span-5 bg-gray-50/50 p-8 flex flex-col items-center justify-center border-r border-gray-100 space-y-4">
+                                        <label className="block text-[10px] font-black uppercase text-gray-600 tracking-widest text-center mb-2">Logo/Identitas Partner</label>
+                                        
+                                        <div className="relative group w-full aspect-square max-w-[280px] p-2 bg-white border-2 border-dashed border-gray-200 rounded-[2.5rem] hover:border-gold/50 transition-all duration-500 flex flex-col items-center justify-center cursor-pointer overflow-hidden shadow-sm group">
+                                            <input type="file"
+                                                onChange={e => {
+                                                    const file = e.target.files[0];
+                                                    setData('logo', file);
+                                                    if (file) setLogoPreview(URL.createObjectURL(file));
+                                                }}
+                                                className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                            />
+                                            {logoPreview ? (
+                                                <div className="w-full h-full relative p-6">
+                                                    <img src={logoPreview} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Preview" />
+                                                    <div className="absolute inset-0 bg-gold/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                                        <div className="bg-white/90 p-3 rounded-2xl shadow-xl">
+                                                            <PhotoIcon className="w-6 h-6 text-gold" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-col items-center space-y-4 p-8 text-center uppercase tracking-widest">
+                                                    <div className="w-16 h-16 bg-gold/5 rounded-3xl flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+                                                        <PhotoIcon className="w-8 h-8 text-gold/40 group-hover:text-gold transition-colors" />
+                                                    </div>
+                                                    <div>
+                                                        <span className="block text-[10px] font-black text-gray-400 group-hover:text-gold transition-colors">Klik atau Tarik File</span>
+                                                        <span className="block text-[8px] font-bold text-gray-300 mt-1">PNG, JPG up to 2MB</span>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <p className="text-[9px] text-gray-400 font-bold uppercase tracking-tight text-center italic max-w-[200px]">Disarankan menggunakan logo dengan latar belakang transparan</p>
+                                    </div>
+
+                                    {/* Right Side: Form Content */}
+                                    <div className="md:col-span-7 p-8 space-y-5">
+                                        <div className="grid grid-cols-1 gap-5">
+                                            {/* Nama Partner */}
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1">Nama Partner</label>
+                                                <input type="text" value={data.name} onChange={e => setData('name', e.target.value)}
+                                                    className="w-full border-gray-100 bg-gray-50/50 rounded-2xl text-[11px] font-black p-3.5 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400 border shadow-inner uppercase tracking-wider"
+                                                    required placeholder="CONTOH: ROYAL TOBACCO ALLIANCE" />
+                                                {errors.name && <div className="text-red-500 text-[9px] font-bold uppercase mt-1 italic pl-1">{errors.name}</div>}
+                                            </div>
+
+                                            {/* Tipe & Kategori */}
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1">Tipe Kolaborasi</label>
+                                                    <input type="text" value={data.type} onChange={e => setData('type', e.target.value)}
+                                                        placeholder="MISAL: DISTRIBUTOR"
+                                                        className="w-full border-gray-100 bg-gray-50/50 rounded-2xl text-[11px] font-black p-3.5 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400 border shadow-inner uppercase tracking-wider" />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1">Kategori</label>
+                                                    <select
+                                                        value={data.category}
+                                                        onChange={e => setData('category', e.target.value)}
+                                                        className="w-full border-gray-100 bg-gray-50/50 rounded-2xl text-[11px] font-black p-3.5 focus:ring-gold focus:border-gold transition-all text-gray-800 border shadow-inner uppercase tracking-wider"
+                                                    >
+                                                        {partnerCategories.map((cat) => (
+                                                            <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            {/* Deskripsi */}
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1">Deskripsi Singkat</label>
+                                                <textarea rows="3" value={data.description} onChange={e => setData('description', e.target.value)}
+                                                    className="w-full border-gray-100 bg-gray-50/50 rounded-2xl text-[11px] font-black p-3.5 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400 border shadow-inner uppercase tracking-wider resize-none"
+                                                    placeholder="CERITAKAN SEDIKIT TENTANG MITRA INI..."></textarea>
+                                            </div>
+
+                                            {/* Link */}
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1 flex justify-between">
+                                                    <span>Link Partner (URL)</span>
+                                                    <span className="text-[8px] opacity-60">OPSIONAL</span>
+                                                </label>
+                                                <input type="url" value={data.link} onChange={e => setData('link', e.target.value)}
+                                                    className="w-full border-gray-100 bg-gray-50/50 rounded-2xl text-[11px] font-black p-3.5 focus:ring-gold focus:border-gold transition-all text-gray-800 placeholder-gray-400 border shadow-inner lowercase italic font-medium"
+                                                    placeholder="https://example.com" />
+                                                {errors.link && <div className="text-red-500 text-[9px] font-bold uppercase mt-1 italic pl-1">{errors.link}</div>}
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-6 flex justify-end items-center space-x-4 border-t border-gray-100 mt-4">
+                                            <button type="button" onClick={() => setIsAddModalOpen(false)} 
+                                                className="px-6 py-3 text-gray-400 font-black uppercase text-[10px] tracking-widest hover:text-gray-800 transition-all">
+                                                Batal
+                                            </button>
+                                            <button type="submit" disabled={processing} 
+                                                className="px-8 py-3.5 bg-gold text-hitam-pekat rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-gold/20 hover:bg-gold-muda hover:-translate-y-0.5 transition-all active:scale-95 disabled:opacity-50 flex items-center space-x-2">
+                                                {processing ? (
+                                                    <div className="w-4 h-4 border-2 border-hitam-pekat/20 border-t-hitam-pekat rounded-full animate-spin"></div>
+                                                ) : (
+                                                    <CheckIcon className="w-4 h-4" />
+                                                )}
+                                                <span>Simpan Partner</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>

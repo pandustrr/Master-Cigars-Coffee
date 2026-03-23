@@ -8,9 +8,10 @@ export default function StatsCards({ retailOrders, packageOrders, pointCornerOrd
             .reduce((acc, curr) => acc + (parseFloat(curr.total_price) || 0), 0);
     };
 
-    const calculateStock = (category) => {
+    const calculateStock = (types) => {
+        const typeArray = Array.isArray(types) ? types : [types];
         const total = saleItems
-            .filter(i => i.category === category)
+            .filter(i => typeArray.includes(i.category))
             .reduce((acc, curr) => acc + (parseInt(curr.stock) || 0), 0);
         return Math.max(0, total);
     };
@@ -23,9 +24,9 @@ export default function StatsCards({ retailOrders, packageOrders, pointCornerOrd
     const totalSales = salesRef.retail + salesRef.package + salesRef.point;
 
     const stockRef = {
-        retail: calculateStock('Retail'),
-        package: calculateStock('Package'),
-        point: calculateStock('Point Corner')
+        retail: calculateStock(['Retail', 'Retail / Eceran', 'Ritel']),
+        package: calculateStock(['Package', 'Paket Change', 'Paket']),
+        point: calculateStock(['Point Corner'])
     };
     const totalStock = stockRef.retail + stockRef.package + stockRef.point;
 

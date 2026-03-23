@@ -5,18 +5,18 @@ export default function CatalogTab({ saleItems, categories, catalogFilter, setCa
     return (
         <div className="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
             <div className="p-6">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-gray-100">
                     <div>
                         <h3 className="text-base font-black text-gray-800 tracking-tight uppercase">Marketplace Produk</h3>
                         <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">Kelola produk dan layanan</p>
                     </div>
-                    <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1 bg-gray-50 border border-gray-100 rounded-lg p-1">
+                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                        <div className="flex flex-wrap items-center gap-1 bg-gray-50 border border-gray-100 rounded-lg p-1">
                             {['Semua', ...categories.map(c => c.name)].map(filter => (
                                 <button
                                     key={filter}
                                     onClick={() => setCatalogFilter(filter)}
-                                    className={`px-3 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all ${catalogFilter === filter
+                                    className={`px-3 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all shrink-0 ${catalogFilter === filter
                                         ? 'bg-white text-gold shadow-sm border border-gray-200'
                                         : 'text-gray-400 hover:text-gray-600'
                                         }`}
@@ -25,20 +25,22 @@ export default function CatalogTab({ saleItems, categories, catalogFilter, setCa
                                 </button>
                             ))}
                         </div>
-                        <button
-                            onClick={() => setIsCategoryModalOpen(true)}
-                            className="bg-white border border-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-50 hover:text-gray-800 transition-all flex items-center space-x-2 shadow-sm"
-                        >
-                            <TagIcon className="w-4 h-4" />
-                            <span>Kategori</span>
-                        </button>
-                        <button
-                            onClick={() => { reset(); setIsItemModalOpen(true); setImagePreview(null); }}
-                            className="bg-gold text-white px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gold-muda transition-all shadow-md flex items-center space-x-2"
-                        >
-                            <PlusIcon className="w-4 h-4" />
-                            <span>Tambah Item</span>
-                        </button>
+                        <div className="flex items-center gap-2 ml-auto md:ml-0">
+                            <button
+                                onClick={() => setIsCategoryModalOpen(true)}
+                                className="bg-white border border-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-50 hover:text-gray-800 transition-all flex items-center space-x-2 shadow-sm shrink-0"
+                            >
+                                <TagIcon className="w-4 h-4" />
+                                <span>Kategori</span>
+                            </button>
+                            <button
+                                onClick={() => { reset(); setIsItemModalOpen(true); setImagePreview(null); }}
+                                className="bg-gold text-white px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gold-muda transition-all shadow-md flex items-center space-x-2 shrink-0"
+                            >
+                                <PlusIcon className="w-4 h-4" />
+                                <span>Tambah Item</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="overflow-x-auto">

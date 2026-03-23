@@ -176,9 +176,9 @@ export function CategoryManagementModal({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
-            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => { setIsOpen(false); resetCat(); setEditingCategory(null); }}></div>
-            <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 flex flex-col max-h-[90vh] pointer-events-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-transparent" onClick={() => { setIsOpen(false); resetCat(); setEditingCategory(null); }}></div>
+            <div className="relative bg-white rounded-3xl shadow-[0_30px_100px_-10px_rgba(0,0,0,0.35)] w-full max-w-lg overflow-hidden border border-gray-100/50 flex flex-col max-h-[90vh] pointer-events-auto">
                 <div className="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div>
                         <h4 className="font-black uppercase tracking-tight text-gray-800 text-lg">Kelola Kategori</h4>
@@ -191,40 +191,57 @@ export function CategoryManagementModal({
 
                 <div className="p-8 overflow-y-auto custom-scrollbar">
                     {/* Form Kategori */}
-                    <form onSubmit={submitCategory} className="mb-8 p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner">
-                        <div className="flex items-end gap-3">
-                            <div className="flex-1 space-y-1.5">
-                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest ml-1">
-                                    <TagIcon className="w-3 h-3 text-gold" />
-                                    <span>{editingCategory ? 'Edit Nama Kategori' : 'Tambah Kategori Baru'}</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    value={catData.name}
-                                    onChange={e => setCatData('name', e.target.value)}
-                                    className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all bg-white text-gray-800 placeholder-gray-400 shadow-sm"
-                                    placeholder="e.g. Cerutu Premium"
-                                    required
-                                />
+                    <form onSubmit={submitCategory} className="mb-10 p-8 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner">
+                        <div className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1">
+                                        <TagIcon className="w-3.5 h-3.5 text-gold" />
+                                        <span>{editingCategory ? 'Edit Nama Kategori' : 'Nama Kategori'}</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={catData.name}
+                                        onChange={e => setCatData('name', e.target.value)}
+                                        className="w-full border-gray-200 rounded-xl text-sm font-bold p-3.5 focus:ring-2 focus:ring-gold/20 focus:border-gold transition-all bg-white text-gray-800 placeholder-gray-300 shadow-sm"
+                                        placeholder="e.g. Cerutu Premium"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="flex items-center space-x-2 text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1">
+                                        <TagIcon className="w-3.5 h-3.5 text-gold" />
+                                        <span>Deskripsi Singkat</span>
+                                    </label>
+                                    <textarea
+                                        value={catData.description}
+                                        onChange={e => setCatData('description', e.target.value)}
+                                        className="w-full border-gray-200 rounded-xl text-sm font-bold p-3.5 focus:ring-2 focus:ring-gold/20 focus:border-gold transition-all bg-white text-gray-800 placeholder-gray-300 shadow-sm resize-none"
+                                        placeholder="Muncul di bawah judul kategori pada halaman publik..."
+                                        rows="1"
+                                    />
+                                </div>
                             </div>
-                            <button
-                                type="submit"
-                                disabled={processingCat}
-                                className={`h-[42px] px-6 rounded-xl font-black uppercase text-[9px] tracking-widest shadow-md transition-all flex items-center space-x-2 ${editingCategory ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'bg-gold hover:bg-gold-muda text-white'
-                                    }`}
-                            >
-                                {editingCategory ? <PencilSquareIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
-                                <span>{editingCategory ? 'Update' : 'Simpan'}</span>
-                            </button>
-                            {editingCategory && (
+                            <div className="flex justify-end gap-3 pt-2">
+                                {editingCategory && (
+                                    <button
+                                        type="button"
+                                        onClick={() => { resetCat(); setEditingCategory(null); }}
+                                        className="px-6 py-3 bg-white border border-gray-200 text-gray-400 rounded-xl font-black uppercase text-[10px] tracking-widest hover:text-gray-600 hover:bg-gray-50 transition-all shadow-sm"
+                                    >
+                                        Batal
+                                    </button>
+                                )}
                                 <button
-                                    type="button"
-                                    onClick={() => { resetCat(); setEditingCategory(null); }}
-                                    className="h-[42px] px-4 bg-white border border-gray-200 text-gray-400 rounded-xl font-black uppercase text-[9px] tracking-widest hover:text-gray-600 transition-all"
+                                    type="submit"
+                                    disabled={processingCat}
+                                    className={`px-8 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg transition-all flex items-center space-x-2 transform hover:-translate-y-0.5 active:translate-y-0 ${editingCategory ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gold hover:bg-gold-muda text-white'
+                                        }`}
                                 >
-                                    Batal
+                                    {editingCategory ? <PencilSquareIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
+                                    <span>{editingCategory ? 'Update Kategori' : 'Simpan Kategori'}</span>
                                 </button>
-                            )}
+                            </div>
                         </div>
                     </form>
 
@@ -237,9 +254,12 @@ export function CategoryManagementModal({
                                     <div className="w-10 h-10 bg-gold/5 rounded-xl flex items-center justify-center border border-gold/10 group-hover:bg-gold/10 transition-colors text-gold">
                                         <TagIcon className="w-5 h-5" />
                                     </div>
-                                    <span className="text-sm font-black text-gray-800 tracking-tight uppercase italic">{cat.name}</span>
+                                    <div>
+                                        <div className="text-sm font-black text-gray-800 tracking-tight uppercase italic">{cat.name}</div>
+                                        {cat.description && <div className="text-[10px] text-gray-400 font-bold uppercase mt-0.5 max-w-xs truncate">{cat.description}</div>}
+                                    </div>
                                 </div>
-                                <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="flex items-center space-x-2">
                                     <button onClick={() => handleEditCategory(cat)} className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
                                         <PencilSquareIcon className="w-4 h-4" />
                                     </button>
