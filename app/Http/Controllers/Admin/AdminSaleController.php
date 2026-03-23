@@ -21,6 +21,7 @@ class AdminSaleController extends Controller
             'packageOrders' => SalesPackage::latest()->get(),
             'pointCornerOrders' => SalesPointCorner::latest()->get(),
             'saleItems' => SaleItem::latest()->get(),
+            'categories' => \App\Models\Category::all(),
         ]);
     }
 

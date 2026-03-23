@@ -7,15 +7,18 @@ import {
     CheckCircleIcon,
     ArchiveBoxIcon,
 } from '@heroicons/react/24/outline';
+import { TagIcon } from '@heroicons/react/24/outline';
 import OrdersTab from './Components/OrdersTab';
 import CatalogTab from './Components/CatalogTab';
 import StatsCards from './Components/StatsCards';
-import { ItemFormModal, ViewItemModal } from './Components/CatalogModals';
+import { ItemFormModal, ViewItemModal, CategoryManagementModal } from './Components/CatalogModals';
 
-export default function Index({ retailOrders, packageOrders, pointCornerOrders, saleItems }) {
+export default function Index({ retailOrders, packageOrders, pointCornerOrders, saleItems, categories }) {
     const [activeTab, setActiveTab] = useState('catalog');
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [editingCategory, setEditingCategory] = useState(null);
     const [viewingItem, setViewingItem] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [catalogFilter, setCatalogFilter] = useState('Semua');
@@ -23,12 +26,14 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
     const { data, setData, post, delete: destroy, processing, reset } = useForm({
         name: '',
         price: '',
-        category: 'Retail',
+        category: categories.length > 0 ? categories[0].name : 'Retail',
         description: '',
         specifications: [],
         stock: 0,
         image: null,
     });
+
+    const { data: catData, setData: setCatData, post: postCat, delete: destroyCat, processing: processingCat, reset: resetCat } = useForm({ name: '' });
 
     const submitItem = (e) => {
         e.preventDefault();
@@ -50,6 +55,29 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                 }
             });
         }
+    };
+
+    const submitCategory = (e) => {
+        e.preventDefault();
+        if (editingCategory) {
+            postCat(route('admin.categories.update', editingCategory.id), {
+                onSuccess: () => {
+                    resetCat();
+                    setEditingCategory(null);
+                }
+            });
+        } else {
+            postCat(route('admin.categories.store'), { onSuccess: () => resetCat() });
+        }
+    };
+
+    const handleEditCategory = (cat) => {
+        setEditingCategory(cat);
+        setCatData('name', cat.name);
+    };
+
+    const handleDeleteCategory = (id) => {
+        if (confirm('Hapus kategori ini?')) destroyCat(route('admin.categories.destroy', id), { preserveScroll: true });
     };
 
     const handleEditItem = (item) => {
@@ -89,11 +117,11 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
 
                     {/* Stats Summary */}
                     <div className="animate-fade-in delay-100">
-                        <StatsCards 
-                            retailOrders={retailOrders} 
-                            packageOrders={packageOrders} 
-                            pointCornerOrders={pointCornerOrders} 
-                            saleItems={saleItems} 
+                        <StatsCards
+                            retailOrders={retailOrders}
+                            packageOrders={packageOrders}
+                            pointCornerOrders={pointCornerOrders}
+                            saleItems={saleItems}
                         />
                     </div>
 
@@ -120,8 +148,9 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                     {/* Tab Content */}
                     <div className="animate-fade-in">
                         {activeTab === 'catalog' ? (
-                            <CatalogTab 
+                            <CatalogTab
                                 saleItems={saleItems}
+                                categories={categories}
                                 catalogFilter={catalogFilter}
                                 setCatalogFilter={setCatalogFilter}
                                 filteredCatalogItems={filteredCatalogItems}
@@ -129,23 +158,25 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                                 handleEditItem={handleEditItem}
                                 reset={reset}
                                 setIsItemModalOpen={setIsItemModalOpen}
+                                setIsCategoryModalOpen={setIsCategoryModalOpen}
                                 setImagePreview={setImagePreview}
                                 destroy={destroy}
                             />
                         ) : (
-                            <OrdersTab 
-                                activeTab={activeTab} 
-                                orders={activeTab === 'retail' ? retailOrders : activeTab === 'package' ? packageOrders : pointCornerOrders} 
+                            <OrdersTab
+                                activeTab={activeTab}
+                                orders={activeTab === 'retail' ? retailOrders : activeTab === 'package' ? packageOrders : pointCornerOrders}
                             />
                         )}
                     </div>
                 </div>
             </div>
 
-            <ItemFormModal 
+            <ItemFormModal
                 isItemModalOpen={isItemModalOpen}
                 setIsItemModalOpen={setIsItemModalOpen}
                 editingItem={editingItem}
+                categories={categories}
                 data={data}
                 setData={setData}
                 submitItem={submitItem}
@@ -154,9 +185,24 @@ export default function Index({ retailOrders, packageOrders, pointCornerOrders, 
                 setImagePreview={setImagePreview}
             />
 
-            <ViewItemModal 
+            <ViewItemModal
                 viewingItem={viewingItem}
                 setViewingItem={setViewingItem}
+            />
+
+            <CategoryManagementModal
+                isOpen={isCategoryModalOpen}
+                setIsOpen={setIsCategoryModalOpen}
+                categories={categories}
+                catData={catData}
+                setCatData={setCatData}
+                submitCategory={submitCategory}
+                processingCat={processingCat}
+                editingCategory={editingCategory}
+                setEditingCategory={setEditingCategory}
+                handleEditCategory={handleEditCategory}
+                handleDeleteCategory={handleDeleteCategory}
+                resetCat={resetCat}
             />
         </SidebarAdmin>
     );

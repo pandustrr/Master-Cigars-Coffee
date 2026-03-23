@@ -61,22 +61,28 @@ Route::prefix('sale')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        $totalOrders = \App\Models\SalesOrder::count()
-            + \App\Models\SalesPackage::count()
-            + \App\Models\SalesPointCorner::count();
+        $stats = [
+            'totalOrders'   => \App\Models\SalesOrder::count() + \App\Models\SalesPackage::count() + \App\Models\SalesPointCorner::count(),
+            'totalProducts' => \App\Models\SaleItem::count(),
+            'totalPartners' => \App\Models\Partner::count(),
+            'totalBrands'   => \App\Models\MainProduct::count(),
+            'totalInvestments' => \App\Models\Investment::count(),
+            'totalWebProducts' => \App\Models\Product::count(),
+            'totalCategories' => \App\Models\Category::count() + \App\Models\PartnerCategory::count(),
+            'totalVisitors' => \App\Models\Visitor::count(),
+            'visitors' => \App\Models\Visitor::latest()->take(100)->get(),
+        ];
+
+        // Fetch recent orders from all types
+        $retail = \App\Models\SalesOrder::with('saleItem')->latest()->take(5)->get()->map(function($o) { $o->type = 'Retail'; return $o; });
+        $package = \App\Models\SalesPackage::with('saleItem')->latest()->take(5)->get()->map(function($o) { $o->type = 'Package'; return $o; });
+        $point = \App\Models\SalesPointCorner::with('saleItem')->latest()->take(5)->get()->map(function($o) { $o->type = 'Point Corner'; return $o; });
+
+        $recentOrders = $retail->concat($package)->concat($point)->sortByDesc('created_at')->take(10)->values();
 
         return Inertia::render('Dashboard', [
-            'stats' => [
-                'totalOrders'   => \App\Models\SalesOrder::count() + \App\Models\SalesPackage::count() + \App\Models\SalesPointCorner::count(),
-                'totalProducts' => \App\Models\SaleItem::count(),
-                'totalPartners' => \App\Models\Partner::count(),
-                'totalBrands'   => \App\Models\MainProduct::count(),
-                'totalInvestments' => \App\Models\Investment::count(),
-                'totalWebProducts' => \App\Models\Product::count(),
-                'totalCategories' => \App\Models\Category::count() + \App\Models\PartnerCategory::count(),
-                'totalVisitors' => \App\Models\Visitor::count(),
-                'visitors' => \App\Models\Visitor::latest()->take(100)->get(),
-            ],
+            'stats' => $stats,
+            'recentOrders' => $recentOrders,
         ]);
     })->name('dashboard');
 
