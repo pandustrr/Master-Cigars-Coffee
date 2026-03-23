@@ -140,9 +140,22 @@ export default function Index({ saleItems, categories: dbCategories, settings })
             <div className="py-24 bg-hitam-pekat min-h-[50vh]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                    {/* Dynamic Sections Based on DB Categories */}
-                    {dbCategories && dbCategories.length > 0 ? dbCategories.map((cat) => {
-                        const items = saleItems.filter(item => item.category === cat.name);
+                    {/* Dynamic Sections Based on DB Categories or Unique Item Categories */}
+                    {(dbCategories && dbCategories.length > 0 
+                        ? dbCategories 
+                        : typeof saleItems !== 'undefined' 
+                            ? [...new Set(saleItems.map(i => i.category))].map(name => ({ id: name, name, description: '' }))
+                            : []
+                    ).map((cat) => {
+                        const items = saleItems.filter(item => {
+                            if (cat.name === 'Retail / Eceran' || cat.name === 'Retail' || cat.name === 'Ritel') {
+                                return item.category === 'Retail' || item.category === 'Retail / Eceran' || item.category === 'Ritel';
+                            }
+                            if (cat.name === 'Paket Change' || cat.name === 'Package' || cat.name === 'Paket') {
+                                return item.category === 'Package' || item.category === 'Paket Change' || item.category === 'Paket';
+                            }
+                            return item.category === cat.name;
+                        });
                         if (items.length === 0) return null;
 
                         const isPackage = cat.name.toLowerCase().includes('package') || cat.name.toLowerCase().includes('paket');
@@ -184,22 +197,7 @@ export default function Index({ saleItems, categories: dbCategories, settings })
                                 )}
                             </div>
                         );
-                    }) : (
-                        /* Fallback Static Sections (Previous logic) */
-                        <>
-                            {/* Retail Section */}
-                            {retailProducts.length > 0 && (
-                                <div className="mb-24">
-                                    <div className="mb-12">
-                                        <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">{__('sale.retail.title')}</h2>
-                                        <p className="text-gold-muda/60 md:text-lg">{__('sale.retail.desc')}</p>
-                                        <div className="w-24 h-1 bg-gold mt-6"></div>
-                                    </div>
-                                    {/* ... rest of the hardcoded sections if needed, but the dynamic loop above is better ... */}
-                                </div>
-                            )}
-                        </>
-                    )}
+                    })}
 
                 </div>
             </div>
