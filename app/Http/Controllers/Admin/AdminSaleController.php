@@ -16,6 +16,12 @@ class AdminSaleController extends Controller
 {
     public function index()
     {
+        // Auto-sync categories from sale items if they don't exist in categories table
+        $itemCategories = SaleItem::distinct()->pluck('category')->filter()->toArray();
+        foreach ($itemCategories as $catName) {
+            \App\Models\Category::firstOrCreate(['name' => $catName]);
+        }
+
         return Inertia::render('Admin/Sales/Index', [
             'retailOrders' => SalesOrder::latest()->get(),
             'packageOrders' => SalesPackage::latest()->get(),
