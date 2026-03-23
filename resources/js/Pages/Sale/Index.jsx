@@ -465,10 +465,14 @@ function PackageSelection({ items, onSelect, __ }) {
                 <div
                     key={item.id}
                     onClick={() => onSelect(item)}
-                    className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-5 md:p-8 lg:p-10 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
+                    className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-3 md:p-4 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 className="text-[16px] md:text-2xl lg:text-3xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{item.name}</h3>
+                        <div className="aspect-[4/5] bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
+                            <img src={item.image ? `/storage/${item.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={item.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        <h3 className="text-[14px] md:text-lg lg:text-xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{item.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(item.price).toLocaleString()}</p>
                         <div className="space-y-3 md:space-y-4 mb-12 md:mb-16">
                             <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{item.description}</p>
@@ -603,10 +607,14 @@ function PointCornerSelection({ items, onSelect, __ }) {
                 <div
                     key={opt.id}
                     onClick={() => onSelect(opt)}
-                    className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-5 md:p-8 lg:p-10 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
+                    className="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(25%-1.5rem)] flex-none group relative border border-white/10 bg-[#16120e] p-3 md:p-4 rounded-2xl cursor-pointer hover:border-gold hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 className="text-[16px] md:text-2xl lg:text-3xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{opt.name}</h3>
+                        <div className="aspect-[1/1] bg-coklat-tua rounded-lg overflow-hidden mb-4 relative">
+                            <img src={opt.image ? `/storage/${opt.image}` : '/images/hero.png'} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt={opt.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-hitam-pekat via-transparent to-transparent opacity-60"></div>
+                        </div>
+                        <h3 className="text-[14px] md:text-lg lg:text-xl font-bold text-gold tracking-tighter uppercase mb-1 md:mb-2 leading-none">{opt.name}</h3>
                         <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-widest font-black mb-4 md:mb-8 font-mono bg-gold/10 inline-block px-2 py-1 rounded">Rp {parseFloat(opt.price).toLocaleString()}</p>
                         <div className="space-y-3 md:space-y-4 mb-12 md:mb-16">
                             <p className="text-white/60 text-[8px] md:text-[10px] font-bold uppercase leading-relaxed line-clamp-4">{opt.description}</p>
@@ -700,14 +708,14 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
 
             {/* Payment Method Selector */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-                <button 
+                <button
                     type="button"
                     onClick={() => setData('metode_pembayaran', 'TRANSFER')}
                     className={`p-3 rounded-xl border flex flex-col items-center justify-center transition-all ${data.metode_pembayaran === 'TRANSFER' ? 'border-gold bg-gold/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'border-white/10 bg-white/5 hover:border-gold/30'}`}
                 >
                     <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'TRANSFER' ? 'text-gold' : 'text-gray-400'}`}>{__('sale.payment.tf_bank')}</span>
                 </button>
-                <button 
+                <button
                     type="button"
                     onClick={() => setData('metode_pembayaran', 'QRIS')}
                     className={`p-3 rounded-xl border flex flex-col items-center justify-center transition-all ${data.metode_pembayaran === 'QRIS' ? 'border-gold bg-gold/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'border-white/10 bg-white/5 hover:border-gold/30'}`}
@@ -715,7 +723,7 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
                     <span className={`text-[10px] font-black uppercase tracking-widest ${data.metode_pembayaran === 'QRIS' ? 'text-gold' : 'text-gray-400'}`}>QRIS</span>
                 </button>
             </div>
-            
+
             <div className="space-y-4">
                 {/* Bank Accounts */}
                 {data.metode_pembayaran === 'TRANSFER' && settings?.bank_accounts && settings.bank_accounts.length > 0 && (
@@ -736,8 +744,8 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
                         <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">{__('sale.payment.scan')}</span>
                         <div className="bg-white p-2 rounded-xl relative group">
                             <img src={`/storage/${settings.qris_image}`} alt="QRIS" className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg" />
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => setIsQrisPreviewOpen(true)}
                                 className="absolute top-3 right-3 bg-black/50 hover:bg-black/80 p-1.5 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm cursor-pointer"
                             >
@@ -755,12 +763,12 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
                 <div className="pt-4 border-t border-white/5">
                     <FormGroup label={__('sale.payment.upload_req')} error={error}>
                         <div className="relative">
-                            <input 
-                                type="file" 
+                            <input
+                                type="file"
                                 accept="image/*"
                                 onChange={e => {
                                     const file = e.target.files[0];
-                                    if(file) setData('payment_proof', file);
+                                    if (file) setData('payment_proof', file);
                                 }}
                                 className="w-full bg-black/40 border border-white/10 p-2 pl-3 pb-2 text-white/80 text-[10px] rounded-xl cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-[9px] file:font-black file:uppercase file:tracking-widest file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all outline-none focus:border-gold"
                             />
@@ -773,7 +781,7 @@ function PaymentInfoBase({ settings, data, setData, error, __ }) {
             {isQrisPreviewOpen && (
                 <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm shadow-2xl animate-fade-in" onClick={() => setIsQrisPreviewOpen(false)}>
                     <div className="relative max-w-[90vw] md:max-w-lg w-full bg-white p-4 rounded-2xl animate-modal-in" onClick={e => e.stopPropagation()}>
-                        <button 
+                        <button
                             type="button"
                             onClick={() => setIsQrisPreviewOpen(false)}
                             className="absolute -top-4 -right-4 bg-hitam-pekat rounded-full p-2 border-2 border-white/20 text-white shadow-lg hover:scale-110 transition-transform cursor-pointer"

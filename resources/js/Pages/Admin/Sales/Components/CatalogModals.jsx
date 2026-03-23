@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
+import { ArchiveBoxIcon, XMarkIcon, EyeIcon, TagIcon, PlusIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
-export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem, data, setData, submitItem, processing, imagePreview, setImagePreview }) {
+export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem, categories, data, setData, submitItem, processing, imagePreview, setImagePreview }) {
     if (!isItemModalOpen) return null;
-    
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setIsItemModalOpen(false)}></div>
@@ -24,9 +24,9 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
                         <div className="space-y-1.5 md:col-span-1">
                             <label className="block text-[9px] font-black uppercase text-gray-500 tracking-widest">Kategori</label>
                             <select value={data.category} onChange={e => setData('category', e.target.value)} className="w-full border-gray-200 bg-gray-50 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all text-gray-800">
-                                <option className="bg-white">Retail</option>
-                                <option className="bg-white">Package</option>
-                                <option className="bg-white">Point Corner</option>
+                                {categories.map((cat) => (
+                                    <option key={cat.id} value={cat.name} className="bg-white">{cat.name}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="space-y-1.5 md:col-span-1">
@@ -77,7 +77,7 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
                                     setImagePreview(editingItem?.image ? `/storage/${editingItem.image}` : null);
                                 }
                             }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
-                            
+
                             {imagePreview ? (
                                 <div className="absolute inset-0 w-full h-full z-0 p-1">
                                     <img src={imagePreview} className="w-full h-full object-cover rounded-lg" alt="Preview" />
@@ -105,19 +105,19 @@ export function ItemFormModal({ isItemModalOpen, setIsItemModalOpen, editingItem
 
 export function ViewItemModal({ viewingItem, setViewingItem }) {
     if (!viewingItem) return null;
-    
+
     return (
         <div className="fixed inset-0 z-100 flex items-center justify-center p-4 pointer-events-none">
             <div className="absolute inset-0 bg-transparent pointer-events-auto" onClick={() => setViewingItem(null)}></div>
             <div className="relative pointer-events-auto bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] ring-1 ring-gray-900/5 w-full max-w-sm overflow-hidden border border-gray-100 flex flex-col items-center p-8">
                 <button onClick={() => setViewingItem(null)} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-800 transition-all">&times;</button>
-                
+
                 <div className="w-32 h-32 rounded-3xl bg-gray-50 overflow-hidden shadow-inner mb-6 border border-gray-100 p-2">
-                     {viewingItem.image ? (
-                         <img src={`/storage/${viewingItem.image}`} className="w-full h-full object-cover rounded-2xl shadow-sm" alt={viewingItem.name} />
-                     ) : (
-                         <div className="w-full h-full flex items-center justify-center rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 text-2xl font-black italic">MC</div>
-                     )}
+                    {viewingItem.image ? (
+                        <img src={`/storage/${viewingItem.image}`} className="w-full h-full object-cover rounded-2xl shadow-sm" alt={viewingItem.name} />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 text-2xl font-black italic">MC</div>
+                    )}
                 </div>
 
                 <div className="text-center w-full">
@@ -153,6 +153,114 @@ export function ViewItemModal({ viewingItem, setViewingItem }) {
 
                 <div className="mt-8 relative z-20">
                     <button onClick={() => setViewingItem(null)} className="px-8 py-3 bg-gray-900 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-gray-800 hover:-translate-y-1 shadow-lg shadow-gray-900/20 active:scale-95 transition-all">Tutup Detail</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export function CategoryManagementModal({
+    isOpen,
+    setIsOpen,
+    categories,
+    catData,
+    setCatData,
+    submitCategory,
+    processingCat,
+    editingCategory,
+    setEditingCategory,
+    handleEditCategory,
+    handleDeleteCategory,
+    resetCat
+}) {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
+            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => { setIsOpen(false); resetCat(); setEditingCategory(null); }}></div>
+            <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 flex flex-col max-h-[90vh] pointer-events-auto">
+                <div className="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                    <div>
+                        <h4 className="font-black uppercase tracking-tight text-gray-800 text-lg">Kelola Kategori</h4>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Tambah atau hapus kategori marketplace</p>
+                    </div>
+                    <button onClick={() => { setIsOpen(false); resetCat(); setEditingCategory(null); }} className="w-10 h-10 rounded-2xl border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-white hover:text-red-500 transition-all shadow-sm">
+                        <XMarkIcon className="w-5 h-5" />
+                    </button>
+                </div>
+
+                <div className="p-8 overflow-y-auto custom-scrollbar">
+                    {/* Form Kategori */}
+                    <form onSubmit={submitCategory} className="mb-8 p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner">
+                        <div className="flex items-end gap-3">
+                            <div className="flex-1 space-y-1.5">
+                                <label className="flex items-center space-x-2 text-[9px] font-black uppercase text-gray-500 tracking-widest ml-1">
+                                    <TagIcon className="w-3 h-3 text-gold" />
+                                    <span>{editingCategory ? 'Edit Nama Kategori' : 'Tambah Kategori Baru'}</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={catData.name}
+                                    onChange={e => setCatData('name', e.target.value)}
+                                    className="w-full border-gray-200 rounded-xl text-xs font-bold p-3 focus:ring-gold focus:border-gold transition-all bg-white text-gray-800 placeholder-gray-400 shadow-sm"
+                                    placeholder="e.g. Cerutu Premium"
+                                    required
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={processingCat}
+                                className={`h-[42px] px-6 rounded-xl font-black uppercase text-[9px] tracking-widest shadow-md transition-all flex items-center space-x-2 ${editingCategory ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'bg-gold hover:bg-gold-muda text-white'
+                                    }`}
+                            >
+                                {editingCategory ? <PencilSquareIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
+                                <span>{editingCategory ? 'Update' : 'Simpan'}</span>
+                            </button>
+                            {editingCategory && (
+                                <button
+                                    type="button"
+                                    onClick={() => { resetCat(); setEditingCategory(null); }}
+                                    className="h-[42px] px-4 bg-white border border-gray-200 text-gray-400 rounded-xl font-black uppercase text-[9px] tracking-widest hover:text-gray-600 transition-all"
+                                >
+                                    Batal
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    {/* List Kategori */}
+                    <div className="space-y-3">
+                        <h5 className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 mb-4">Daftar Kategori Saat Ini</h5>
+                        {categories.length > 0 ? categories.map((cat) => (
+                            <div key={cat.id} className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all group">
+                                <div className="flex items-center space-x-4">
+                                    <div className="w-10 h-10 bg-gold/5 rounded-xl flex items-center justify-center border border-gold/10 group-hover:bg-gold/10 transition-colors text-gold">
+                                        <TagIcon className="w-5 h-5" />
+                                    </div>
+                                    <span className="text-sm font-black text-gray-800 tracking-tight uppercase italic">{cat.name}</span>
+                                </div>
+                                <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => handleEditCategory(cat)} className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
+                                        <PencilSquareIcon className="w-4 h-4" />
+                                    </button>
+                                    <button onClick={() => handleDeleteCategory(cat.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                        <TrashIcon className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        )) : (
+                            <div className="text-center py-10 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                                <TagIcon className="w-8 h-8 text-gray-200 mx-auto mb-2" />
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic">Belum ada kategori ditambahkan</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="p-8 border-t border-gray-50 bg-gray-50/50">
+                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest text-center leading-relaxed italic">
+                        Perhatian: Menghapus kategori mungkin akan menyebabkan produk dengan kategori tersebut tidak muncul di filter tertentu.
+                    </p>
                 </div>
             </div>
         </div>

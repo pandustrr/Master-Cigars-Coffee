@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class SalesPointCorner extends Model
 {
     protected $guarded = [];
+
+    public function saleItem()
+    {
+        return $this->belongsTo(SaleItem::class);
+    }
 }

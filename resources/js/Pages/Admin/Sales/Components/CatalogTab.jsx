@@ -1,7 +1,7 @@
 import React from 'react';
-import { PlusIcon, EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, EyeIcon, PencilIcon, TrashIcon, TagIcon } from '@heroicons/react/24/outline';
 
-export default function CatalogTab({ saleItems, catalogFilter, setCatalogFilter, filteredCatalogItems, setViewingItem, handleEditItem, reset, setIsItemModalOpen, setImagePreview, destroy }) {
+export default function CatalogTab({ saleItems, categories, catalogFilter, setCatalogFilter, filteredCatalogItems, setViewingItem, handleEditItem, reset, setIsItemModalOpen, setIsCategoryModalOpen, setImagePreview, destroy }) {
     return (
         <div className="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
             <div className="p-6">
@@ -12,20 +12,26 @@ export default function CatalogTab({ saleItems, catalogFilter, setCatalogFilter,
                     </div>
                     <div className="flex items-center space-x-3">
                         <div className="flex items-center space-x-1 bg-gray-50 border border-gray-100 rounded-lg p-1">
-                             {['Semua', 'Retail', 'Package', 'Point Corner'].map(filter => (
-                                    <button
-                                        key={filter}
-                                        onClick={() => setCatalogFilter(filter)}
-                                        className={`px-3 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all ${
-                                            catalogFilter === filter 
-                                            ? 'bg-white text-gold shadow-sm border border-gray-200' 
-                                            : 'text-gray-400 hover:text-gray-600'
+                            {['Semua', ...categories.map(c => c.name)].map(filter => (
+                                <button
+                                    key={filter}
+                                    onClick={() => setCatalogFilter(filter)}
+                                    className={`px-3 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-md transition-all ${catalogFilter === filter
+                                        ? 'bg-white text-gold shadow-sm border border-gray-200'
+                                        : 'text-gray-400 hover:text-gray-600'
                                         }`}
-                                    >
-                                        {filter}
-                                    </button>
-                                ))}
+                                >
+                                    {filter}
+                                </button>
+                            ))}
                         </div>
+                        <button
+                            onClick={() => setIsCategoryModalOpen(true)}
+                            className="bg-white border border-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-50 hover:text-gray-800 transition-all flex items-center space-x-2 shadow-sm"
+                        >
+                            <TagIcon className="w-4 h-4" />
+                            <span>Kategori</span>
+                        </button>
                         <button
                             onClick={() => { reset(); setIsItemModalOpen(true); setImagePreview(null); }}
                             className="bg-gold text-white px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gold-muda transition-all shadow-md flex items-center space-x-2"

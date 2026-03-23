@@ -12,7 +12,7 @@ import {
     GlobeAltIcon,
 } from '@heroicons/react/24/outline';
 
-export default function Dashboard({ auth, stats: serverStats }) {
+export default function Dashboard({ auth, stats: serverStats, recentOrders }) {
     const [showVisitorModal, setShowVisitorModal] = useState(false);
 
     const quickLinks = [
@@ -53,12 +53,12 @@ export default function Dashboard({ auth, stats: serverStats }) {
         { label: 'Produk Aktif', value: serverStats?.totalProducts ?? '0', sub: 'Marketplace jualan', icon: ArchiveBoxIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
         { label: 'Partner', value: serverStats?.totalPartners ?? '0', sub: 'Mitra terdaftar', icon: UserGroupIcon, color: 'text-blue-500', bg: 'bg-blue-50' },
         { label: 'Main Product', value: serverStats?.totalBrands ?? '0', sub: 'Brand utama', icon: CubeIcon, color: 'text-purple-500', bg: 'bg-purple-50' },
-        { 
-            label: 'Pengunjung', 
-            value: serverStats?.totalVisitors ?? '0', 
-            sub: 'Unique Visitor', 
-            icon: GlobeAltIcon, 
-            color: 'text-rose-500', 
+        {
+            label: 'Pengunjung',
+            value: serverStats?.totalVisitors ?? '0',
+            sub: 'Unique Visitor',
+            icon: GlobeAltIcon,
+            color: 'text-rose-500',
             bg: 'bg-rose-50',
             clickable: true,
             onClick: () => setShowVisitorModal(true)
@@ -108,8 +108,8 @@ export default function Dashboard({ auth, stats: serverStats }) {
                     {/* Stats Row */}
                     <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
                         {stats.map((stat, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 onClick={stat.onClick}
                                 className={`bg-white rounded-[32px] border border-gray-100 p-6 flex flex-col items-start gap-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden ${stat.clickable ? 'cursor-pointer' : ''}`}
                             >
@@ -131,6 +131,64 @@ export default function Dashboard({ auth, stats: serverStats }) {
                         ))}
                     </div>
 
+                    {/* Recent Orders Table */}
+                    <div className="bg-white rounded-[32px] p-8 border border-gray-100 shadow-sm animate-fade-in delay-300 overflow-hidden">
+                        <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-50">
+                            <div>
+                                <h3 className="text-xl font-black text-gray-800 tracking-tight uppercase">Pesanan Terbaru</h3>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1">Status transaksi lintas kategori</p>
+                            </div>
+                            <Link href={route('admin.sales.index')} className="text-[10px] font-black text-gold uppercase tracking-widest hover:underline">Lihat Semua</Link>
+                        </div>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr className="text-left border-b border-gray-50">
+                                        <th className="pb-4 text-[9px] font-black uppercase text-gray-400 tracking-widest px-2">Tanggal</th>
+                                        <th className="pb-4 text-[9px] font-black uppercase text-gray-400 tracking-widest px-2">Customer</th>
+                                        <th className="pb-4 text-[9px] font-black uppercase text-gray-400 tracking-widest px-2">Produk</th>
+                                        <th className="pb-4 text-[9px] font-black uppercase text-gray-400 tracking-widest px-2 text-center">Tipe</th>
+                                        <th className="pb-4 text-[9px] font-black uppercase text-gray-400 tracking-widest px-2 text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-50">
+                                    {recentOrders && recentOrders.length > 0 ? recentOrders.map((order, idx) => (
+                                        <tr key={idx} className="group hover:bg-gray-50/50 transition-colors">
+                                            <td className="py-4 px-2">
+                                                <div className="text-[10px] font-bold text-gray-800">{new Date(order.created_at).toLocaleDateString('id-ID')}</div>
+                                                <div className="text-[8px] text-gray-400 uppercase font-black">{new Date(order.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</div>
+                                            </td>
+                                            <td className="py-4 px-2">
+                                                <div className="text-[11px] font-black text-gray-800 uppercase tracking-tight">{order.customer_name}</div>
+                                                <div className="text-[9px] text-gray-400 font-bold">{order.whatsapp}</div>
+                                            </td>
+                                            <td className="py-4 px-2">
+                                                <div className="text-[11px] font-bold text-gray-800">{order.sale_item?.name || order.package_type || order.service_type || '-'}</div>
+                                                {order.quantity && <div className="text-[9px] text-gray-400 font-bold">Qty: {order.quantity}</div>}
+                                            </td>
+                                            <td className="py-4 px-2 text-center">
+                                                <span className={`inline-block px-2 py-1 rounded text-[8px] font-black uppercase tracking-widest border ${order.type === 'Retail' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                                                        order.type === 'Package' ? 'bg-purple-50 text-purple-600 border-purple-100' :
+                                                            'bg-green-50 text-green-600 border-green-100'
+                                                    }`}>
+                                                    {order.type}
+                                                </span>
+                                            </td>
+                                            <td className="py-4 px-2 text-right">
+                                                <div className="text-[11px] font-black text-gold">Rp {parseFloat(order.total_price || order.price || 0).toLocaleString()}</div>
+                                            </td>
+                                        </tr>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan="5" className="py-10 text-center text-[10px] font-black uppercase text-gray-300 tracking-widest italic">Belum ada pesanan masuk.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -145,14 +203,14 @@ export default function Dashboard({ auth, stats: serverStats }) {
                                 <h3 className="text-xl font-black text-gray-800 uppercase tracking-tight">Detail Pengunjung</h3>
                                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">100 Pengunjung Terakhir (Unik)</p>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => setShowVisitorModal(false)}
                                 className="p-3 bg-white rounded-2xl border border-gray-100 text-gray-400 hover:text-red-500 transition-all hover:rotate-90"
                             >
                                 <XMarkIcon className="w-5 h-5" />
                             </button>
                         </div>
-                        
+
                         <div className="p-8 max-h-[60vh] overflow-y-auto">
                             <div className="space-y-3">
                                 {serverStats?.visitors?.length > 0 ? (

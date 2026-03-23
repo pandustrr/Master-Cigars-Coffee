@@ -24,6 +24,7 @@ class AdminPartnerController extends Controller
             'logo' => 'nullable|image|max:2048',
             'type' => 'required|string',
             'category' => 'required|string',
+            'link' => 'nullable|url',
             'description' => 'nullable|string',
         ]);
 
@@ -45,6 +46,7 @@ class AdminPartnerController extends Controller
             'logo' => 'nullable|image|max:2048',
             'type' => 'required|string',
             'category' => 'required|string',
+            'link' => 'nullable|url',
             'description' => 'nullable|string',
         ]);
 
