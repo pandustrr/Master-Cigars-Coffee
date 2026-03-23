@@ -12,7 +12,40 @@ export default function CatalogTab({ saleItems, categories, catalogFilter, setCa
                     </div>
                     <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
                         <div className="flex flex-wrap items-center gap-1 bg-gray-50 border border-gray-100 rounded-lg p-1">
-                            {['Semua', ...categories.map(c => c.name)].map(filter => (
+                            {(() => {
+                                // Get unique categories from items
+                                const itemCategories = [...new Set(saleItems.map(i => i.category))];
+                                // Get names from DB categories
+                                const dbCategoryNames = categories.map(c => c.name);
+                                // Merge and unify
+                                const allRawNames = [...new Set([...itemCategories, ...dbCategoryNames])].filter(Boolean);
+                                
+                                // Unify common groups to avoid duplicate buttons for 'Retail' vs 'Retail / Eceran'
+                                const unified = [];
+                                const processedGroups = new Set();
+
+                                allRawNames.forEach(name => {
+                                    let groupKey = name;
+                                    if (name === 'Retail' || name === 'Retail / Eceran' || name === 'Ritel') groupKey = 'Retail';
+                                    if (name === 'Package' || name === 'Paket Change' || name === 'Paket') groupKey = 'Package';
+                                    if (name === 'Point Corner') groupKey = 'Point Corner';
+
+                                    if (!processedGroups.has(groupKey)) {
+                                        processedGroups.add(groupKey);
+                                        // Use the DB name if available for display, otherwise the raw name
+                                        const displayName = dbCategoryNames.find(dbn => {
+                                            if (groupKey === 'Retail') return dbn === 'Retail / Eceran' || dbn === 'Retail' || dbn === 'Ritel';
+                                            if (groupKey === 'Package') return dbn === 'Paket Change' || dbn === 'Package' || dbn === 'Paket';
+                                            if (groupKey === 'Point Corner') return dbn === 'Point Corner';
+                                            return dbn === name;
+                                        }) || name;
+                                        
+                                        unified.push({ key: name, display: displayName });
+                                    }
+                                });
+
+                                return ['Semua', ...unified.map(u => u.display)];
+                            })().map(filter => (
                                 <button
                                     key={filter}
                                     onClick={() => setCatalogFilter(filter)}
